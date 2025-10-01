@@ -1,0 +1,418 @@
+<!-- 
+  FOOTER TEMPLATE PARA SHOPIFY - ODDMAN
+  Use este template no seu tema Shopify
+-->
+
+<footer class="footer color-background-1 gradient section-footer-padding">
+  <div class="footer__content-top page-width">
+    
+    <!-- Grid principal dos blocos -->
+    <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet">
+      
+      <!-- Bloco 1: Customer Care -->
+      <div class="footer-block grid__item footer-block--menu">
+        <h2 class="footer-block__heading">Customer Care</h2>
+        <ul class="footer-block__details-content list-unstyled">
+          <li>
+            <a href="/pages/faqs" class="link link--text list-menu__item list-menu__item--link">
+              FAQs
+            </a>
+          </li>
+          <li>
+            <a href="/pages/contact" class="link link--text list-menu__item list-menu__item--link">
+              Contact Us
+            </a>
+          </li>
+          <li>
+            <a href="/pages/shipping-returns" class="link link--text list-menu__item list-menu__item--link">
+              Shipping & Returns
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Bloco 2: Legal -->
+      <div class="footer-block grid__item footer-block--menu">
+        <h2 class="footer-block__heading">Legal</h2>
+        <ul class="footer-block__details-content list-unstyled">
+          <li>
+            <a href="/pages/terms" class="link link--text list-menu__item list-menu__item--link">
+              Terms & Conditions
+            </a>
+          </li>
+          <li>
+            <a href="/pages/privacy-policy" class="link link--text list-menu__item list-menu__item--link">
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="/pages/cookies-policy" class="link link--text list-menu__item list-menu__item--link">
+              Cookies Policy
+            </a>
+          </li>
+        </ul>
+      </div>
+      
+      <!-- Bloco 3: Stockists -->
+      <div class="footer-block grid__item">
+        <div class="footer-block__details-content rte">
+          <h2 class="footer-block__heading">Stockists</h2>
+          <p>
+            <a href="/pages/stockists" class="link link--text">
+              Find Our Products
+            </a>
+          </p>
+          <p>
+            <a href="/pages/become-stockist" class="link link--text">
+              Become a Stockist
+            </a>
+          </p>
+        </div>
+      </div>
+      
+      <!-- Bloco 4: Follow Us -->
+      <div class="footer-block grid__item">
+        <h2 class="footer-block__heading">Follow</h2>
+        <div class="footer-block__details-content rte">
+          <p>
+            <a href="https://www.instagram.com/oddman_official/" 
+               target="_blank" 
+               class="link link--text"
+               title="INSTAGRAM">
+              INSTAGRAM
+            </a>
+          </p>
+          <p>
+            <a href="https://www.facebook.com/oddman" 
+               target="_blank" 
+               class="link link--text"
+               title="FACEBOOK">
+              FACEBOOK
+            </a>
+          </p>
+          <p>
+            <a href="https://www.tiktok.com/@oddman" 
+               target="_blank" 
+               class="link link--text"
+               title="TIKTOK">
+              TIKTOK
+            </a>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Newsletter Section -->
+    <div class="footer-block--newsletter">
+      <div class="footer-block__newsletter">
+        <h2 class="footer-block__heading">Join Our Community</h2>
+        <form method="post" 
+              action="/contact#ContactFooter" 
+              id="ContactFooter" 
+              accept-charset="UTF-8" 
+              class="footer__newsletter newsletter-form">
+          
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          
+          <div class="newsletter-form__field-wrapper">
+            <div class="field">
+              <input id="NewsletterForm--footer" 
+                     type="email" 
+                     name="contact[email]" 
+                     class="field__input" 
+                     value="" 
+                     aria-required="true" 
+                     autocorrect="off" 
+                     autocapitalize="off" 
+                     autocomplete="email" 
+                     placeholder="Enter your email" 
+                     required="">
+              <button type="submit" 
+                      class="newsletter-form__button field__button" 
+                      name="commit" 
+                      id="Subscribe" 
+                      aria-label="Subscribe">
+                Subscribe
+              </button>
+            </div>
+          </div>
+          
+          <span class="form--text">
+            You may unsubscribe at any time. To find out more, please visit our 
+            <a class="privacyLink" href="/pages/privacy-policy">Privacy Policy</a>.
+          </span>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- Footer Bottom -->
+  <div class="footer__content-bottom">
+    <div class="footer__content-bottom-wrapper page-width">
+      <div class="footer__column footer__localization isolate"></div>
+      <div class="footer__column footer__column--info">
+        <p class="footer__copyright">
+          © {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+</footer>
+
+<!-- Adicione este CSS no final do arquivo ou no theme.liquid -->
+<style>
+/* ========================================
+   FOOTER CUSTOM STYLES - ODDMAN
+   ======================================== */
+
+/* Container principal do footer */
+.footer {
+  background: #000000;
+  padding: 3rem 0 2rem;
+  border-top: none;
+}
+
+/* Grid responsivo para os blocos */
+.footer__blocks-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .footer__blocks-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer__blocks-wrapper {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .footer {
+    padding: 2rem 0 1.5rem;
+  }
+}
+
+/* Estilo dos blocos individuais */
+.footer-block {
+  text-align: left;
+}
+
+.footer-block__heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ff0000;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: none;
+  padding-bottom: 0.5rem;
+  display: block;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Links dos menus */
+.footer-block__details-content .link {
+  color: #ff0000;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: 'Arial', sans-serif;
+  font-weight: 400;
+}
+
+.footer-block__details-content .link:hover {
+  color: #ff3333;
+  text-decoration: underline;
+}
+
+/* Lista de links */
+.footer-block__details-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-block__details-content li {
+  margin-bottom: 0.4rem;
+}
+
+/* Newsletter section */
+.footer-block--newsletter {
+  grid-column: 5;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.footer-block__newsletter {
+  text-align: left;
+  max-width: none;
+  margin: 0;
+}
+
+.footer-block__newsletter .footer-block__heading {
+  font-size: 1.3rem;
+  color: #ff0000;
+  border-bottom: none;
+  text-transform: uppercase;
+  letter-spacing: normal;
+  margin-bottom: 1.5rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Formulário de newsletter */
+.newsletter-form {
+  margin-bottom: 1rem;
+}
+
+.newsletter-form__field-wrapper {
+  display: flex;
+  max-width: none;
+  margin: 0 0 1rem 0;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.field__input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ff0000;
+  outline: none;
+  font-size: 0.95rem;
+  background: #000000;
+  color: #ff0000;
+  font-family: 'Arial', sans-serif;
+}
+
+.field__input::placeholder {
+  color: #ff6666;
+}
+
+.field__button {
+  background: #ff0000;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+.field__button:hover {
+  background: #ff3333;
+}
+
+/* Texto do formulário */
+.form--text {
+  font-size: 0.8rem;
+  color: #ff0000;
+  line-height: 1.4;
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+}
+
+.form--text .privacyLink {
+  color: #ff0000;
+  text-decoration: none;
+}
+
+.form--text .privacyLink:hover {
+  text-decoration: underline;
+}
+
+/* Footer bottom */
+.footer__content-bottom {
+  border-top: none;
+  padding-top: 1.5rem;
+  text-align: center;
+  color: #ff0000;
+}
+
+/* Ajustes específicos para mobile */
+@media (max-width: 480px) {
+  .footer-block__heading {
+    font-size: 1rem;
+  }
+  
+  .newsletter-form__field-wrapper {
+    flex-direction: column;
+    border-radius: 10px;
+  }
+  
+  .field__button {
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .field__input {
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+/* Animações suaves */
+.footer-block {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.footer-block:nth-child(1) { animation-delay: 0.1s; }
+.footer-block:nth-child(2) { animation-delay: 0.2s; }
+.footer-block:nth-child(3) { animation-delay: 0.3s; }
+.footer-block:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Melhorias de acessibilidade */
+.footer-block__heading:focus,
+.field__input:focus,
+.field__button:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* Estilo consistente - sempre preto e vermelho */
+.footer {
+  background: #000000 !important;
+}
+
+.footer-block__heading,
+.footer-block__details-content .link,
+.footer-block__details-content p,
+.footer-block__details-content a,
+.form--text {
+  color: #ff0000 !important;
+}
+
+.field__input {
+  background: #000000 !important;
+  border-color: #ff0000 !important;
+  color: #ff0000 !important;
+}
+
+.field__button {
+  background: #ff0000 !important;
+  color: white !important;
+}
+
+</style>
