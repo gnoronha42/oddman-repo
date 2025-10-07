@@ -1,4 +1,12 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_rhMed7": {
@@ -766,16 +774,7 @@
     "oddman-art": {
       "type": "oddman-art",
       "name": "t:names.oddman_art",
-      "settings": {
-        "media_position": "left",
-        "media_width": "wide",
-        "media_height": "80svh",
-        "section_width": "full-width",
-        "extend_media": false,
-        "color_scheme": "scheme-2",
-        "padding-block-start": 0,
-        "padding-block-end": 0
-      }
+      "settings": {}
     },
     "media_with_content_aF6TTD": {
       "type": "media-with-content",
@@ -931,7 +930,7 @@
   },
   "order": [
     "hero_rhMed7",
-    "hero_png_effect_section",    
+    "hero_png_effect_section",
     "media_with_content_GRV6iJ",
     "collection_list_mcURmi",
     "section_8zY7P4",
