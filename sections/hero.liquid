@@ -80,9 +80,19 @@
         "
         loading="lazy"
       />
+      <!-- Adicionando SVG na base do Hero com overlay preto -->
+      
     </div>
+    
   {%- endif -%}
-
+  <div style="position: relative; bottom: 0; left: 0; width: 100vw; height: 100px; pointer-events: none; z-index: 2;">
+  <img 
+  src="assets/AGAINST.png" 
+  alt="Oddman Base SVG" 
+  class="hero__oddman-svg-base"
+  style="height: 300px; width: auto; display: block; margin: 0 auto; position: relative; z-index: 2;"
+/>
+</div>
   {%- if has_image_1 -%}
     {% assign media_count = media_count | plus: 1 %}
     {{
@@ -299,6 +309,8 @@
     >
       {% content_for 'blocks' %}
     </div>
+    <!-- Linha preta horizontal que cobre 100% da largura do container -->
+    <div class="hero__linha-preta"></div>
   </div>
 </div>
 
@@ -413,6 +425,19 @@
     z-index: var(--layer-base);
   }
 
+  /* Nova classe para o SVG na base do Hero */
+  .hero__oddman-svg-base {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+  }
+
   .hero--oddman-gif {
     /* Estilos específicos quando usando o GIF do Oddman */
     background-color: #000;
@@ -482,6 +507,18 @@
     justify-content: center;
     text-align: center;
     min-height: inherit;
+  }
+
+  /* Linha preta horizontal */
+  .hero__linha-preta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: black;
+    width: 100%;
+    z-index: 3;
   }
 
 
