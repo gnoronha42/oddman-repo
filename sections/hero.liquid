@@ -80,8 +80,13 @@
         "
         loading="lazy"
       />
+
+      
     </div>
+
   {%- endif -%}
+  
+
 
   {%- if has_image_1 -%}
     {% assign media_count = media_count | plus: 1 %}
@@ -297,8 +302,19 @@
       "
       style="{% render 'layout-panel-style', settings: section.settings %}"
     >
+      <!-- SVG acima do botão Shop -->
+      <div class="hero__svg-above-button">
+        <img 
+          src="/assets/IMG_1301.svg" 
+          alt="Oddman Logo" 
+          class="hero__logo-svg"
+          
+        />
+      </div>
       {% content_for 'blocks' %}
     </div>
+    <!-- Linha preta horizontal que cobre 100% da largura do container -->
+    <div class="hero__linha-preta"></div>
   </div>
 </div>
 
@@ -413,6 +429,19 @@
     z-index: var(--layer-base);
   }
 
+  /* Nova classe para o SVG na base do Hero */
+  .hero__oddman-svg-base {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+  }
+
   .hero--oddman-gif {
     /* Estilos específicos quando usando o GIF do Oddman */
     background-color: #000;
@@ -482,6 +511,53 @@
     justify-content: center;
     text-align: center;
     min-height: inherit;
+  }
+
+  /* Linha preta horizontal */
+  .hero__linha-preta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: black;
+    width: 100%;
+    z-index: 3;
+  }
+
+  .hero__oddman-svg-base {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  /* Estilos para o SVG acima do botão */
+  .hero__svg-above-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .hero__logo-svg {
+    position: absolute;
+    bottom: 200px;
+    max-width: 100%;
+    width: auto;
+    margin-bottom: 0px;
+    height: auto;
+    @media screen and (max-width: 750px) {
+      bottom: 500px;
+
+    }
+  }
+
+  /* Ajuste do espaçamento do conteúdo do hero */
+  .hero__content-wrapper {
+    gap: 12px;
   }
 
 
