@@ -1,12 +1,4 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
 {
   "sections": {
     "hero_rhMed7": {
@@ -934,13 +926,12 @@
         "background_color_1": "#1a1a1a",
         "background_color_2": "#2d2d2d",
         "smoke_intensity": 20
-
       }
     }
   },
   "order": [
     "hero_rhMed7",
-    "hero_png_effect_section",
+    "hero_png_effect_section",    
     "media_with_content_GRV6iJ",
     "collection_list_mcURmi",
     "section_8zY7P4",
