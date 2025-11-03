@@ -17,6 +17,27 @@
         class="hero-png-effect__image"
       />
     </div>
+
+    <!-- Vídeo abaixo da imagem -->
+    <div class="hero-png-effect__video-wrapper">
+      <video 
+        class="hero-png-effect__video"
+        autoplay
+        loop
+        muted
+        playsinline
+      >
+        <source src="{{ 'OddmanVideo.mp4' | asset_url }}" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+      </video>
+    </div>
+
+    <!-- Texto abaixo do vídeo -->
+    <div class="hero-png-effect__text-wrapper">
+      <p class="hero-png-effect__text">
+        At Oddman, <strong>we rise</strong> above the <strong>noise</strong> and push <strong>through every</strong> obstacle --- because standing out means thriving <strong>against all odds"</strong>
+      </p>
+    </div>
   </div>
 </section>
 
@@ -26,15 +47,14 @@
 
   .hero-png-effect {
     position: relative;
-    
-    /* height: 400px; */
+    min-height: 600px;
     background: #000000;
     overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    padding: 0;
+    padding: 80px 0;
     margin-top: -80px;
     margin-bottom: -80px;
     margin-left: calc(-50vw + 50%);
@@ -116,9 +136,11 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-bottom: 100px;
+    gap: 60px;
   }
 
   /* Camadas de efeito esfumaçado - estilo grafite urbano */
@@ -132,6 +154,7 @@
   }
 
   .hero-png-effect__smoke-layer--1 {
+    display: none;
     width: 600px;
     height: 400px;
     top: -50%;
@@ -141,6 +164,7 @@
   }
 
   .hero-png-effect__smoke-layer--2 {
+    display: none;
     width: 550px;
     height: 350px;
     top: 10%;
@@ -150,6 +174,7 @@
   }
 
   .hero-png-effect__smoke-layer--3 {
+    display: none;
     width: 650px;
     height: 450px;
     bottom: -40%;
@@ -159,6 +184,7 @@
   }
 
   .hero-png-effect__smoke-layer--4 {
+    display: none;
     width: 700px;
     height: 500px;
     top: -20%;
@@ -168,6 +194,7 @@
   }
 
   .hero-png-effect__smoke-layer--5 {
+    display: none;
     width: 580px;
     height: 380px;
     bottom: -10%;
@@ -177,8 +204,9 @@
   }
 
   .hero-png-effect__smoke-layer--6 {
-    width: 750px;
-    height: 600px;
+    display: none;
+    width: 650px;
+    height: 450px;
     top: 5%;
     left: 25%;
     animation-delay: 5s;
@@ -199,10 +227,65 @@
     display: block;
     position: relative;
     z-index: 2;
-    bottom: 80px;
     filter: contrast(1.1) brightness(1.05);
     transition: all 0.3s ease;
+  }
 
+  /* Wrapper do vídeo - quadrado e menor */
+  .hero-png-effect__video-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 900px;
+    height: 600px;
+    max-width: 900px;
+    max-height: 600px;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+
+  /* Vídeo - quadrado e menor */
+  .hero-png-effect__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+    filter: contrast(1.05) brightness(1.02);
+  }
+
+  /* Wrapper do texto */
+  .hero-png-effect__text-wrapper {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  /* Texto em vermelho */
+  .hero-png-effect__text {
+    color: #dc2626;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+
+  /* Strong nas palavras destacadas */
+  .hero-png-effect__text strong {
+    font-weight: 700;
+    color: #ef4444;
+    text-transform: uppercase;
   }
 
   /* Animação estilo grafite - movimento orgânico e irregular */
@@ -267,11 +350,33 @@
   /* Responsividade */
   @media screen and (max-width: 768px) {
     .hero-png-effect {
-      height: 300px;
+      min-height: 500px;
+      padding: 60px 0;
+    }
+
+    .hero-png-effect__container {
+      gap: 30px;
     }
     
     .hero-png-effect__image {
-      width: 350px;
+      width: 280px;
+    }
+
+    .hero-png-effect__video-wrapper {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      padding: 0 15px;
+    }
+
+    .hero-png-effect__text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .hero-png-effect__text-wrapper {
+      padding: 0 15px;
     }
     
     .hero-png-effect__smoke-layer {

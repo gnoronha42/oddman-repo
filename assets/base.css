@@ -4362,3 +4362,10 @@ text-component {
   transform: rotate(12deg);
 }
 
+#text_xbjUkh, .text_xbjUkh {
+  text-align: center !important;
+}
+
+#text_xbjUkh h3, .text_xbjUkh h3 {
+  color: red  !important;
+}

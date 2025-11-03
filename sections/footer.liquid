@@ -10,7 +10,7 @@
     <footer class="footer">
       <div class="footer__content-top">
         
-        <!-- Grid principal dos blocos -->
+        <!-- Grid principal dos blocos - incluindo newsletter -->
         <div class="footer__blocks-wrapper">
           
           <!-- Bloco 1: Customer Care -->
@@ -25,11 +25,6 @@
               <li>
                 <a href="/pages/contact" class="link link--text list-menu__item list-menu__item--link">
                   Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="/pages/shipping-returns" class="link link--text list-menu__item list-menu__item--link">
-                  Shipping & Returns
                 </a>
               </li>
             </ul>
@@ -59,16 +54,11 @@
           
           <!-- Bloco 3: Stockists -->
           <div class="footer-block">
+            <h2 class="footer-block__heading">Stockists</h2>
             <div class="footer-block__details-content rte">
-              <h2 class="footer-block__heading">Stockists</h2>
               <p>
                 <a href="/pages/stockists" class="link link--text">
                   Find Our Products
-                </a>
-              </p>
-              <p>
-                <a href="/pages/become-stockist" class="link link--text">
-                  Become a Stockist
                 </a>
               </p>
             </div>
@@ -94,22 +84,11 @@
                   FACEBOOK
                 </a>
               </p>
-              <p>
-                <a href="https://www.tiktok.com/@oddman" 
-                   target="_blank" 
-                   class="link link--text"
-                   title="TIKTOK">
-                  TIKTOK
-                </a>
-              </p>
             </div>
           </div>
           
-        </div>
-        
-        <!-- Newsletter Section -->
-        <div class="footer-block--newsletter">
-          <div class="footer-block__newsletter">
+          <!-- Bloco 5: Newsletter - agora na mesma linha -->
+          <div class="footer-block footer-block--newsletter-inline">
             <h2 class="footer-block__heading">Join Our Community</h2>
             <form method="post" 
                   action="/contact#ContactFooter" 
@@ -132,7 +111,7 @@
                          autocorrect="off" 
                          autocapitalize="off" 
                          autocomplete="email" 
-                         placeholder="Enter your email" 
+                         placeholder="Email" 
                          required="">
                   <button type="submit" 
                           class="newsletter-form__button field__button" 
@@ -150,6 +129,7 @@
               </span>
             </form>
           </div>
+          
         </div>
         
       </div>
@@ -194,16 +174,23 @@
   background: #000000 !important;
 }
 
-/* Grid responsivo para os blocos - layout horizontal */
+/* Grid responsivo para os blocos - layout horizontal com 5 colunas */
 .footer__blocks-wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2.5rem;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
   margin-bottom: 2rem;
   align-items: start;
 }
 
 /* Responsividade */
+@media (max-width: 1200px) {
+  .footer__blocks-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
 @media (max-width: 1024px) {
   .footer__blocks-wrapper {
     grid-template-columns: repeat(2, 1fr);
@@ -219,6 +206,10 @@
   
   .footer {
     padding: 2rem 0 1.5rem;
+  }
+
+  .newsletter-form__field-wrapper {
+    gap: 0.5rem;
   }
 }
 
@@ -293,29 +284,20 @@
   text-align: center;
 }
 
-/* Newsletter section */
-.footer-block--newsletter {
-  grid-column: 1 / -1;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid #333;
+/* Newsletter inline - na mesma linha dos outros blocos */
+.footer-block--newsletter-inline {
   text-align: center;
 }
 
-.footer-block__newsletter {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.footer-block__newsletter .footer-block__heading {
-  font-size: 1.3rem;
+.footer-block--newsletter-inline .footer-block__heading {
+  font-size: 1.1rem;
   color: #ff0000;
   border-bottom: none;
   text-transform: uppercase;
-  letter-spacing: normal;
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
   font-family: 'Arial', sans-serif;
+  font-weight: 600;
 }
 
 /* Formulário de newsletter */
@@ -325,11 +307,13 @@
 
 .newsletter-form__field-wrapper {
   display: flex;
+  flex-direction: column;
   max-width: none;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   border-radius: 0;
   overflow: hidden;
   box-shadow: none;
+  gap: 0.5rem;
 }
 
 .field__input {
@@ -364,11 +348,13 @@
 
 /* Texto do formulário */
 .form--text {
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   color: #ff0000;
-  line-height: 1.4;
+  line-height: 1.3;
   font-family: 'Arial', sans-serif;
   text-transform: uppercase;
+  display: block;
+  max-width: 100%;
 }
 
 .form--text .privacyLink {
@@ -507,3 +493,4 @@
   ]
 }
 {% endschema %}
+
