@@ -921,6 +921,11 @@
         "background_color_2": "#2d2d2d",
         "smoke_intensity": 20
       }
+    },
+    "scorpion_stack_section": {
+      "type": "scorpion-stack",
+      "name": "Scorpion Stack",
+      "settings": {}
     }
   },
   "order": [
@@ -932,6 +937,7 @@
     "divider_WDCL3k",
     "product_list_4jqyPz",
     "oddman-art",
-    "media_with_content_aF6TTD"
+    "media_with_content_aF6TTD",
+    "scorpion_stack_section"
   ]
 }
