@@ -4367,5 +4367,18 @@ text-component {
 }
 
 #text_xbjUkh h3, .text_xbjUkh h3 {
-  color: red  !important;
+  color: #dc2626  !important;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: fit-content;
+}
+
+.text-block--text_xbjUkh h3 {
+  color: #dc2626  !important;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: fit-content;
+  background-color: #b91c1c !important;
 }
