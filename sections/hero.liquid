@@ -334,8 +334,8 @@
   }
 
   .hero[data-shopify-visual-preview] {
-    --hero-min-height: 600px;
-
+    
+    
     min-height: 600px;
   }
 
@@ -505,8 +505,8 @@
 
   /* Centralização do conteúdo */
   .hero__content-wrapper {
-    display: flex;
-    flex-direction: column;
+    display: flex !important;
+    flex-direction: column !important;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -539,25 +539,94 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 15;
   }
 
   .hero__logo-svg {
-    position: absolute;
-    bottom: 40px;
-    max-width: 100%;
+    position: relative;
     width: auto;
-    margin-bottom: 0px;
     height: auto;
-    @media screen and (max-width: 750px) {
-      bottom: 500px;
-
-    }
+    display: block;
+    margin: 0 auto;
   }
 
   /* Ajuste do espaçamento do conteúdo do hero */
   .hero__content-wrapper {
     gap: 12px;
+  }
+
+  /* FORÇAR: Botão sempre abaixo do SVG - regra principal */
+  .hero__svg-above-button {
+    
+    
+  }
+
+  /* Garantir que qualquer elemento após o SVG (incluindo o botão) fique abaixo */
+  .hero__content-wrapper > .hero__svg-above-button ~ * {
+    order: 1 !important;
+    position: relative;
+  }
+
+  /* Específico para botões - sempre abaixo do SVG */
+  .hero__content-wrapper .button,
+  .hero__content-wrapper .btn,
+  .hero__content-wrapper a[class*="button"],
+  .hero__content-wrapper button {
+    display: flex;
+    justify-content: center;
+    top:-25%!important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Remover qualquer posicionamento absoluto que possa interferir */
+  .hero__content-wrapper .button[class*="absolute"],
+  .hero__content-wrapper .btn[class*="absolute"],
+  .hero__content-wrapper a[class*="absolute"],
+  .hero__content-wrapper button[class*="absolute"] {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+
+  /* Ajuste responsivo para o espaçamento e tamanho */
+  @media screen and (max-width: 750px) {
+    .hero__svg-above-button {
+      margin-bottom: 30px;
+    }
+
+    .hero__logo-svg {
+      width: 700px;
+      height: auto;
+    }
+
+    /* Garantir botão abaixo do SVG no mobile */
+    .hero__content-wrapper .button,
+    .hero__content-wrapper .btn,
+    .hero__content-wrapper a[class*="button"],
+    .hero__content-wrapper button {
+      position:absolute;
+      top:30% !important;
+    }
+  }
+
+  @media screen and (min-width: 751px) and (max-width: 1024px) {
+    .hero__logo-svg {
+      width: 700px;
+      height: auto;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .hero__logo-svg {
+      width: 1500px;
+      height: auto;
+    }
   }
 
 

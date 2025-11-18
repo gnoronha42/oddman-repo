@@ -319,12 +319,16 @@
 .field__input {
   flex: 1;
   padding: 0.75rem 1rem;
-  border: 1px solid #ff0000;
-  outline: none;
+  border: 1px solid #ff0000 !important;
+  outline: none !important;
   font-size: 0.95rem;
-  background: #000000;
-  color: #ff0000;
+  background: #000000 !important;
+  color: #ff0000 !important;
   font-family: 'Arial', sans-serif;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
 }
 
 .field__input::placeholder {
@@ -414,10 +418,19 @@
 }
 
 /* Melhorias de acessibilidade */
-.footer-block__heading:focus,
-.field__input:focus,
-.field__button:focus {
+.footer-block__heading:focus {
   outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.field__input:focus {
+  outline: none !important;
+  border: 1px solid #ff0000 !important;
+  box-shadow: none !important;
+}
+
+.field__button:focus {
+  outline: 2px solid #ff0000;
   outline-offset: 2px;
 }
 
@@ -444,13 +457,31 @@
 
 .field__input {
   background: #000000 !important;
+  border: 1px solid #ff0000 !important;
   border-color: #ff0000 !important;
   color: #ff0000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+.field__input:focus {
+  border: 1px solid #ff0000 !important;
+  border-color: #ff0000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.field__input:hover {
+  border: 1px solid #ff0000 !important;
+  border-color: #ff0000 !important;
 }
 
 .field__button {
   background: #ff0000 !important;
-  color: white !important;
+  /* color: white !important; */
 }
 
 </style>
