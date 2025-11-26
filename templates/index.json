@@ -77,6 +77,16 @@
         "padding-block-end": 48
       }
     },
+    "hero_png_effect_section": {
+      "type": "hero-png-effect",
+      "name": "Hero PNG Effect",
+      "settings": {
+        "image_width": 400,
+        "background_color_1": "#1a1a1a",
+        "background_color_2": "#2d2d2d",
+        "smoke_intensity": 20
+      }
+    },
     "media_with_content_GRV6iJ": {
       "type": "media-with-content",
       "blocks": {
@@ -574,12 +584,17 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>New Arrivals</h2>",
+                "text": "<h1><strong>New Arrivals</strong></h1>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
-                "type_preset": "rte",
-                "font": "red !important",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "5.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
                 "color": "red !important",
                 "background": false,
                 "background_color": "#dc2626",
@@ -910,16 +925,6 @@
         "color_scheme": "scheme-2",
         "padding-block-start": 0,
         "padding-block-end": 0
-      }
-    },
-    "hero_png_effect_section": {
-      "type": "hero-png-effect",
-      "name": "Hero PNG Effect",
-      "settings": {
-        "image_width": 400,
-        "background_color_1": "#1a1a1a",
-        "background_color_2": "#2d2d2d",
-        "smoke_intensity": 20
       }
     },
     "scorpion_stack_section": {
