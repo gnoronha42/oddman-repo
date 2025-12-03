@@ -115,19 +115,9 @@
     right: -30px;
     width: 120px;
     height: 120px;
-    background: #ff0000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    font-size: 0.8rem;
+    background: url("{{ 'roses.png' | asset_url }}") no-repeat center center;
+    background-size: contain;
     z-index: 2;
-  }
-  
-  .kult-journey .badge::after {
-    content: "KULT";
   }
   
   /* 4. Giant Image Banner */
@@ -296,7 +286,7 @@
 
   <!-- 2. Hero Section -->
   <section class="kult-section kult-hero">
-    <h1>ODDMAN</h1>
+    <img src="{{ 'kult-hero-logo.png' | asset_url }}" alt="ODDMAN" style="max-width: 600px; width: 90%; margin-bottom: 2rem;">
     <a href="/products" class="kult-btn">JOIN THE KULT</a>
   </section>
 
@@ -315,23 +305,23 @@
       <a href="/products" class="kult-btn">JOIN THE KULT</a>
     </div>
     <div class="right">
-      <img src="{{ 'IMG_1313.jpg' | asset_url }}" alt="The Journey" class="main-img">
+      <img src="{{ 'kult-journey-main.png' | asset_url }}" alt="The Journey" class="main-img">
       <div class="badge"></div>
     </div>
   </section>
 
   <!-- 4. Giant Image Banner -->
   <section class="kult-wide-image">
-    <img src="{{ 'skt-high-resolution.jpeg' | asset_url }}" alt="ODDMAN Vision">
+    <img src="{{ 'kult-banner.png' | asset_url }}" alt="ODDMAN Vision">
   </section>
 
   <!-- 5. Section "Who Rocks It" -->
   <section class="kult-section kult-who-rocks">
     <h2>ØDDMAN Kulture: Who Rocks It</h2>
     <div class="kult-collage">
-      <img src="{{ 'IMG_7222.jpg' | asset_url }}" alt="Community 1">
-      <img src="{{ 'IMG_7223.jpg' | asset_url }}" alt="Community 2">
-      <img src="{{ 'web-art.png' | asset_url }}" alt="Style">
+      <img src="{{ 'kult-stage.png' | asset_url }}" alt="Stage Performance">
+      <img src="{{ 'kult-piller.png' | asset_url }}" alt="Community Style">
+      <img src="{{ 'kult-thank-you.png' | asset_url }}" alt="Odumodublvck">
     </div>
     <div style="margin-top: 10px; color: #ff0000; font-weight: bold;">ODDMAN COMMUNITY</div>
   </section>
@@ -340,17 +330,17 @@
   <section class="kult-section kult-lifestyle">
     <h2>The Kult Lifestyle</h2>
     <div class="kult-model-grid">
-      <figure><img src="{{ 'IMG_9744.JPG' | asset_url }}" alt="Lifestyle 1"></figure>
-      <figure><img src="{{ 'IMG_9745.JPG' | asset_url }}" alt="Lifestyle 2"></figure>
-      <figure><img src="{{ 'IMG_9746.JPG' | asset_url }}" alt="Lifestyle 3"></figure>
-      <figure><img src="{{ 'oddman-website-art.jpg' | asset_url }}" alt="Lifestyle 4"></figure>
+      <figure><img src="{{ 'lookbook.png' | asset_url }}" alt="Lifestyle 1"></figure>
+      <figure><img src="{{ 'lookbook-2.png' | asset_url }}" alt="Lifestyle 2"></figure>
+      <figure><img src="{{ 'lookbook-3.png' | asset_url }}" alt="Lifestyle 3"></figure>
+      <figure><img src="{{ 'look.png' | asset_url }}" alt="Lifestyle 4"></figure>
     </div>
   </section>
 
   <!-- 7. Section "Our Vibes" -->
   <section class="kult-section kult-vibes">
     <div class="image-left">
-      <img src="{{ 'afa8cad0-e554-4327-825b-2008a805edd3.jpeg' | asset_url }}" alt="Our Vibes">
+      <img src="{{ 'kult/ODDMAN INSTALLMENT IIID.E.D SZN.png' | asset_url }}" alt="Our Vibes">
     </div>
     <div class="content-right">
       <h2>OUR<br>VIBES</h2>
