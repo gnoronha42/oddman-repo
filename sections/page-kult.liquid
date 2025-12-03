@@ -1,0 +1,384 @@
+<style>
+  /* Reset e Fontes Base */
+  .kult-page-wrapper {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .kult-page-wrapper h1, 
+  .kult-page-wrapper h2, 
+  .kult-page-wrapper h3 {
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 0.9;
+  }
+
+  .kult-page-wrapper p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    color: #cccccc;
+  }
+
+  .kult-page-wrapper strong {
+    color: #ffffff;
+  }
+
+  /* Botões */
+  .kult-btn {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease;
+  }
+
+  .kult-btn:hover {
+    background-color: #cc0000;
+  }
+
+  /* SEÇÕES GERAIS */
+  .kult-section {
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* 2. Hero Section */
+  .kult-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    padding-top: 6rem;
+  }
+
+  .kult-hero h1 {
+    font-size: clamp(4rem, 15vw, 12rem);
+    color: #ffffff;
+    margin-bottom: 2rem;
+    background: linear-gradient(90deg, #fff, #ccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* 3. Seção “The Journey” */
+  .kult-journey {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .kult-journey .left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .kult-journey .left h2 {
+    font-size: clamp(3rem, 5vw, 5rem);
+    color: #ff0000;
+    margin-bottom: 1.5rem;
+  }
+
+  .kult-journey .right {
+    flex: 1;
+    position: relative;
+  }
+
+  .kult-journey .right img.main-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .kult-journey .badge {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: #ff0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    z-index: 2;
+  }
+  
+  .kult-journey .badge::after {
+    content: "KULT";
+  }
+  
+  /* 4. Giant Image Banner */
+  .kult-wide-image {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .kult-wide-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* 5. Section “Who Rocks It” */
+  .kult-who-rocks {
+    text-align: center;
+  }
+
+  .kult-who-rocks h2 {
+    font-size: 2rem;
+    color: #ff0000;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .kult-collage {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+  
+  .kult-collage img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #333;
+    transition: transform 0.3s ease;
+  }
+
+  .kult-collage img:hover {
+    transform: scale(1.02);
+    border-color: #ff0000;
+  }
+
+  /* 6. Section “The Kult Lifestyle” */
+  .kult-lifestyle {
+    text-align: center;
+  }
+
+  .kult-lifestyle h2 {
+    font-size: 2.5rem;
+    color: #ff0000;
+    margin-bottom: 2rem;
+  }
+
+  .kult-model-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .kult-model-grid figure {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .kult-model-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 3/4;
+  }
+
+  /* 7. Section “Our Vibes” */
+  .kult-vibes {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+
+  .kult-vibes .image-left {
+    flex: 1;
+  }
+
+  .kult-vibes .image-left img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .kult-vibes .content-right {
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .kult-vibes .content-right h2 {
+    font-size: clamp(3rem, 5vw, 5rem);
+    color: #ff0000;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 8. Slider Dots (Visual) */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 2rem 0;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #333;
+    border-radius: 50%;
+  }
+  .dot.active {
+    background-color: #ff0000;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .kult-hero h1 {
+      font-size: 4rem;
+    }
+    
+    .kult-journey,
+    .kult-vibes {
+      flex-direction: column;
+      text-align: center;
+      gap: 2rem;
+    }
+
+    .kult-vibes {
+      flex-direction: column-reverse;
+    }
+    
+    .kult-vibes .content-right {
+      align-items: center;
+      text-align: center;
+    }
+
+    .kult-journey .left {
+      align-items: center;
+    }
+
+    .kult-model-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .kult-collage {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="kult-page-wrapper">
+
+  <!-- 2. Hero Section -->
+  <section class="kult-section kult-hero">
+    <h1>ODDMAN</h1>
+    <a href="/products" class="kult-btn">JOIN THE KULT</a>
+  </section>
+
+  <!-- 3. Seção "The Journey" -->
+  <section class="kult-section kult-journey">
+    <div class="left">
+      <h2>THE<br>JOURNEY</h2>
+      <p>
+        ODDMAN began in 2021 in Nigeria with one belief: being different is a strength. 
+        We're not here to follow trends — we're here to challenge them. 
+        ODDMAN is more than a brand; it's a lifestyle and a mindset.
+      </p>
+      <p>
+        KULT represents our community — a place for people who embrace individuality, creativity, and bold self-expression.
+      </p>
+      <a href="/products" class="kult-btn">JOIN THE KULT</a>
+    </div>
+    <div class="right">
+      <img src="{{ 'IMG_1313.jpg' | asset_url }}" alt="The Journey" class="main-img">
+      <div class="badge"></div>
+    </div>
+  </section>
+
+  <!-- 4. Giant Image Banner -->
+  <section class="kult-wide-image">
+    <img src="{{ 'skt-high-resolution.jpeg' | asset_url }}" alt="ODDMAN Vision">
+  </section>
+
+  <!-- 5. Section "Who Rocks It" -->
+  <section class="kult-section kult-who-rocks">
+    <h2>ØDDMAN Kulture: Who Rocks It</h2>
+    <div class="kult-collage">
+      <img src="{{ 'IMG_7222.jpg' | asset_url }}" alt="Community 1">
+      <img src="{{ 'IMG_7223.jpg' | asset_url }}" alt="Community 2">
+      <img src="{{ 'web-art.png' | asset_url }}" alt="Style">
+    </div>
+    <div style="margin-top: 10px; color: #ff0000; font-weight: bold;">ODDMAN COMMUNITY</div>
+  </section>
+
+  <!-- 6. Section "The Kult Lifestyle" -->
+  <section class="kult-section kult-lifestyle">
+    <h2>The Kult Lifestyle</h2>
+    <div class="kult-model-grid">
+      <figure><img src="{{ 'IMG_9744.JPG' | asset_url }}" alt="Lifestyle 1"></figure>
+      <figure><img src="{{ 'IMG_9745.JPG' | asset_url }}" alt="Lifestyle 2"></figure>
+      <figure><img src="{{ 'IMG_9746.JPG' | asset_url }}" alt="Lifestyle 3"></figure>
+      <figure><img src="{{ 'oddman-website-art.jpg' | asset_url }}" alt="Lifestyle 4"></figure>
+    </div>
+  </section>
+
+  <!-- 7. Section "Our Vibes" -->
+  <section class="kult-section kult-vibes">
+    <div class="image-left">
+      <img src="{{ 'afa8cad0-e554-4327-825b-2008a805edd3.jpeg' | asset_url }}" alt="Our Vibes">
+    </div>
+    <div class="content-right">
+      <h2>OUR<br>VIBES</h2>
+      <p>
+        We host ODDMAN events across Toronto, the UK, and Nigeria — bringing our community together wherever the culture moves.
+        Our gatherings connect creatives, thinkers, and the boldly different.
+      </p>
+      <a href="/products" class="kult-btn">JOIN THE KULT</a>
+    </div>
+  </section>
+
+  <!-- 8. Carrossel dots (Visual) -->
+  <div class="carousel-dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Kult Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Kult Page"
+    }
+  ]
+}
+{% endschema %}
