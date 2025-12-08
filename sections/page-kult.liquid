@@ -31,22 +31,47 @@
 
   /* Botões */
   .kult-btn {
+  
     background-color: #ff0000;
     color: #ffffff;
     border: none;
     padding: 12px 24px;
+    left: 50%;
+    top: 78%;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 0.9rem;
     cursor: pointer;
+    position: absolute;
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease;
-  }
+}
+
+
+
+
+  
 
   .kult-btn:hover {
     background-color: #cc0000;
   }
+
+
+img, picture, video, canvas, svg {
+    position: relative;
+    max-width: 100%;
+    justify-content: flex-end;
+    left: 3%;
+   
+}
+
+@media (max-width: 1050px) {
+  img, picture, video, canvas, svg {
+    left:4% ;
+    
+  }
+}
 
   /* SEÇÕES GERAIS */
   .kult-section {
@@ -59,13 +84,44 @@
 
   /* 2. Hero Section */
   .kult-hero {
-    text-align: center;
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
-    padding-top: 6rem;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .kult-hero-video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .kult-hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 25% center;
+    transform: none;
+  }
+
+  .kult-hero .kult-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    margin: 0;
   }
 
   .kult-hero h1 {
@@ -96,13 +152,24 @@
     color: #ff0000;
     margin-bottom: 1.5rem;
   }
+  
+  .kult-journey .left p {
+    color: #ff0000;
+  }
+
+  .the-journey-svg {
+    width: clamp(250px, 50vw, 500px);
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
 
   .kult-journey .right {
     flex: 1;
     position: relative;
   }
 
-  .kult-journey .right img.main-img {
+  .kult-journey .right img.main-img,
+  .kult-journey .right .main-video {
     width: 100%;
     height: auto;
     display: block;
@@ -129,7 +196,8 @@
     margin-bottom: 2rem;
   }
 
-  .kult-wide-image img {
+  .kult-wide-image img,
+  .kult-wide-video {
     width: 100%;
     height: auto;
     display: block;
@@ -148,17 +216,18 @@
   }
 
   .kult-collage {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1rem;
-    align-items: start;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .kult-collage img {
     width: 100%;
     height: auto;
-    border: 1px solid #333;
-    transition: transform 0.3s ease;
+    display: block;
   }
 
   .kult-collage img:hover {
@@ -178,9 +247,12 @@
   }
 
   .kult-model-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .kult-model-grid figure {
@@ -191,9 +263,8 @@
 
   .kult-model-grid img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 3/4;
+    height: auto;
+    display: block;
   }
 
   /* 7. Section “Our Vibes” */
@@ -226,6 +297,16 @@
     font-size: clamp(3rem, 5vw, 5rem);
     color: #ff0000;
     margin-bottom: 1.5rem;
+  }
+
+  .our-vibes-svg {
+    width: clamp(200px, 40vw, 400px);
+    height: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .kult-vibes .content-right p {
+    color: #ff0000;
   }
 
   /* 8. Slider Dots (Visual) */
@@ -285,19 +366,21 @@
 <div class="kult-page-wrapper">
 
   <!-- 2. Hero Section -->
-  <section class="kult-section kult-hero">
-    <img src="{{ 'kult-hero-logo.png' | asset_url }}" alt="ODDMAN" style="max-width: 600px; width: 90%; margin-bottom: 2rem;">
+  <section class="">
+    <div class="">
+      <video autoplay muted loop class="">
+        <source src="{{ 'oddmangif.mp4' | asset_url }}" type="video/mp4">
+      </video>
+    </div>
     <a href="/products" class="kult-btn">JOIN THE KULT</a>
   </section>
 
   <!-- 3. Seção "The Journey" -->
   <section class="kult-section kult-journey">
     <div class="left">
-      <h2>THE<br>JOURNEY</h2>
+      <img src="{{ 'the-journey-2.svg' | asset_url }}" alt="The Journey" class="the-journey-svg">
       <p>
-        ODDMAN began in 2021 in Nigeria with one belief: being different is a strength. 
-        We're not here to follow trends — we're here to challenge them. 
-        ODDMAN is more than a brand; it's a lifestyle and a mindset.
+        **“ODDMAN began in 2021 in Nigeria with one belief: being different is a strength. We’re not here to follow trends — we’re here to challenge them. ODDMAN is more than a brand; it’s a lifestyle and a mindset.
       </p>
       <p>
         KULT represents our community — a place for people who embrace individuality, creativity, and bold self-expression.
@@ -305,35 +388,32 @@
       <a href="/products" class="kult-btn">JOIN THE KULT</a>
     </div>
     <div class="right">
-      <img src="{{ 'kult-journey-main.png' | asset_url }}" alt="The Journey" class="main-img">
+      <img src="{{ 'jon poster.png' | asset_url }}" alt="The Journey" class="main-img">
       <div class="badge"></div>
     </div>
   </section>
 
   <!-- 4. Giant Image Banner -->
   <section class="kult-wide-image">
-    <img src="{{ 'kult-banner.png' | asset_url }}" alt="ODDMAN Vision">
+    <video autoplay muted loop class="kult-wide-video">
+      <source src="{{ 'oddmanpresentervideo.mp4' | asset_url }}" type="video/mp4">
+    </video>
   </section>
 
   <!-- 5. Section "Who Rocks It" -->
   <section class="kult-section kult-who-rocks">
     <h2>ØDDMAN Kulture: Who Rocks It</h2>
     <div class="kult-collage">
-      <img src="{{ 'kult-stage.png' | asset_url }}" alt="Stage Performance">
-      <img src="{{ 'kult-piller.png' | asset_url }}" alt="Community Style">
-      <img src="{{ 'kult-thank-you.png' | asset_url }}" alt="Odumodublvck">
+      <img src="{{ 'od x khaid poster.png' | asset_url }}" alt="OD x Khaid Poster">
     </div>
-    <div style="margin-top: 10px; color: #ff0000; font-weight: bold;">ODDMAN COMMUNITY</div>
+    
   </section>
 
   <!-- 6. Section "The Kult Lifestyle" -->
   <section class="kult-section kult-lifestyle">
     <h2>The Kult Lifestyle</h2>
     <div class="kult-model-grid">
-      <figure><img src="{{ 'lookbook.png' | asset_url }}" alt="Lifestyle 1"></figure>
-      <figure><img src="{{ 'lookbook-2.png' | asset_url }}" alt="Lifestyle 2"></figure>
-      <figure><img src="{{ 'lookbook-3.png' | asset_url }}" alt="Lifestyle 3"></figure>
-      <figure><img src="{{ 'look.png' | asset_url }}" alt="Lifestyle 4"></figure>
+    <img src="{{ 'kult poster.png' | asset_url }}" alt="Lifestyle 1">
     </div>
   </section>
 
@@ -343,10 +423,9 @@
       <img src="{{ 'kult/ODDMAN INSTALLMENT IIID.E.D SZN.png' | asset_url }}" alt="Our Vibes">
     </div>
     <div class="content-right">
-      <h2>OUR<br>VIBES</h2>
+      <img src="{{ 'our vibes.svg' | asset_url }}" alt="Our Vibes" class="our-vibes-svg">
       <p>
-        We host ODDMAN events across Toronto, the UK, and Nigeria — bringing our community together wherever the culture moves.
-        Our gatherings connect creatives, thinkers, and the boldly different.
+        We host ODDMAN events across Toronto, the UK, and Nigeria — bringing our community together wherever the culture moves. Our gatherings connect creatives, thinkers, and the boldly different. With every city we touch, we push for global impact and steady growth, always aiming to build one of the strongest worldwide communities in fashion and lifestyle.
       </p>
       <a href="/products" class="kult-btn">JOIN THE KULT</a>
     </div>
