@@ -133,6 +133,20 @@
                 </a>
               </div>
 
+              <!-- 1/1 Button -->
+              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-right-extra">
+                <a 
+                  href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}"
+                  class="oddman-header__nav-link oddman-header__nav-link--info"
+                >
+                  <div class="oddman-header__nav-gradient"></div>
+                  <svg class="oddman-header__nav-icon oddman-header__nav-icon--one-of-one" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                    <text x="12" y="16" font-size="14" font-weight="bold" text-anchor="middle" fill="currentColor">1/1</text>
+                  </svg>
+                  <span class="oddman-header__nav-text">1/1</span>
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
@@ -252,6 +266,21 @@
               <path d="M16 8L8 16M8 8L16 16" stroke="white" stroke-width="2"/>
             </svg>
             <span class="oddman-header__mobile-text">Info</span>
+          </a>
+        </div>
+
+        <!-- Mobile 1/1 Button -->
+        <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-right-more">
+          <a 
+            href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}"
+            class="oddman-header__mobile-link"
+            onclick="toggleMobileMenu()"
+          >
+            <div class="oddman-header__nav-gradient"></div>
+            <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+              <text x="12" y="16" font-size="14" font-weight="bold" text-anchor="middle" fill="currentColor">1/1</text>
+            </svg>
+            <span class="oddman-header__mobile-text">1/1</span>
           </a>
         </div>
 
@@ -710,6 +739,20 @@
       position: absolute;
       background-color: transparent;
     }
+
+    .oddman-header__nav-item--rotate-right-extra {
+      transform: rotate(8deg);
+    }
+
+    .oddman-header__nav-icon--one-of-one {
+      bottom: 0;
+      left: 4rem;
+      transform: rotate(8deg);
+    }
+
+    .oddman-header__mobile-item--rotate-right-more {
+      transform: rotate(14deg);
+    }
   {% endstylesheet %}
 
   {% schema %}
@@ -765,6 +808,13 @@
         "label": "Info Page URL",
         "default": "/pages/info",
         "placeholder": "/pages/info"
+      },
+      {
+        "type": "text",
+        "id": "one_of_one_page_url",
+        "label": "1/1 Page URL",
+        "default": "/pages/1-of-1",
+        "placeholder": "/pages/1-of-1"
       },
       {
         "type": "header",
