@@ -90,10 +90,10 @@
             <div class="oddman-header__nav-items">
               
               <!-- Shop Button -->
-              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-left">
-                <a 
-                  href="{{ routes.all_products_collection_url }}"
-                  class="oddman-header__nav-link oddman-header__nav-link--shop"
+              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-left oddman-header__nav-item--has-dropdown">
+                <div 
+                  class="oddman-header__nav-link oddman-header__nav-link--shop oddman-dropdown-toggle"
+                  tabindex="0"
                 >
                   <div class="oddman-header__nav-gradient"></div>
                   <svg class="oddman-header__nav-icon oddman-header__nav-icon--shop" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
@@ -101,7 +101,12 @@
                   </svg>
                   
                   <span class="oddman-header__nav-text">Shop</span>
-                </a>
+                </div>
+
+                <div class="oddman-header__dropdown-menu">
+                   <a href="{{ routes.all_products_collection_url }}" class="oddman-header__dropdown-item">shop all</a>
+                   <a href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__dropdown-item">1/1</a>
+                </div>
               </div>
 
               <!-- Kult Button -->
@@ -133,19 +138,6 @@
                 </a>
               </div>
 
-              <!-- 1/1 Button -->
-              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-right-extra">
-                <a 
-                  href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}"
-                  class="oddman-header__nav-link oddman-header__nav-link--info"
-                >
-                  <div class="oddman-header__nav-gradient"></div>
-                  <svg class="oddman-header__nav-icon oddman-header__nav-icon--one-of-one" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-                    <text x="12" y="16" font-size="14" font-weight="bold" text-anchor="middle" fill="currentColor">1/1</text>
-                  </svg>
-                  <span class="oddman-header__nav-text">1/1</span>
-                </a>
-              </div>
 
             </div>
           </div>
@@ -158,6 +150,9 @@
             onclick="openCart()"
             aria-label="Open cart"
           >    
+            <span id="cart-count" class="oddman-cart-count {% if cart.item_count == 0 %}hidden{% endif %}">
+              {{ cart.item_count }}
+            </span>
           
   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px" viewBox="0 0 64 63" version="1.1">
   <g id="surface1">
@@ -225,17 +220,22 @@
 
         <!-- Mobile Shop Button -->
         <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-left">
-          <a 
-            href="{{ routes.all_products_collection_url }}"
+          <div 
             class="oddman-header__mobile-link"
-            onclick="toggleMobileMenu()"
+            onclick="toggleMobileSubmenu('shop-submenu')"
+            style="cursor: pointer;"
           >
             <div class="oddman-header__nav-gradient"></div>
             <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
               <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7Z"/>
             </svg>
-            <span class="oddman-header__mobile-text">Shop</span>
-          </a>
+            <span class="oddman-header__mobile-text">Shop +</span>
+          </div>
+          
+          <div id="shop-submenu" class="oddman-mobile-submenu">
+             <a href="{{ routes.all_products_collection_url }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">SHOP ALL</a>
+             <a href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">1/1</a>
+          </div>
         </div>
 
         <!-- Mobile Kult Button -->
@@ -252,7 +252,7 @@
             <span class="oddman-header__mobile-text">Kult</span>
           </a>
         </div>
-
+      
         <!-- Mobile Info Button -->
         <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-left-more">
           <a 
@@ -270,19 +270,7 @@
         </div>
 
         <!-- Mobile 1/1 Button -->
-        <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-right-more">
-          <a 
-            href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}"
-            class="oddman-header__mobile-link"
-            onclick="toggleMobileMenu()"
-          >
-            <div class="oddman-header__nav-gradient"></div>
-            <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-              <text x="12" y="16" font-size="14" font-weight="bold" text-anchor="middle" fill="currentColor">1/1</text>
-            </svg>
-            <span class="oddman-header__mobile-text">1/1</span>
-          </a>
-        </div>
+    
 
       </div>
     </div>
@@ -304,6 +292,13 @@
         panel.classList.add('active');
         document.body.style.overflow = 'hidden';
       }
+    }
+
+    function toggleMobileSubmenu(id) {
+        const submenu = document.getElementById(id);
+        if (submenu) {
+            submenu.style.display = submenu.style.display === 'flex' ? 'none' : 'flex';
+        }
     }
 
     // Cart functionality
@@ -752,6 +747,104 @@
 
     .oddman-header__mobile-item--rotate-right-more {
       transform: rotate(14deg);
+    }
+
+    /* Dropdown Styles */
+    .oddman-header__nav-item--has-dropdown {
+      position: relative;
+    }
+
+    .oddman-dropdown-toggle {
+      background: #dc2626; /* Match link background */
+      border: 1px solid black;
+      cursor: pointer;
+      font-family: inherit;
+      width: 100%; /* Ensure full width clickable */
+      display: flex; /* Restore flex display from .oddman-header__nav-link */
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .oddman-header__dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background-color: white;
+      border: 1px solid black;
+      min-width: 90px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 4px 4px 0px black;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .oddman-header__nav-item--has-dropdown:hover .oddman-header__dropdown-menu,
+    .oddman-header__nav-item--has-dropdown:focus-within .oddman-header__dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .oddman-header__dropdown-item {
+      padding: 0.5rem 0.75rem;
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background 0.2s;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+
+    .oddman-cart-count {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background-color: #dc2626;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 0;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+    
+    .oddman-cart-count.hidden {
+      display: none;
+    }
+    
+    .oddman-header__dropdown-item:last-child {
+      border-bottom: none;
+    }
+    
+    .oddman-header__dropdown-item:hover {
+      background-color: #dc2626;
+      color: white;
+    }
+
+    /* Mobile Submenu */
+    .oddman-mobile-submenu {
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      width: 100%;
+      align-items: center;
+    }
+    
+    .oddman-mobile-submenu.active {
+      display: flex;
     }
   {% endstylesheet %}
 

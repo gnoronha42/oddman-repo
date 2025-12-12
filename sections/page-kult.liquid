@@ -361,6 +361,85 @@ img, picture, video, canvas, svg {
       grid-template-columns: 1fr;
     }
   }
+
+  /* Carousel CSS */
+  .kult-carousel-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      min-height: 400px;
+      padding: 30px; /* Espaço para as rotações não cortarem */
+      overflow: visible; /* Permite ver as bordas das imagens rotacionadas */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .kult-carousel-track {
+      display: grid;
+      grid-template-areas: "stack";
+      width: 100%;
+      max-width: 90%; /* Margem de segurança */
+      position: relative;
+  }
+
+  .kult-carousel-slide {
+      grid-area: stack;
+      width: 100%;
+      height: auto;
+      opacity: 1; /* Todas visíveis para o efeito de pilha */
+      transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.1); /* Borda sutil para separar imagens escuras */
+  }
+
+  .kult-carousel-slide.active {
+      z-index: 10;
+      transform: rotate(0deg) scale(1) !important;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Rotações alternadas para criar o efeito bagunçado */
+  .kult-carousel-slide:nth-child(1) { transform: rotate(-4deg); }
+  .kult-carousel-slide:nth-child(2) { transform: rotate(3deg); }
+  .kult-carousel-slide:nth-child(3) { transform: rotate(-2deg); }
+  .kult-carousel-slide:nth-child(4) { transform: rotate(5deg); }
+  .kult-carousel-slide:nth-child(odd) { transform: rotate(-3deg); }
+  .kult-carousel-slide:nth-child(even) { transform: rotate(3deg); }
+
+  .kult-carousel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+  }
+
+  .carousel-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 2;
+  }
+
+  .dot {
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  }
+
+  .dot.active {
+      background-color: #ff0000;
+  }
 </style>
 
 <div class="kult-page-wrapper">
@@ -419,8 +498,37 @@ img, picture, video, canvas, svg {
 
   <!-- 7. Section "Our Vibes" -->
   <section class="kult-section kult-vibes">
-    <div class="image-left">
-      <img src="{{ 'kult/ODDMAN INSTALLMENT IIID.E.D SZN.png' | asset_url }}" alt="Our Vibes">
+    <div class="image-left kult-carousel-container">
+       <div class="kult-carousel-track">
+          {% if section.blocks.size > 0 %}
+             {% for block in section.blocks %}
+               <div class="kult-carousel-slide {% if forloop.first %}active{% endif %}">
+                  <img src="{{ block.settings.image | image_url }}" alt="Kult Vibe">
+               </div>
+             {% endfor %}
+          {% else %}
+             <div class="kult-carousel-slide active">
+                <img src="{{ 'oddman-carrousel1.png' | asset_url }}" alt="Our Vibes 1">
+             </div>
+             <div class="kult-carousel-slide">
+                <img src="{{ 'oddman-carrousel2.png' | asset_url }}" alt="Our Vibes 2">
+             </div>
+             <div class="kult-carousel-slide">
+                <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 3">
+             </div>
+          {% endif %}
+       </div>
+       <div class="carousel-dots">
+          {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+              <div class="dot {% if forloop.first %}active{% endif %}" onclick="goToSlide({{ forloop.index0 }})"></div>
+            {% endfor %}
+          {% else %}
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
+          {% endif %}
+       </div>
     </div>
     <div class="content-right">
       <img src="{{ 'our vibes.svg' | asset_url }}" alt="Our Vibes" class="our-vibes-svg">
@@ -430,20 +538,73 @@ img, picture, video, canvas, svg {
       <a href="/products" class="kult-btn">JOIN THE KULT</a>
     </div>
   </section>
-
-  <!-- 8. Carrossel dots (Visual) -->
-  <div class="carousel-dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
-
 </div>
+
+<script>
+  let currentSlide = 0;
+  let slideInterval;
+  const slideDuration = 3000;
+
+  function showSlide(index) {
+    const slides = document.querySelectorAll('.kult-carousel-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    if (slides.length === 0) return;
+
+    if (index >= slides.length) currentSlide = 0;
+    else if (index < 0) currentSlide = slides.length - 1;
+    else currentSlide = index;
+
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (dots[i]) dots[i].classList.remove('active');
+      
+      if (i === currentSlide) {
+        slide.classList.add('active');
+        if (dots[i]) dots[i].classList.add('active');
+      }
+    });
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function goToSlide(index) {
+    showSlide(index);
+    resetInterval();
+  }
+
+  function resetInterval() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, slideDuration);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Start carousel only if elements exist
+    if (document.querySelector('.kult-carousel-slide')) {
+      slideInterval = setInterval(nextSlide, slideDuration);
+    }
+  });
+</script>
 
 {% schema %}
 {
   "name": "Kult Page",
   "settings": [],
+  "blocks": [
+    {
+      "type": "carousel_image",
+      "name": "Carousel Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Kult Page"
