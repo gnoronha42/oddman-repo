@@ -4382,3 +4382,97 @@ text-component {
   width: fit-content;
   background-color: #b91c1c !important;
 }
+
+/* FIX VISIBILITY & SIZING (THEME OVERRIDES) */
+
+/* 1. Force White Text on Cart Drawer (assuming dark theme) */
+.cart-drawer,
+.cart-drawer__heading,
+.cart-drawer .h3,
+.cart-item__name,
+.cart-item__price,
+.cart-subtotal__price,
+.totals__subtotal,
+.totals__subtotal-value {
+    color: #ffffff !important;
+}
+
+.cart-drawer p,
+.cart-drawer span:not(.cart-item__error-text) {
+    color: #e5e5e5 !important;
+}
+
+.cart-drawer .quantity__input {
+    color: #ffffff !important;
+    background: transparent !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+}
+
+.cart-drawer .quantity__button {
+    color: #ffffff !important;
+}
+
+.cart-drawer .cart-item__error-text {
+    color: #ff0000 !important;
+}
+
+/* 2. Force White Text on Product Page (assuming dark theme) */
+.product-information,
+.product-details,
+.product__info-container {
+    color: #ffffff !important;
+    --color-foreground: #ffffff !important;
+}
+
+.product-information h1,
+.product-information h2,
+.product-information .h1,
+.product-information .h2,
+.product-information .price,
+.product-information .product__title h1 {
+    color: #ffffff !important;
+}
+
+.product-information p,
+.product-information .product__description {
+    color: #e5e5e5 !important;
+}
+
+/* Fix Dropdowns/Selects on Product Page */
+.product-information select,
+.product-information .select__select {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+}
+
+.product-information option {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+/* Fix Accordions/Details */
+.product-information details summary,
+.product-information .accordion__title {
+    color: #ffffff !important;
+}
+
+/* 3. Limit Product Image Size */
+@media screen and (min-width: 750px) {
+    .product-information__media img,
+    .product__media img {
+        max-height: 70vh !important;
+        width: auto !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+    
+    .product-information__media,
+    .product__media-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}
