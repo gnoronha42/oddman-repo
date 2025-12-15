@@ -586,12 +586,12 @@
               "settings": {
                 "text": "<h1><strong>NEW ARRIVALS</strong></h1>",
                 "width": "100%",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "center",
                 "type_preset": "custom",
                 "font": "var(--font-heading--family)",
                 "font_size": "2.5rem",
-                "line_height": "normal",
+                "line_height": "tight",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
@@ -600,7 +600,7 @@
                 "background_color": "#dc2626",
                 "corner_radius": 0,
                 "padding-block-start": 100,
-                "padding-block-end": 20,
+                "padding-block-end": 0,
                 "padding-inline-start": 20,
                 "padding-inline-end": 20
               },
