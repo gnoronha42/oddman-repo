@@ -4,8 +4,8 @@
 -->
 
 <div class="section-background color-scheme-1"></div>
-<div class="section section--page-width color-scheme-1">
-  <div class="spacing-style layout-panel-flex layout-panel-flex--column section-content-wrapper">
+<div class="section color-scheme-1" style="width: 100%; max-width: 100%; padding: 0; margin: 0;">
+  <div class="spacing-style layout-panel-flex layout-panel-flex--column section-content-wrapper" style="width: 100%; max-width: 100%;">
     
     <footer class="footer">
       <div class="footer__content-top">
@@ -148,29 +148,102 @@
 
 /* Container principal do footer */
 .footer {
+  /* Breakout technique para ocupar 100% da tela ignorando containers pai */
+  width: 100vw !important;
+  position: relative !important;
+  left: 50% !important;
+  right: 50% !important;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  
   background: #000000 !important;
-  padding: 3rem 0 2rem;
-  border-top: none !important;
-  border-bottom: none !important;
-  width: 100%;
+  padding: 3rem 0 2rem !important;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Mudado de center para stretch para ocupar toda largura */
+  
+  /* Garantir que não há overflow */
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
 }
 
-/* Remover bordas da seção */
-.section {
-  border: none !important;
-}
-
-.section-background {
-  background: #000000 !important;
+.footer__content-top,
+.footer__content-bottom {
+  width: 100% !important;
+  max-width: none !important; /* Remove qualquer limitação de largura */
+  margin: 0 !important;
+  padding: 0 20px !important; /* Padding mínimo apenas para não colar na borda */
+  box-sizing: border-box;
 }
 
 /* Grid responsivo para os blocos - layout horizontal com 5 colunas */
 .footer__blocks-wrapper {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 2rem;
+  /* auto-fit evita "coluna fantasma" quando há menos blocos no HTML */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.5rem; /* Gap mínimo */
   margin-bottom: 2rem;
   align-items: start;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Alinhamento dos blocos para "ponta a ponta" */
+.footer-block {
+    width: 100%;
+    text-align: center; /* Padrão centralizado */
+}
+
+/* Primeiro bloco alinhado à esquerda */
+.footer-block:first-child,
+.footer-block:first-child .footer-block__heading,
+.footer-block:first-child .footer-block__details-content,
+.footer-block:first-child ul,
+.footer-block:first-child p,
+.footer-block:first-child a {
+    text-align: left;
+    align-items: flex-start;
+}
+
+/* Último bloco alinhado à direita */
+.footer-block:last-child,
+.footer-block:last-child .footer-block__heading,
+.footer-block:last-child .footer-block__details-content,
+.footer-block:last-child p,
+.footer-block:last-child form,
+.footer-block:last-child .newsletter-form__field-wrapper {
+    text-align: right;
+    align-items: flex-end;
+    margin-left: auto;
+}
+
+/* Ajuste específico para o formulário na direita */
+.footer-block:last-child .newsletter-form__field-wrapper {
+    align-items: flex-end; /* Alinha input/botão à direita se estiverem em coluna */
+}
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+  .footer__content-top,
+  .footer__content-bottom {
+      padding: 0 20px;
+  }
+  
+  /* No mobile, volta tudo para o centro */
+  .footer-block:first-child,
+  .footer-block:last-child,
+  .footer-block:first-child *,
+  .footer-block:last-child * {
+      text-align: center;
+      align-items: center;
+      margin-left: 0;
+  }
+}
+
+.footer-block {
+    width: 100%; /* Garante que o bloco ocupe sua área */
 }
 
 /* Responsividade */
