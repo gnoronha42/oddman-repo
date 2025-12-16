@@ -38,6 +38,32 @@
           },
           "blocks": {}
         },
+        "text_xtBzMR": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<h2>Refunds & Returns</h2><p>Due to the exclusive nature of <strong>ØDDMAN</strong> collections, <strong>all sales are final</strong>. We do not offer refunds or exchanges except in cases where an item is <strong>unavailable, incorrect, damaged, or lost in transit</strong>.</p><p>For all other return requests, we offer <strong>store credit</strong> equal to the value of your purchase (shipping not included).</p><h3>How to Initiate a Return</h3><ul><li>Email <a href=\"mailto:alldaodds@gmail.com\"><strong>alldaodds@gmail.com</strong></a> within <strong>7 days of delivery</strong></li><li>Items must be <strong>unworn</strong>, in <strong>new condition</strong>, with <strong>original tags attached</strong></li><li>Items that do not meet these conditions will be returned at your expense unless otherwise agreed upon</li></ul><p>ØDDMAN reserves the right to <strong>temporarily suspend or revoke return privileges</strong> if returns are excessive.</p><h2>How Do the Item(s) Fit?</h2><p>Fit details are provided in each product description.</p><p>Still unsure?</p><ul><li>DM us on Instagram <strong>@alldaodds</strong> for faster sizing support</li><li>Email <a href=\"mailto:alldaodds@gmail.com\"><strong>alldaodds@gmail.com</strong></a></li></ul><h2>Contact Us</h2><p>📩 <strong>Email:</strong> <a href=\"mailto:alldaodds@gmail.com\">alldaodds@gmail.com</a><br/>📲 <strong>Instagram:</strong> @alldaodds<br/>⏳ <strong>Response Time:</strong> 1–3 business days<br/><br/></p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "page-content": {
           "type": "page-content",
           "settings": {},
@@ -46,6 +72,7 @@
       },
       "block_order": [
         "heading",
+        "text_xtBzMR",
         "page-content"
       ],
       "settings": {
