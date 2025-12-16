@@ -69,11 +69,8 @@
     "variant_button_radius": 2,
     "variant_button_width": "equal-width-buttons",
     "enable_newsletter_modal": true,
-    "newsletter_modal_home_only": false,
+    "newsletter_modal_home_only": true,
     "newsletter_modal_frequency": "every_visit",
-    "newsletter_modal_image": "shopify://shop_images/unnamed.jpg",
-    "newsletter_modal_logo_text": "oddman",
-    "newsletter_modal_headline": "oddman",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {

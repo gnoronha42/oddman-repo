@@ -1,0 +1,270 @@
+{%- doc -%}
+  Newsletter modal (Oddman) - opens on page load (configured via settings) and uses theme dialog-component.
+{%- enddoc -%}
+
+{%- if settings.enable_newsletter_modal -%}
+  <script src="{{ 'dialog.js' | asset_url }}" type="module"></script>
+  <script src="{{ 'newsletter-modal.js' | asset_url }}" type="module"></script>
+
+  <dialog-component
+    id="newsletter-modal"
+    class="newsletter-modal"
+    data-frequency="{{ settings.newsletter_modal_frequency | default: 'once_per_session' }}"
+    {% if request.design_mode %}
+      data-disable-auto-open="true"
+    {% endif %}
+  >
+    <dialog
+      ref="dialog"
+      on:click="/closeDialogOnClickOutside"
+      on:keydown="/closeDialogOnEscapePress"
+      class="newsletter-modal__dialog dialog-modal"
+      scroll-lock
+      aria-label="Newsletter"
+    >
+      <button
+        ref="closeButton"
+        on:click="/closeDialog"
+        class="button button-unstyled newsletter-modal__close"
+        aria-label="Close"
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </span>
+      </button>
+
+      <div class="newsletter-modal__grid">
+        <div class="newsletter-modal__left">
+          {%- if settings.newsletter_modal_image != blank -%}
+            <img
+              src="{{ settings.newsletter_modal_image | image_url: width: 1400 }}"
+              alt=""
+              loading="eager"
+              class="newsletter-modal__image"
+            >
+          {%- else -%}
+            <div class="newsletter-modal__placeholder" aria-hidden="true"></div>
+          {%- endif -%}
+        </div>
+
+        <div class="newsletter-modal__right">
+          <div class="newsletter-modal__content">
+            <div class="newsletter-modal__logo">
+              {{ settings.newsletter_modal_logo_text | default: "LỰ'U ĐẠN" }}
+            </div>
+
+            <div class="newsletter-modal__headline">
+              {{ settings.newsletter_modal_headline | default: "JOIN OUR LD GANG" }}
+            </div>
+
+            <div class="newsletter-modal__subheadline">
+              {{ settings.newsletter_modal_subheadline | default: "UNLOCK NEWS, DROPS,<br>AND EXCLUSIVE SECRETS" }}
+            </div>
+
+            {%- form 'customer', id: 'NewsletterModalForm', class: 'newsletter-modal__form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+
+              <label class="visually-hidden" for="NewsletterModalEmail">Email</label>
+              <input
+                id="NewsletterModalEmail"
+                type="email"
+                name="contact[email]"
+                class="newsletter-modal__input"
+                value=""
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                placeholder="{{ settings.newsletter_modal_placeholder | default: 'Email' }}"
+                required
+              >
+
+              <button type="submit" class="newsletter-modal__submit">
+                {{ settings.newsletter_modal_button_label | default: "Subscribe" }}
+              </button>
+
+              <div class="newsletter-modal__privacy">
+                {%- assign privacy_url = settings.newsletter_modal_privacy_url | default: '/pages/privacy-policy' -%}
+                {%- assign privacy_text = settings.newsletter_modal_privacy_text
+                  | default: 'You may unsubscribe at any time. To find out more, please visit our Privacy Policy.'
+                -%}
+
+                {{ privacy_text | replace: 'Privacy Policy', '<a href="' | append: privacy_url | append: '" class="newsletter-modal__privacy-link">Privacy Policy</a>' }}
+              </div>
+            {%- endform -%}
+          </div>
+        </div>
+      </div>
+    </dialog>
+  </dialog-component>
+{%- endif -%}
+
+{% stylesheet %}
+  .newsletter-modal__dialog {
+    --backdrop-opacity: 0.6;
+    --backdrop-color-rgb: 0 0 0;
+    padding: 0;
+    width: min(1100px, 92vw);
+    margin: 0;
+    overflow: hidden;
+    background: #000;
+    border-radius: 0;
+  }
+
+  .dialog-modal[open].newsletter-modal__dialog {
+    border-radius: 0;
+    box-shadow: 0 0 0 2px #ff0000 inset, var(--shadow-popover);
+  }
+
+  .newsletter-modal__close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    color: #ff0000;
+    background: transparent;
+    z-index: 3;
+  }
+
+  .newsletter-modal__close .svg-wrapper {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-modal__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+
+  .newsletter-modal__left {
+    position: relative;
+    background: #111;
+  }
+
+  .newsletter-modal__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .newsletter-modal__placeholder {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, #1a1a1a, #000);
+  }
+
+  .newsletter-modal__right {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 42px;
+  }
+
+  .newsletter-modal__content {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    color: #ff0000;
+  }
+
+  .newsletter-modal__logo {
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 54px;
+    line-height: 1;
+    margin-bottom: 22px;
+  }
+
+  .newsletter-modal__headline {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .newsletter-modal__subheadline {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 15px;
+    line-height: 1.25;
+    margin-bottom: 22px;
+  }
+
+  .newsletter-modal__form {
+    display: grid;
+    gap: 14px;
+    justify-items: stretch;
+  }
+
+  .newsletter-modal__input {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    background: #000;
+    border: 2px solid #ff0000;
+    color: #ff0000;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    outline: none;
+  }
+
+  .newsletter-modal__input::placeholder {
+    color: rgba(255, 0, 0, 0.75);
+  }
+
+  .newsletter-modal__submit {
+    width: 100%;
+    height: 46px;
+    background: #ff0000;
+    color: #000;
+    border: 2px solid #ff0000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+  }
+
+  .newsletter-modal__privacy {
+    font-size: 10px;
+    line-height: 1.35;
+    color: rgba(255, 0, 0, 0.9);
+    margin-top: 6px;
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  .newsletter-modal__privacy a {
+    color: #ff0000;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .newsletter-modal__dialog {
+      width: min(92vw, 720px);
+    }
+    .newsletter-modal__grid {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+    .newsletter-modal__left {
+      height: 280px;
+    }
+    .newsletter-modal__right {
+      padding: 34px 22px;
+    }
+    .newsletter-modal__logo {
+      font-size: 40px;
+    }
+  }
+{% endstylesheet %}
