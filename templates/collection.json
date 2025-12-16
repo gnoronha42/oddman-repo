@@ -94,8 +94,9 @@
       "block_order": [
         "button_RjDGbn"
       ],
+      "disabled": true,
       "custom_css": [
-        ".button {color: white; background-color: red }"
+        ".button {color: white; background-color: red;}"
       ],
       "settings": {
         "content_direction": "column",
