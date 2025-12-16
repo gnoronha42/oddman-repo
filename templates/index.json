@@ -47,7 +47,7 @@
         "button_3cL8kq"
       ],
       "custom_css": [
-        "button {top: -50%;}"
+        "button {top: 50%;}"
       ],
       "name": "t:names.hero",
       "settings": {
