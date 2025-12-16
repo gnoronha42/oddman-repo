@@ -144,7 +144,7 @@
             "inherit_color_scheme": true,
             "color_scheme": "",
             "padding-block-start": 0,
-            "padding-block-end": 24,
+            "padding-block-end": 70,
             "padding-inline-start": 40,
             "padding-inline-end": 40,
             "facets_margin_bottom": 0,
@@ -305,12 +305,12 @@
         "product_grid_width": "full-width",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 0,
-        "columns_gap_vertical": 16,
+        "columns_gap_vertical": 0,
         "padding-inline-start": 0,
         "padding-inline-end": 0,
         "color_scheme": "scheme-5",
         "padding-block-start": 0,
-        "padding-block-end": 24
+        "padding-block-end": 16
       }
     }
   },
