@@ -68,6 +68,9 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 2,
     "variant_button_width": "equal-width-buttons",
+    "enable_newsletter_modal": true,
+    "newsletter_modal_home_only": true,
+    "newsletter_modal_frequency": "every_visit",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
