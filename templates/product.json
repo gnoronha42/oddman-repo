@@ -466,6 +466,7 @@
         "static-product-card": {
           "type": "_product-card",
           "name": "t:names.product_card",
+          "disabled": true,
           "static": true,
           "settings": {
             "product_card_gap": 16,
@@ -613,6 +614,7 @@
       "block_order": [
         "text_hT9TEm"
       ],
+      "disabled": true,
       "name": "t:names.product_recommendations",
       "settings": {
         "product": "{{ closest.product }}",
@@ -639,6 +641,7 @@
         "static-collection-card": {
           "type": "_collection-card",
           "name": "t:names.collection_card",
+          "disabled": true,
           "static": true,
           "settings": {
             "placement": "on_image",
