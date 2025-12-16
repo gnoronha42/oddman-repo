@@ -18,12 +18,12 @@
             <h2 class="footer-block__heading">Customer Care</h2>
             <ul class="footer-block__details-content list-unstyled">
               <li>
-                <a href="/pages/faqs" class="link link--text list-menu__item list-menu__item--link">
+                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
                   FAQs
                 </a>
               </li>
               <li>
-                <a href="/pages/contact" class="link link--text list-menu__item list-menu__item--link">
+                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
                   Contact Us
                 </a>
               </li>
@@ -35,17 +35,17 @@
             <h2 class="footer-block__heading">Legal</h2>
             <ul class="footer-block__details-content list-unstyled">
               <li>
-                <a href="/pages/terms" class="link link--text list-menu__item list-menu__item--link">
+                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="/pages/privacy-policy" class="link link--text list-menu__item list-menu__item--link">
+                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/pages/cookies-policy" class="link link--text list-menu__item list-menu__item--link">
+                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
                   Cookies Policy
                 </a>
               </li>
@@ -60,7 +60,7 @@
             <h2 class="footer-block__heading">Follow</h2>
             <div class="footer-block__details-content rte">
               <p>
-                <a href="https://www.instagram.com/oddman_official/" 
+                <a href="https://www.instagram.com/alldaodds/" 
                    target="_blank" 
                    class="link link--text"
                    title="INSTAGRAM">
@@ -173,7 +173,7 @@
   width: 100% !important;
   max-width: none !important; /* Remove qualquer limitação de largura */
   margin: 0 !important;
-  padding: 0 20px !important; /* Padding mínimo apenas para não colar na borda */
+  padding: 0 70px !important; /* Padding mínimo apenas para não colar na borda */
   box-sizing: border-box;
 }
 
@@ -181,8 +181,8 @@
 .footer__blocks-wrapper {
   display: grid;
   /* auto-fit evita "coluna fantasma" quando há menos blocos no HTML */
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.5rem; /* Gap mínimo */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.2rem; /* Gap reduzido */
   margin-bottom: 2rem;
   align-items: start;
   width: 100% !important;
@@ -192,7 +192,7 @@
 
 /* Alinhamento dos blocos para "ponta a ponta" */
 .footer-block {
-    width: 100%;
+    /*  width: 100%; */
     text-align: center; /* Padrão centralizado */
 }
 
@@ -250,21 +250,21 @@
 @media (max-width: 1200px) {
   .footer__blocks-wrapper {
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 }
 
 @media (max-width: 1024px) {
   .footer__blocks-wrapper {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 0.75rem;
   }
 }
 
 @media (max-width: 768px) {
   .footer__blocks-wrapper {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
   }
   
   .footer {

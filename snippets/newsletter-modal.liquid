@@ -104,7 +104,12 @@
     --backdrop-color-rgb: 0 0 0;
     padding: 0;
     width: min(1100px, 92vw);
-    margin: 0;
+    max-width: 1100px;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     overflow: hidden;
     background: #000;
     border-radius: 0;
@@ -113,6 +118,7 @@
   .dialog-modal[open].newsletter-modal__dialog {
     border-radius: 0;
     box-shadow: 0 0 0 2px #ff0000 inset, var(--shadow-popover);
+    transform: translate(-50%, -50%);
   }
 
   .newsletter-modal__close {
@@ -252,6 +258,7 @@
   @media (max-width: 900px) {
     .newsletter-modal__dialog {
       width: min(92vw, 720px);
+      transform: translate(-50%, -50%);
     }
     .newsletter-modal__grid {
       grid-template-columns: 1fr;
