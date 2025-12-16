@@ -63,6 +63,15 @@
 
     {% render 'search-modal' %}
 
+    {%- assign show_newsletter_modal = settings.enable_newsletter_modal -%}
+    {%- if settings.newsletter_modal_home_only -%}
+      {%- assign show_newsletter_modal = show_newsletter_modal and template == 'index' -%}
+    {%- endif -%}
+
+    {%- if show_newsletter_modal -%}
+      {% render 'newsletter-modal' %}
+    {%- endif -%}
+
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}

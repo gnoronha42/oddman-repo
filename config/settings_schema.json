@@ -2326,5 +2326,79 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Newsletter modal",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_newsletter_modal",
+        "label": "Ativar modal de newsletter",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "newsletter_modal_home_only",
+        "label": "Mostrar apenas na página inicial",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "newsletter_modal_frequency",
+        "label": "Frequência",
+        "options": [
+          { "value": "every_visit", "label": "Sempre (toda visita)" },
+          { "value": "once_per_session", "label": "Uma vez por sessão" },
+          { "value": "once_per_day", "label": "Uma vez por dia" }
+        ],
+        "default": "once_per_session"
+      },
+      {
+        "type": "image_picker",
+        "id": "newsletter_modal_image",
+        "label": "Imagem (lado esquerdo)"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_modal_logo_text",
+        "label": "Logo/Título",
+        "default": "LỰ’U ĐẠN"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_modal_headline",
+        "label": "Headline",
+        "default": "JOIN OUR LD GANG"
+      },
+      {
+        "type": "textarea",
+        "id": "newsletter_modal_subheadline",
+        "label": "Texto",
+        "default": "UNLOCK NEWS, DROPS,\nAND EXCLUSIVE SECRETS"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_modal_placeholder",
+        "label": "Placeholder do email",
+        "default": "Email"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_modal_button_label",
+        "label": "Texto do botão",
+        "default": "Subscribe"
+      },
+      {
+        "type": "url",
+        "id": "newsletter_modal_privacy_url",
+        "label": "URL da Privacy Policy"
+      },
+      {
+        "type": "text",
+        "id": "newsletter_modal_privacy_text",
+        "label": "Texto de privacidade",
+        "default": "You may unsubscribe at any time. To find out more, please visit our Privacy Policy."
+      }
+    ]
   }
 ]
