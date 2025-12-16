@@ -564,7 +564,10 @@ img, picture, video, canvas, svg {
                 <img src="{{ 'oddman-carrousel1.png' | asset_url }}" alt="Our Vibes 1">
              </div>
              <div class="kult-carousel-slide">
-                <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 2">
+                <img src="{{ 'oddman-carrousel2.png' | asset_url }}" alt="Our Vibes 2" onerror="this.style.display='none'; this.parentElement.style.display='none';">
+             </div>
+             <div class="kult-carousel-slide">
+                <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 3">
              </div>
           {% endif %}
        </div>
@@ -576,6 +579,7 @@ img, picture, video, canvas, svg {
           {% else %}
             <div class="dot active" onclick="goToSlide(0)"></div>
             <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
           {% endif %}
        </div>
     </div>
