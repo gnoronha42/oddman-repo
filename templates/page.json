@@ -12,6 +12,38 @@
     "main": {
       "type": "main-page",
       "blocks": {
+        "contact_form_YwTQPJ": {
+          "type": "contact-form",
+          "name": "t:names.contact_form",
+          "settings": {
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "custom",
+            "custom_width_mobile": 100,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-7e54d016-283d-4d2f-8115-87892a8c0952",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "submit-button": {
+              "type": "contact-form-submit-button",
+              "static": true,
+              "settings": {
+                "label": "Submit",
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": []
+        },
         "heading": {
           "type": "text",
           "name": "Title",
@@ -64,38 +96,6 @@
           },
           "blocks": {}
         },
-        "contact_form_YwTQPJ": {
-          "type": "contact-form",
-          "name": "t:names.contact_form",
-          "settings": {
-            "width": "custom",
-            "custom_width": 100,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
-        },
         "page-content": {
           "type": "page-content",
           "settings": {},
@@ -103,10 +103,13 @@
         }
       },
       "block_order": [
+        "contact_form_YwTQPJ",
         "heading",
         "text_xtBzMR",
-        "contact_form_YwTQPJ",
         "page-content"
+      ],
+      "custom_css": [
+        "button {background-color: red;}"
       ],
       "settings": {
         "content_direction": "column",
