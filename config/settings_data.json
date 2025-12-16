@@ -71,6 +71,7 @@
     "enable_newsletter_modal": true,
     "newsletter_modal_home_only": true,
     "newsletter_modal_frequency": "every_visit",
+    "newsletter_modal_image": "shopify://shop_images/unnamed.jpg",
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
