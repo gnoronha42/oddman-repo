@@ -171,29 +171,30 @@
 .footer__content-top,
 .footer__content-bottom {
   width: 100% !important;
-  max-width: none !important; /* Remove qualquer limitação de largura */
+  max-width: none !important;
   margin: 0 !important;
-  padding: 0 70px !important; /* Padding mínimo apenas para não colar na borda */
+  padding: 0 4% !important; /* Padding responsivo */
   box-sizing: border-box;
 }
 
-/* Grid responsivo para os blocos - layout horizontal com 5 colunas */
+/* Grid responsivo para os blocos - layout horizontal */
 .footer__blocks-wrapper {
   display: grid;
   /* auto-fit evita "coluna fantasma" quando há menos blocos no HTML */
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 0.2rem; /* Gap reduzido */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 2rem 3rem; /* Gap horizontal maior, vertical menor */
   margin-bottom: 2rem;
   align-items: start;
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
+  justify-items: stretch; /* Garante que os itens ocupem o espaço disponível */
 }
 
-/* Alinhamento dos blocos para "ponta a ponta" */
+/* Alinhamento dos blocos */
 .footer-block {
-    /*  width: 100%; */
-    text-align: center; /* Padrão centralizado */
+    width: 100%;
+    text-align: left; /* Padrão à esquerda */
 }
 
 /* Primeiro bloco alinhado à esquerda */
@@ -207,7 +208,7 @@
     align-items: flex-start;
 }
 
-/* Último bloco alinhado à direita */
+/* Último bloco (newsletter) alinhado à direita */
 .footer-block:last-child,
 .footer-block:last-child .footer-block__heading,
 .footer-block:last-child .footer-block__details-content,
@@ -228,17 +229,23 @@
 @media (max-width: 768px) {
   .footer__content-top,
   .footer__content-bottom {
-      padding: 0 20px;
+      padding: 0 20px !important;
+  }
+  
+  .footer__blocks-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
   
   /* No mobile, volta tudo para o centro */
+  .footer-block,
   .footer-block:first-child,
   .footer-block:last-child,
   .footer-block:first-child *,
   .footer-block:last-child * {
-      text-align: center;
-      align-items: center;
-      margin-left: 0;
+      text-align: center !important;
+      align-items: center !important;
+      margin-left: 0 !important;
   }
 }
 
@@ -248,23 +255,33 @@
 
 /* Responsividade */
 @media (max-width: 1200px) {
+  .footer__content-top,
+  .footer__content-bottom {
+    padding: 0 3% !important;
+  }
+  
   .footer__blocks-wrapper {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1.5rem 2rem;
   }
 }
 
 @media (max-width: 1024px) {
+  .footer__content-top,
+  .footer__content-bottom {
+    padding: 0 3% !important;
+  }
+  
   .footer__blocks-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem 2rem;
   }
 }
 
 @media (max-width: 768px) {
   .footer__blocks-wrapper {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
   }
   
   .footer {
@@ -379,8 +396,15 @@
   gap: 0.5rem;
 }
 
+.newsletter-form__field-wrapper .field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
 .field__input {
-  flex: 1;
+  width: 100%;
   padding: 0.75rem 1rem;
   border: 1px solid #ff0000 !important;
   outline: none !important;
@@ -392,6 +416,7 @@
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
+  box-sizing: border-box;
 }
 
 .field__input::placeholder {
@@ -407,6 +432,8 @@
   cursor: pointer;
   transition: background 0.3s ease;
   font-family: 'Arial', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .field__button:hover {
@@ -442,22 +469,36 @@
 }
 
 /* Ajustes específicos para mobile */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .footer-block__heading {
     font-size: 1rem;
+    margin-bottom: 0.75rem;
   }
   
   .newsletter-form__field-wrapper {
-    flex-direction: column;
-    border-radius: 10px;
+    flex-direction: column !important;
+    max-width: 100%;
+    margin: 0 auto;
   }
-  
-  .field__button {
-    border-radius: 0 0 10px 10px;
+
+  .newsletter-form__field-wrapper .field {
+    flex-direction: column !important;
+    width: 100%;
   }
   
   .field__input {
-    border-radius: 10px 10px 0 0;
+    width: 100% !important;
+    margin-bottom: 0;
+  }
+  
+  .field__button {
+    width: 100% !important;
+  }
+  
+  .form--text {
+    font-size: 0.6rem;
+    text-align: center;
+    margin-top: 0.5rem;
   }
 }
 

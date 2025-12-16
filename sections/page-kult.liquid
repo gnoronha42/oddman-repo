@@ -31,13 +31,10 @@
 
   /* Botões */
   .kult-btn {
-  
     background-color: #ff0000;
     color: #ffffff;
     border: none;
     padding: 12px 24px;
-    left: 50%;
-    top: 78%;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 0.9rem;
@@ -46,7 +43,12 @@
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease;
-}
+    /* Centralização perfeita */
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
 
 
 
@@ -360,6 +362,58 @@ img, picture, video, canvas, svg {
     .kult-collage {
       grid-template-columns: 1fr;
     }
+
+    /* Ajustes para botões no mobile */
+    .kult-btn {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      display: block !important;
+      width: fit-content;
+      margin: 1.5rem auto 0 !important;
+    }
+
+    /* Primeira seção hero - botão centralizado */
+    .kult-hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .kult-hero-section .kult-btn {
+      position: absolute;
+      bottom: -80%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    /* Seções com conteúdo - botão no fluxo */
+    .kult-journey .left,
+    .kult-vibes .content-right {
+      position: relative;
+    }
+
+    .kult-journey .left .kult-btn,
+    .kult-vibes .content-right .kult-btn {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+      margin: 1.5rem auto 0;
+    }
+
+    /* Ajustes gerais de padding e espaçamento */
+    .kult-section {
+      padding: 2rem 1rem;
+    }
+
+    .kult-journey .left p,
+    .kult-vibes .content-right p {
+      margin-bottom: 1rem;
+    }
   }
 
   /* Carousel CSS */
@@ -445,9 +499,9 @@ img, picture, video, canvas, svg {
 <div class="kult-page-wrapper">
 
   <!-- 2. Hero Section -->
-  <section class="">
-    <div class="">
-      <video autoplay muted loop class="">
+  <section class="kult-hero-section" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+      <video autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
         <source src="{{ 'oddmangif.mp4' | asset_url }}" type="video/mp4">
       </video>
     </div>
@@ -464,7 +518,6 @@ img, picture, video, canvas, svg {
       <p>
         KULT represents our community — a place for people who embrace individuality, creativity, and bold self-expression.
       </p>
-      <a href="/products" class="kult-btn">JOIN THE KULT</a>
     </div>
     <div class="right">
       <img src="{{ 'jon poster.png' | asset_url }}" alt="The Journey" class="main-img">
@@ -511,10 +564,7 @@ img, picture, video, canvas, svg {
                 <img src="{{ 'oddman-carrousel1.png' | asset_url }}" alt="Our Vibes 1">
              </div>
              <div class="kult-carousel-slide">
-                <img src="{{ 'oddman-carrousel2.png' | asset_url }}" alt="Our Vibes 2">
-             </div>
-             <div class="kult-carousel-slide">
-                <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 3">
+                <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 2">
              </div>
           {% endif %}
        </div>
@@ -526,16 +576,14 @@ img, picture, video, canvas, svg {
           {% else %}
             <div class="dot active" onclick="goToSlide(0)"></div>
             <div class="dot" onclick="goToSlide(1)"></div>
-            <div class="dot" onclick="goToSlide(2)"></div>
           {% endif %}
        </div>
     </div>
     <div class="content-right">
-      <img src="{{ 'our vibes.svg' | asset_url }}" alt="Our Vibes" class="our-vibes-svg">
+      <img src="{{ 'our-vibes.svg' | asset_url }}" alt="Our Vibes" class="our-vibes-svg">
       <p>
         We host ODDMAN events across Toronto, the UK, and Nigeria — bringing our community together wherever the culture moves. Our gatherings connect creatives, thinkers, and the boldly different. With every city we touch, we push for global impact and steady growth, always aiming to build one of the strongest worldwide communities in fashion and lifestyle.
       </p>
-      <a href="/products" class="kult-btn">JOIN THE KULT</a>
     </div>
   </section>
 </div>
@@ -584,6 +632,25 @@ img, picture, video, canvas, svg {
     // Start carousel only if elements exist
     if (document.querySelector('.kult-carousel-slide')) {
       slideInterval = setInterval(nextSlide, slideDuration);
+    }
+
+    // Abrir modal de newsletter ao clicar em "JOIN THE KULT"
+    const kultButtons = document.querySelectorAll('.kult-btn');
+    const newsletterModal = document.querySelector('#newsletter-modal');
+    
+    if (kultButtons.length > 0 && newsletterModal) {
+      kultButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault(); // Previne navegação para /products
+          try {
+            if (newsletterModal && typeof newsletterModal.showDialog === 'function') {
+              newsletterModal.showDialog();
+            }
+          } catch (err) {
+            console.warn('Erro ao abrir modal de newsletter:', err);
+          }
+        });
+      });
     }
   });
 </script>
