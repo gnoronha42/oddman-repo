@@ -10,7 +10,11 @@
   "sections": {
     "main": {
       "type": "page-kult",
-      "settings": {}
+      "settings": {
+        "show_hero": false,
+        "show_wide_banner": true,
+        "show_journey": true
+      }
     }
   },
   "order": [

@@ -45,7 +45,7 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div
   class="product-information section section--{{ content_width }} spacing-style color-{{ section.settings.color_scheme }} relative"
-  style="{% render 'spacing-style', settings: section.settings %} --gap: {{ section.settings.gap }}px;"
+  style="{% render 'spacing-style', settings: section.settings %} --gap: {{ section.settings.gap }}px;{% if section.settings.pdp_text_color != blank %} --pdp-text-color: {{ section.settings.pdp_text_color }};{% endif %}"
 >
   {% if section.settings.desktop_media_position == 'left' and product_has_media %}
     {% assign product_href = '#ProductInformation-' | append: section.id %}
@@ -282,17 +282,18 @@
     --sticky-header-offset: var(--header-height);
   }
 
-  /* Fix for user reported "black checkout/product page" visibility issue */
-  .product-information {
-      color: rgb(var(--color-foreground-rgb));
+  /* PDP: todos os textos pretos. Usa --pdp-text-color se definido via setting,
+     caso contrário #000000. */
+  .product-information,
+  .product-information *:not(button):not(.button):not([class*="btn"]) {
+    color: var(--pdp-text-color, #000000) !important;
   }
-  
-  /* Ensure headings and prices are visible against potentially dark backgrounds */
-  .product-information h1,
-  .product-information h2,
-  .product-information .price,
-  .product-information .product__title h1 {
-      color: inherit;
+
+  /* Botões mantêm o estilo original do tema */
+  .product-information button,
+  .product-information .button,
+  .product-information [class*="btn"] {
+    color: revert;
   }
 {% endstylesheet %}
 
@@ -372,6 +373,12 @@
       "id": "color_scheme",
       "label": "t:settings.color_scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "pdp_text_color",
+      "label": "Cor do texto da PDP",
+      "info": "Sobrescreve a cor de texto do esquema de cores apenas nesta seção. Deixe vazio para usar a cor do esquema."
     },
     {
       "type": "header",

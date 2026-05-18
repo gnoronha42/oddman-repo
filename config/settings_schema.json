@@ -2346,12 +2346,26 @@
         "type": "select",
         "id": "newsletter_modal_frequency",
         "label": "Frequência",
+        "info": "\"Apenas no primeiro acesso\" usa localStorage — só reaparece se o visitante limpar o cache.",
         "options": [
-          { "value": "every_visit", "label": "Sempre (toda visita)" },
-          { "value": "once_per_session", "label": "Uma vez por sessão" },
-          { "value": "once_per_day", "label": "Uma vez por dia" }
+          {
+            "value": "once_per_visitor",
+            "label": "Apenas no primeiro acesso (recomendado)"
+          },
+          {
+            "value": "once_per_session",
+            "label": "Uma vez por sessão"
+          },
+          {
+            "value": "once_per_day",
+            "label": "Uma vez por dia"
+          },
+          {
+            "value": "every_visit",
+            "label": "Sempre (toda visita)"
+          }
         ],
-        "default": "once_per_session"
+        "default": "once_per_visitor"
       },
       {
         "type": "image_picker",

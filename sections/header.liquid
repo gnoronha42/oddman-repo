@@ -30,6 +30,17 @@
       sticky="{{ sticky }}"
     {% endif %}
     data-scroll-direction="none"
+    style="
+      --header-accent: {{ section.settings.accent_color | default: '#dc2626' }};
+      --header-accent-soft: {{ section.settings.accent_color_soft | default: '#fb7185' }};
+      --header-text: {{ section.settings.header_text_color | default: '#f1f5f9' }};
+      --header-bg: {{ section.settings.header_bg_color | default: '#000000' }};
+      --nav-item-bg: {{ section.settings.nav_item_bg_color | default: '#dc2626' }};
+      --nav-item-color: {{ section.settings.nav_item_text_color | default: '#ffffff' }};
+      --nav-item-hover-bg: {{ section.settings.nav_item_hover_bg_color | default: '#ffffff' }};
+      --nav-item-hover-color: {{ section.settings.nav_item_hover_color | default: '#000000' }};
+      --nav-item-border: {{ section.settings.nav_item_border_style | default: '1px solid black' }};
+    "
   >
     <div class="oddman-header__container">
           <div class="oddman-header__content">
@@ -71,16 +82,24 @@
                   height="auto"
                 />
               {% else %}
-                <img 
-                  src="https://againstalloddz.netlify.app/logo.png" 
-                  alt="Oddman"
+                {%- assign default_logo_url = section.settings.logo_fallback_url
+                  | default: 'https://againstalloddz.netlify.app/logo.png'
+                -%}
+                <img
+                  src="{{ default_logo_url }}"
+                  alt="{{ shop.name }}"
                   class="oddman-header__logo-img oddman-header__logo-img--default"
                   style="--logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
                   width="{{ section.settings.logo_width }}"
                   height="auto"
-                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
                 />
-                <span class="oddman-header__logo-text" style="display: none;">ODDMAN</span>
+                <span
+                  class="oddman-header__logo-text"
+                  style="display: none; --logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
+                >
+                  {{- section.settings.logo_fallback_text | default: shop.name -}}
+                </span>
               {% endif %}
             </a>
           </div>
@@ -88,55 +107,73 @@
           <!-- Desktop Navigation -->
           <div class="oddman-header__nav">
             <div class="oddman-header__nav-items">
-              
-              <!-- Shop Button -->
-              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-left oddman-header__nav-item--has-dropdown">
-                <div 
-                  class="oddman-header__nav-link oddman-header__nav-link--shop oddman-dropdown-toggle"
-                  tabindex="0"
-                >
-                  <div class="oddman-header__nav-gradient"></div>
-                  <svg class="oddman-header__nav-icon oddman-header__nav-icon--shop" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
-                  </svg>
-                  
-                  <span class="oddman-header__nav-text">Shop</span>
+
+              {%- if section.settings.show_nav_shop -%}
+                <div class="oddman-header__nav-item oddman-header__nav-item--rotate-left oddman-header__nav-item--has-dropdown">
+                  <div
+                    class="oddman-header__nav-link oddman-header__nav-link--shop oddman-dropdown-toggle"
+                    tabindex="0"
+                  >
+                    <div class="oddman-header__nav-gradient"></div>
+                    {%- if section.settings.nav_shop_icon != blank -%}
+                      <img src="{{ section.settings.nav_shop_icon | image_url: width: 224 }}" alt="" class="oddman-header__nav-icon oddman-header__nav-icon--img" />
+                    {%- else -%}
+                      <svg class="oddman-header__nav-icon oddman-header__nav-icon--shop" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7ZM9 3V4H15V3H9ZM7 6V19H17V6H7Z"/>
+                      </svg>
+                    {%- endif -%}
+                    <span class="oddman-header__nav-text">{{ section.settings.nav_shop_label | default: 'Shop' }}</span>
+                  </div>
+
+                  <div class="oddman-header__dropdown-menu">
+                    <a href="{{ section.settings.shop_sublink_1_url | default: routes.all_products_collection_url }}" class="oddman-header__dropdown-item">
+                      {{- section.settings.shop_sublink_1_label_desktop | default: section.settings.shop_sublink_1_label | default: 'shop all' -}}
+                    </a>
+                    <a href="{{ section.settings.shop_sublink_2_url | default: section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__dropdown-item">
+                      {{- section.settings.shop_sublink_2_label_desktop | default: section.settings.shop_sublink_2_label | default: '1/1' -}}
+                    </a>
+                  </div>
                 </div>
+              {%- endif -%}
 
-                <div class="oddman-header__dropdown-menu">
-                   <a href="{{ routes.all_products_collection_url }}" class="oddman-header__dropdown-item">shop all</a>
-                   <a href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__dropdown-item">1/1</a>
+              {%- if section.settings.show_nav_kult -%}
+                <div class="oddman-header__nav-item oddman-header__nav-item--rotate-right">
+                  <a
+                    href="{{ section.settings.nav_kult_link | default: section.settings.kult_page_url | default: '/pages/kult' }}"
+                    class="oddman-header__nav-link oddman-header__nav-link--kult"
+                  >
+                    <div class="oddman-header__nav-gradient"></div>
+                    {%- if section.settings.nav_kult_icon != blank -%}
+                      <img src="{{ section.settings.nav_kult_icon | image_url: width: 224 }}" alt="" class="oddman-header__nav-icon oddman-header__nav-icon--img" />
+                    {%- else -%}
+                      <svg class="oddman-header__nav-icon oddman-header__nav-icon--kult" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                      </svg>
+                    {%- endif -%}
+                    <span class="oddman-header__nav-text">{{ section.settings.nav_kult_label | default: 'Kult' }}</span>
+                  </a>
                 </div>
-              </div>
+              {%- endif -%}
 
-              <!-- Kult Button -->
-              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-right">
-                <a 
-                  href="{{ section.settings.kult_page_url | default: '/pages/kult' }}"
-                  class="oddman-header__nav-link oddman-header__nav-link--kult"
-                >
-                  <div class="oddman-header__nav-gradient"></div>
-                  <svg class="oddman-header__nav-icon oddman-header__nav-icon--kult" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
-                  </svg>
-                  <span class="oddman-header__nav-text">Kult</span>
-                </a>
-              </div>
-
-              <!-- Info Button -->
-              <div class="oddman-header__nav-item oddman-header__nav-item--rotate-right-more">
-                <a 
-                  href="{{ section.settings.info_page_url | default: '/pages/info' }}"
-                  class="oddman-header__nav-link oddman-header__nav-link--info"
-                >
-                  <div class="oddman-header__nav-gradient"></div>
-                  <svg class="oddman-header__nav-icon oddman-header__nav-icon--info" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M16 8L8 16M8 8L16 16" stroke="white" stroke-width="2"/>
-                  </svg>
-                  <span class="oddman-header__nav-text">Info</span>
-                </a>
-              </div>
+              {%- if section.settings.show_nav_info -%}
+                <div class="oddman-header__nav-item oddman-header__nav-item--rotate-right-more">
+                  <a
+                    href="{{ section.settings.nav_info_link | default: section.settings.info_page_url | default: '/pages/info' }}"
+                    class="oddman-header__nav-link oddman-header__nav-link--info"
+                  >
+                    <div class="oddman-header__nav-gradient"></div>
+                    {%- if section.settings.nav_info_icon != blank -%}
+                      <img src="{{ section.settings.nav_info_icon | image_url: width: 224 }}" alt="" class="oddman-header__nav-icon oddman-header__nav-icon--img" />
+                    {%- else -%}
+                      <svg class="oddman-header__nav-icon oddman-header__nav-icon--info" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M16 8L8 16M8 8L16 16" stroke="white" stroke-width="2"/>
+                      </svg>
+                    {%- endif -%}
+                    <span class="oddman-header__nav-text">{{ section.settings.nav_info_label | default: 'Info' }}</span>
+                  </a>
+                </div>
+              {%- endif -%}
 
 
             </div>
@@ -202,75 +239,96 @@
         </button>
       </div>
       <div class="oddman-header__mobile-menu-items">
-        
-        <!-- Mobile Home Button -->
-        <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-right">
-          <a 
-            href="{{ routes.root_url }}"
-            class="oddman-header__mobile-link"
-            onclick="toggleMobileMenu()"
-          >
-            <div class="oddman-header__nav-gradient"></div>
-            <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z"/>
-            </svg>
-            <span class="oddman-header__mobile-text">Home</span>
-          </a>
-        </div>
 
-        <!-- Mobile Shop Button -->
-        <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-left">
-          <div 
-            class="oddman-header__mobile-link"
-            onclick="toggleMobileSubmenu('shop-submenu')"
-            style="cursor: pointer;"
-          >
-            <div class="oddman-header__nav-gradient"></div>
-            <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7Z"/>
-            </svg>
-            <span class="oddman-header__mobile-text">Shop +</span>
+        {%- if section.settings.show_mobile_home -%}
+          <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-right">
+            <a
+              href="{{ section.settings.mobile_home_link | default: routes.root_url }}"
+              class="oddman-header__mobile-link"
+              onclick="toggleMobileMenu()"
+            >
+              <div class="oddman-header__nav-gradient"></div>
+              {%- if section.settings.mobile_home_icon != blank -%}
+                <img src="{{ section.settings.mobile_home_icon | image_url: width: 224 }}" alt="" class="oddman-header__mobile-icon oddman-header__mobile-icon--img" />
+              {%- else -%}
+                <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M10 20V14H14V20H19V12H22L12 3L2 12H5V20H10Z"/>
+                </svg>
+              {%- endif -%}
+              <span class="oddman-header__mobile-text">{{ section.settings.mobile_home_label | default: 'Home' }}</span>
+            </a>
           </div>
-          
-          <div id="shop-submenu" class="oddman-mobile-submenu">
-             <a href="{{ routes.all_products_collection_url }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">SHOP ALL</a>
-             <a href="{{ section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">1/1</a>
+        {%- endif -%}
+
+        {%- if section.settings.show_mobile_shop -%}
+          <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-left">
+            <div
+              class="oddman-header__mobile-link"
+              onclick="toggleMobileSubmenu('shop-submenu')"
+              style="cursor: pointer;"
+            >
+              <div class="oddman-header__nav-gradient"></div>
+              {%- if section.settings.mobile_shop_icon != blank -%}
+                <img src="{{ section.settings.mobile_shop_icon | image_url: width: 224 }}" alt="" class="oddman-header__mobile-icon oddman-header__mobile-icon--img" />
+              {%- else -%}
+                <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 4V2C7 1.45 7.45 1 8 1H16C16.55 1 17 1.45 17 2V4H20C20.55 4 21 4.45 21 5S20.55 6 20 6H19V19C19 20.1 18.1 21 17 21H7C5.9 21 5 20.1 5 19V6H4C3.45 6 3 5.55 3 5S3.45 4 4 4H7Z"/>
+                </svg>
+              {%- endif -%}
+              <span class="oddman-header__mobile-text">{{ section.settings.mobile_shop_label | default: 'Shop +' }}</span>
+            </div>
+
+            <div id="shop-submenu" class="oddman-mobile-submenu">
+              <a href="{{ section.settings.shop_sublink_1_url | default: routes.all_products_collection_url }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">
+                {{- section.settings.shop_sublink_1_label | default: 'SHOP ALL' -}}
+              </a>
+              <a href="{{ section.settings.shop_sublink_2_url | default: section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">
+                {{- section.settings.shop_sublink_2_label | default: '1/1' -}}
+              </a>
+            </div>
           </div>
-        </div>
+        {%- endif -%}
 
-        <!-- Mobile Kult Button -->
-        <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-right">
-          <a 
-            href="{{ section.settings.kult_page_url | default: '/pages/kult' }}"
-            class="oddman-header__mobile-link"
-            onclick="toggleMobileMenu()"
-          >
-            <div class="oddman-header__nav-gradient"></div>
-            <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
-            </svg>
-            <span class="oddman-header__mobile-text">Kult</span>
-          </a>
-        </div>
-      
-        <!-- Mobile Info Button -->
-        <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-left-more">
-          <a 
-            href="{{ section.settings.info_page_url | default: '/pages/info' }}"
-            class="oddman-header__mobile-link"
-            onclick="toggleMobileMenu()"
-          >
-            <div class="oddman-header__nav-gradient"></div>
-            <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M16 8L8 16M8 8L16 16" stroke="white" stroke-width="2"/>
-            </svg>
-            <span class="oddman-header__mobile-text">Info</span>
-          </a>
-        </div>
+        {%- if section.settings.show_mobile_kult -%}
+          <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-right">
+            <a
+              href="{{ section.settings.mobile_kult_link | default: section.settings.kult_page_url | default: '/pages/kult' }}"
+              class="oddman-header__mobile-link"
+              onclick="toggleMobileMenu()"
+            >
+              <div class="oddman-header__nav-gradient"></div>
+              {%- if section.settings.mobile_kult_icon != blank -%}
+                <img src="{{ section.settings.mobile_kult_icon | image_url: width: 224 }}" alt="" class="oddman-header__mobile-icon oddman-header__mobile-icon--img" />
+              {%- else -%}
+                <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                </svg>
+              {%- endif -%}
+              <span class="oddman-header__mobile-text">{{ section.settings.mobile_kult_label | default: 'Kult' }}</span>
+            </a>
+          </div>
+        {%- endif -%}
 
-        <!-- Mobile 1/1 Button -->
-    
+        {%- if section.settings.show_mobile_info -%}
+          <div class="oddman-header__mobile-item oddman-header__mobile-item--rotate-left-more">
+            <a
+              href="{{ section.settings.mobile_info_link | default: section.settings.info_page_url | default: '/pages/info' }}"
+              class="oddman-header__mobile-link"
+              onclick="toggleMobileMenu()"
+            >
+              <div class="oddman-header__nav-gradient"></div>
+              {%- if section.settings.mobile_info_icon != blank -%}
+                <img src="{{ section.settings.mobile_info_icon | image_url: width: 224 }}" alt="" class="oddman-header__mobile-icon oddman-header__mobile-icon--img" />
+              {%- else -%}
+                <svg class="oddman-header__mobile-icon" width="112" height="112" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M16 8L8 16M8 8L16 16" stroke="white" stroke-width="2"/>
+                </svg>
+              {%- endif -%}
+              <span class="oddman-header__mobile-text">{{ section.settings.mobile_info_label | default: 'Info' }}</span>
+            </a>
+          </div>
+        {%- endif -%}
 
       </div>
     </div>
@@ -347,9 +405,19 @@
       right: 0;
       z-index: 1000;
       width: 100%;
-      transition: opacity 0.1s ease;
+      transition: background-color 0.25s ease;
       opacity: 1;
       height: 64px;
+      background-color: transparent;
+      color: var(--header-text, #f1f5f9);
+    }
+
+    /* Quando o usuário rolar a página, adiciona fundo escuro semitransparente
+       para manter legibilidade dos itens sobre qualquer conteúdo */
+    .oddman-header.scrolled {
+      background-color: rgba(0, 0, 0, 0.82) !important;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .oddman-header__container {
@@ -394,7 +462,7 @@
     .oddman-header__logo-text {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #dc2626;
+      color: var(--header-accent, #dc2626);
     }
 
     /* Navigation */
@@ -429,10 +497,10 @@
       align-items: center;
       justify-content: center;
       padding: 0.25rem 1.25rem;
-      background-color: #dc2626;
-      color: white;
+      background-color: var(--nav-item-bg, var(--header-accent, #dc2626));
+      color: var(--nav-item-color, #ffffff);
       text-decoration: none;
-      border: 1px solid black;
+      border: var(--nav-item-border, 1px solid black);
       font-weight: 500;
       font-size: 0.875rem;
       text-transform: uppercase;
@@ -444,8 +512,8 @@
 
     .oddman-header__nav-link:hover {
       transform: scale(1.05);
-      background-color: white;
-      color: black;
+      background-color: var(--nav-item-hover-bg, #ffffff);
+      color: var(--nav-item-hover-color, #000000);
     }
 
     .oddman-header__nav-link--kult,
@@ -456,7 +524,7 @@
     .oddman-header__nav-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to right, #dc2626, #f43f5e);
+      background: linear-gradient(to right, var(--header-accent, #dc2626), var(--header-accent-soft, #f43f5e));
       transform: translateX(-100%);
       transition: transform 0.3s ease;
     }
@@ -469,7 +537,7 @@
       position: absolute;
       width: 112px;
       height: 112px;
-      color: #f1f5f9;
+      color: var(--header-text, #f1f5f9);
       transition: all 0.3s ease;
     }
 
@@ -493,7 +561,11 @@
     .oddman-header__nav-link:hover .oddman-header__nav-icon {
       left: 1rem;
       bottom: -1.5rem;
-      color: #fb7185;
+      color: var(--header-accent-soft, #fb7185);
+    }
+
+    .oddman-header__nav-icon--img {
+      object-fit: contain;
     }
 
     .oddman-header__nav-text {
@@ -504,7 +576,7 @@
     /* Cart Button */
     .oddman-header__cart-btn {
       position: relative;
-      color: #dc2626;
+      color: var(--header-accent, #dc2626);
       font-size: 1.5rem;
       transition: transform 0.3s ease;
       background: none;
@@ -538,7 +610,7 @@
     }
 
     .oddman-header__mobile-toggle {
-      color: #dc2626;
+      color: var(--header-accent, #dc2626);
       font-size: 1.5rem;
       transition: all 0.3s ease;
       background: none;
@@ -602,7 +674,7 @@
     }
 
     .oddman-header__mobile-close:hover {
-      color: #dc2626;
+      color: var(--header-accent, #dc2626);
       transform: scale(1.05);
     }
 
@@ -637,7 +709,7 @@
       align-items: center;
       justify-content: center;
       padding: 0.5rem 2.5rem;
-      background-color: #dc2626;
+      background-color: var(--header-accent, #dc2626);
       color: white;
       text-decoration: none;
       border: 1px solid black;
@@ -659,7 +731,7 @@
       position: absolute;
       width: 112px;
       height: 112px;
-      color: #f1f5f9;
+      color: var(--header-text, #f1f5f9);
       transition: all 0.3s ease;
       bottom: 0.25rem;
       left: 7rem;
@@ -668,7 +740,11 @@
     .oddman-header__mobile-link:hover .oddman-header__mobile-icon {
       left: 1rem;
       bottom: -1.5rem;
-      color: #fb7185;
+      color: var(--header-accent-soft, #fb7185);
+    }
+
+    .oddman-header__mobile-icon--img {
+      object-fit: contain;
     }
 
     .oddman-header__mobile-text {
@@ -707,16 +783,31 @@
       }
 
       .oddman-header__container {
-        padding: 0 20px;
+        padding: 0 14px;
       }
 
-      .oddman-header__logo-img {
-        width: 4rem;
-        margin-right: 0;
+      /* Centralizar logo no mobile */
+      .oddman-header__content {
+        position: relative;
+      }
+
+      .oddman-header__logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: auto;
       }
 
       .oddman-header__logo-link {
         margin-top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .oddman-header__logo-img {
+        width: 3.5rem;
+        margin-right: 0;
       }
 
       .oddman-header__nav {
@@ -724,12 +815,7 @@
       }
     }
 
-    /* Sticky Header Effect */
-    .oddman-header.scrolled {
-      /* Adicione efeitos de scroll aqui se necessário */
-    }
-
-    /* Transparent Header */
+    /* Transparent Header (atributo do tema Dawn/Shopify) */
     .oddman-header[transparent] {
       position: absolute;
       background-color: transparent;
@@ -755,7 +841,7 @@
     }
 
     .oddman-dropdown-toggle {
-      background: #dc2626; /* Match link background */
+      background: var(--header-accent, #dc2626); /* Match link background */
       border: 1px solid black;
       cursor: pointer;
       font-family: inherit;
@@ -806,7 +892,7 @@
       position: absolute;
       bottom: 5px;
       right: 5px;
-      background-color: #dc2626;
+      background-color: var(--header-accent, #dc2626);
       color: white;
       font-size: 0.7rem;
       font-weight: bold;
@@ -829,7 +915,7 @@
     }
     
     .oddman-header__dropdown-item:hover {
-      background-color: #dc2626;
+      background-color: var(--header-accent, #dc2626);
       color: white;
     }
 
@@ -859,10 +945,26 @@
         "content": "Logo"
       },
       {
+        "type": "paragraph",
+        "content": "Você pode escolher uma logo abaixo ou usar a logo padrão definida em Theme Settings → Logo & Favicon. Se nenhuma estiver disponível, será exibido o texto de fallback."
+      },
+      {
         "type": "image_picker",
         "id": "custom_logo",
-        "label": "Logo personalizada (substitui a padrão)",
-        "info": "Se não selecionada, usará a logo padrão do Oddman"
+        "label": "Logo da seção (substitui a logo global)",
+        "info": "Tem prioridade sobre a logo global do tema"
+      },
+      {
+        "type": "url",
+        "id": "logo_fallback_url",
+        "label": "URL da logo de fallback",
+        "info": "Logo padrão exibida quando não há logo configurado. Default: logo oficial Oddman."
+      },
+      {
+        "type": "text",
+        "id": "logo_fallback_text",
+        "label": "Texto de fallback (se a URL da logo falhar)",
+        "default": "ODDMAN"
       },
       {
         "type": "range",
@@ -918,6 +1020,279 @@
         "id": "enable_sticky_header",
         "label": "Enable sticky header",
         "default": true
+      },
+      {
+        "type": "header",
+        "content": "Menu Desktop"
+      },
+      {
+        "type": "paragraph",
+        "content": "Cada item pode ter texto, link e um ícone (PNG/SVG/JPG) opcional. Se nenhum ícone for definido, será usado o ícone padrão (SVG embutido)."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_nav_shop",
+        "label": "Exibir item Shop",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "nav_shop_label",
+        "label": "Texto: Shop",
+        "default": "Shop",
+        "visible_if": "{{ section.settings.show_nav_shop }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "nav_shop_icon",
+        "label": "Ícone: Shop",
+        "visible_if": "{{ section.settings.show_nav_shop }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_nav_kult",
+        "label": "Exibir item Kult",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "nav_kult_label",
+        "label": "Texto: Kult",
+        "default": "Kult",
+        "visible_if": "{{ section.settings.show_nav_kult }}"
+      },
+      {
+        "type": "url",
+        "id": "nav_kult_link",
+        "label": "Link: Kult",
+        "visible_if": "{{ section.settings.show_nav_kult }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "nav_kult_icon",
+        "label": "Ícone: Kult",
+        "visible_if": "{{ section.settings.show_nav_kult }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_nav_info",
+        "label": "Exibir item Info",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "nav_info_label",
+        "label": "Texto: Info",
+        "default": "Info",
+        "visible_if": "{{ section.settings.show_nav_info }}"
+      },
+      {
+        "type": "url",
+        "id": "nav_info_link",
+        "label": "Link: Info",
+        "visible_if": "{{ section.settings.show_nav_info }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "nav_info_icon",
+        "label": "Ícone: Info",
+        "visible_if": "{{ section.settings.show_nav_info }}"
+      },
+      {
+        "type": "header",
+        "content": "Sub-menu do Shop (dropdown/sidebar)"
+      },
+      {
+        "type": "text",
+        "id": "shop_sublink_1_label",
+        "label": "Sub-link 1: texto",
+        "default": "SHOP ALL"
+      },
+      {
+        "type": "url",
+        "id": "shop_sublink_1_url",
+        "label": "Sub-link 1: URL"
+      },
+      {
+        "type": "text",
+        "id": "shop_sublink_2_label",
+        "label": "Sub-link 2: texto",
+        "default": "1/1"
+      },
+      {
+        "type": "url",
+        "id": "shop_sublink_2_url",
+        "label": "Sub-link 2: URL"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar (Menu Mobile)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Itens exibidos no menu mobile (sidebar). Cada item tem texto, link e ícone opcional."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile_home",
+        "label": "Exibir item Home",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mobile_home_label",
+        "label": "Texto: Home",
+        "default": "Home",
+        "visible_if": "{{ section.settings.show_mobile_home }}"
+      },
+      {
+        "type": "url",
+        "id": "mobile_home_link",
+        "label": "Link: Home",
+        "visible_if": "{{ section.settings.show_mobile_home }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_home_icon",
+        "label": "Ícone: Home",
+        "visible_if": "{{ section.settings.show_mobile_home }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile_shop",
+        "label": "Exibir item Shop",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mobile_shop_label",
+        "label": "Texto: Shop",
+        "default": "Shop +",
+        "visible_if": "{{ section.settings.show_mobile_shop }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_shop_icon",
+        "label": "Ícone: Shop",
+        "visible_if": "{{ section.settings.show_mobile_shop }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile_kult",
+        "label": "Exibir item Kult",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mobile_kult_label",
+        "label": "Texto: Kult",
+        "default": "Kult",
+        "visible_if": "{{ section.settings.show_mobile_kult }}"
+      },
+      {
+        "type": "url",
+        "id": "mobile_kult_link",
+        "label": "Link: Kult",
+        "visible_if": "{{ section.settings.show_mobile_kult }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_kult_icon",
+        "label": "Ícone: Kult",
+        "visible_if": "{{ section.settings.show_mobile_kult }}"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile_info",
+        "label": "Exibir item Info",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "mobile_info_label",
+        "label": "Texto: Info",
+        "default": "Info",
+        "visible_if": "{{ section.settings.show_mobile_info }}"
+      },
+      {
+        "type": "url",
+        "id": "mobile_info_link",
+        "label": "Link: Info",
+        "visible_if": "{{ section.settings.show_mobile_info }}"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_info_icon",
+        "label": "Ícone: Info",
+        "visible_if": "{{ section.settings.show_mobile_info }}"
+      },
+      {
+        "type": "header",
+        "content": "Cores do Header"
+      },
+      {
+        "type": "color",
+        "id": "header_bg_color",
+        "label": "Cor de fundo",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_text_color",
+        "label": "Cor do texto",
+        "default": "#f1f5f9"
+      },
+      {
+        "type": "color",
+        "id": "accent_color",
+        "label": "Cor de destaque (links/hover)",
+        "default": "#dc2626"
+      },
+      {
+        "type": "header",
+        "content": "Itens da Navegação (SHOP / KULT / INFO)"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_bg_color",
+        "label": "Fundo dos botões da nav (SHOP / KULT / INFO)",
+        "default": "#dc2626"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_text_color",
+        "label": "Cor do texto dos botões",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_hover_bg_color",
+        "label": "Fundo dos botões no hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "nav_item_hover_color",
+        "label": "Cor do texto no hover",
+        "default": "#000000"
+      },
+      {
+        "type": "select",
+        "id": "nav_item_border_style",
+        "label": "Borda dos botões da nav",
+        "options": [
+          { "value": "none", "label": "Sem borda" },
+          { "value": "1px solid currentColor", "label": "Linha fina (cor do texto)" },
+          { "value": "1px solid black", "label": "Linha fina preta" },
+          { "value": "1px solid white", "label": "Linha fina branca" }
+        ],
+        "default": "1px solid black"
+      },
+      {
+        "type": "color",
+        "id": "accent_color_soft",
+        "label": "Cor de destaque suave",
+        "default": "#fb7185"
       },
       {
         "type": "checkbox",

@@ -17,16 +17,25 @@
   assign has_video = false
   assign has_video_multiple = false
   assign has_media = false
-  assign has_oddman_gif = false
+  assign has_oddman_bg = false
+  assign oddman_bg_is_video = false
   assign media_type_1 = section.settings.media_type_1
   assign media_type_2 = section.settings.media_type_2
-  
-  # Verificar se deve usar o GIF do Oddman
+
+  # Background editável (GIF/imagem ou vídeo escolhido pelo Theme Editor)
+  # Sempre que use_oddman_gif_background estiver ativo, mostramos algo:
+  # 1) vídeo do Theme Editor, OU
+  # 2) imagem/GIF do Theme Editor, OU
+  # 3) URL externa do Theme Editor, OU
+  # 4) GIF original do Oddman (fallback hardcoded)
   if section.settings.use_oddman_gif_background
-    assign has_oddman_gif = true
+    assign has_oddman_bg = true
     assign has_media = true
+    if section.settings.oddman_background_video != blank
+      assign oddman_bg_is_video = true
+    endif
   endif
-  
+
   if section.settings.image_1 != blank and media_type_1 == 'image'
     assign has_image_1 = true
   endif
@@ -49,7 +58,7 @@
   if has_video_1 and has_video_2
     assign has_video_multiple = true
   endif
-  if has_image or has_video or has_oddman_gif
+  if has_image or has_video or has_oddman_bg
     assign has_media = true
   endif
 
@@ -67,25 +76,53 @@
 %}
 
 {% capture media %}
-  {%- if has_oddman_gif -%}
+  {%- if has_oddman_bg -%}
     {% assign media_count = media_count | plus: 1 %}
-    <div class="hero__oddman-gif-wrapper">
-      <img 
-        src="https://againstalloddz.netlify.app/Flash%20Cut%20Optimized.gif" 
-        alt="Oddman Animation"
-        class="hero__oddman-gif"
-        style="
-          opacity: {{ section.settings.oddman_gif_opacity | divided_by: 100.0 }};
-          mix-blend-mode: {{ section.settings.oddman_gif_blend_mode }};
-        "
-        loading="lazy"
-      />
-
-      
+    <div
+      class="hero__oddman-gif-wrapper"
+      style="--oddman-bg-opacity: {{ section.settings.oddman_gif_opacity | divided_by: 100.0 }}; --oddman-bg-blend: {{ section.settings.oddman_gif_blend_mode }};"
+    >
+      {%- if oddman_bg_is_video -%}
+        {{
+          section.settings.oddman_background_video
+          | video_tag:
+            poster: nil,
+            autoplay: true,
+            loop: true,
+            controls: false,
+            muted: true,
+            class: 'hero__oddman-gif'
+        }}
+      {%- elsif section.settings.oddman_background_image != blank -%}
+        {{
+          section.settings.oddman_background_image
+          | image_url: width: 3840
+          | image_tag:
+            width: section.settings.oddman_background_image.width,
+            widths: widths,
+            height: section.settings.oddman_background_image.height,
+            alt: section.settings.oddman_background_image.alt | default: 'Oddman background',
+            class: 'hero__oddman-gif',
+            sizes: sizes,
+            loading: 'lazy'
+        }}
+      {%- elsif section.settings.oddman_background_url != blank -%}
+        <img
+          src="{{ section.settings.oddman_background_url }}"
+          alt="Oddman background"
+          class="hero__oddman-gif"
+          loading="lazy"
+        />
+      {%- else -%}
+        <img
+          src="https://againstalloddz.netlify.app/Flash%20Cut%20Optimized.gif"
+          alt="Oddman Animation"
+          class="hero__oddman-gif"
+          loading="lazy"
+        />
+      {%- endif -%}
     </div>
-
   {%- endif -%}
-  
 
 
   {%- if has_image_1 -%}
@@ -191,13 +228,34 @@
 {% endcapture %}
 
 {% capture media_blurred %}
-  {% if has_oddman_gif %}
-    <img 
-      src="https://againstalloddz.netlify.app/Flash%20Cut%20Optimized.gif" 
-      alt=""
-      class="hero__image"
-      sizes="{{ sizes }}"
-    />
+  {% if has_oddman_bg %}
+    {%- if section.settings.oddman_background_image != blank -%}
+      {{
+        section.settings.oddman_background_image
+        | image_url: width: 3840
+        | image_tag:
+          width: section.settings.oddman_background_image.width,
+          widths: widths,
+          height: section.settings.oddman_background_image.height,
+          alt: '',
+          class: 'hero__image',
+          sizes: sizes
+      }}
+    {%- elsif section.settings.oddman_background_url != blank -%}
+      <img
+        src="{{ section.settings.oddman_background_url }}"
+        alt=""
+        class="hero__image"
+        sizes="{{ sizes }}"
+      />
+    {%- elsif oddman_bg_is_video == false -%}
+      <img
+        src="https://againstalloddz.netlify.app/Flash%20Cut%20Optimized.gif"
+        alt=""
+        class="hero__image"
+        sizes="{{ sizes }}"
+      />
+    {%- endif -%}
   {% endif %}
   {% if has_image_1 %}
     {{
@@ -232,12 +290,17 @@
 
 <div
   id="Hero-{{ section.id }}"
-  class="hero color-{{ section.settings.color_scheme }}{% if section.blocks.size == 0 and section.settings.section_height == 'auto' %} hero--no-blocks-auto-height{% endif %}{% if has_oddman_gif %} hero--oddman-gif{% endif %}"
+  class="hero color-{{ section.settings.color_scheme }}{% if section.blocks.size == 0 and section.settings.section_height == 'auto' %} hero--no-blocks-auto-height{% endif %}{% if has_oddman_bg %} hero--oddman-gif{% endif %}"
   style="
     --hero-border-style: {{ section.settings.border }};
     --hero-border-width: {{ section.settings.border_width }}px;
     --hero-border-opacity: {{ section.settings.border_opacity }}%;
     --blur-opacity: {{ section.settings.reflection_opacity | divided_by: 100.0 }};
+    --hero-button-bg: {{ section.settings.button_bg_color | default: '#dc2626' }};
+    --hero-button-text: {{ section.settings.button_text_color | default: '#ffffff' }};
+    --hero-button-border: {{ section.settings.button_border_color | default: '#000000' }};
+    --hero-button-hover-bg: {{ section.settings.button_hover_bg_color | default: '#ffffff' }};
+    --hero-button-hover-text: {{ section.settings.button_hover_text_color | default: '#dc2626' }};
     {% if section.settings.section_height == 'custom' %}
       --hero-min-height: {{ section.settings.section_height_custom }}svh;
     {% elsif section.settings.section_height == "full-screen" %}
@@ -302,15 +365,29 @@
       "
       style="{% render 'layout-panel-style', settings: section.settings %}"
     >
-      <!-- SVG acima do botão Shop -->
-      <div class="hero__svg-above-button">
-        <img 
-          src="{{ 'IMG_1301.svg' | asset_url }}" 
-          alt="Oddman Logo" 
-          class="hero__logo-svg"
-          
-        />
-      </div>
+      {%- if section.settings.show_hero_logo -%}
+        <div class="hero__svg-above-button">
+          {%- if section.settings.hero_logo != blank -%}
+            {{
+              section.settings.hero_logo
+              | image_url: width: 2000
+              | image_tag:
+                width: section.settings.hero_logo.width,
+                height: section.settings.hero_logo.height,
+                alt: section.settings.hero_logo.alt | default: 'Hero logo',
+                class: 'hero__logo-svg',
+                loading: 'lazy'
+            }}
+          {%- else -%}
+            <img
+              src="{{ 'IMG_1301.svg' | asset_url }}"
+              alt="Oddman Logo"
+              class="hero__logo-svg"
+              loading="lazy"
+            />
+          {%- endif -%}
+        </div>
+      {%- endif -%}
       {% content_for 'blocks' %}
     </div>
     <!-- Linha preta horizontal que cobre 100% da largura do container -->
@@ -427,6 +504,8 @@
     object-position: center center;
     position: relative;
     z-index: var(--layer-base);
+    opacity: var(--oddman-bg-opacity, 1);
+    mix-blend-mode: var(--oddman-bg-blend, normal);
   }
 
   /* Nova classe para o SVG na base do Hero */
@@ -475,17 +554,17 @@
     }
   }
 
-   /* Oddman Button Style - Baseado no design React */
+  /* Oddman Button Style - cores controladas pelo Theme Editor */
   .hero .button,
   .hero .btn,
   .hero a[class*="button"] {
     position: relative;
     z-index: 10;
     padding: 0.5rem 2rem;
-    border: 1px solid black;
+    border: 1px solid var(--hero-button-border, #000);
     transition: all 0.3s ease;
-    background-color: #dc2626;
-    color: white;
+    background-color: var(--hero-button-bg, #dc2626);
+    color: var(--hero-button-text, #fff);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 1.25rem;
@@ -499,8 +578,8 @@
   .hero .btn:hover,
   .hero a[class*="button"]:hover {
     transform: scale(1.05);
-    background-color: white;
-    color: #dc2626;
+    background-color: var(--hero-button-hover-bg, #fff);
+    color: var(--hero-button-hover-text, #dc2626);
   }
 
   /* Centralização do conteúdo */
@@ -753,62 +832,83 @@
   "settings": [
     {
       "type": "header",
-      "content": "Oddman Background"
+      "content": "Oddman Background (Hero)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Escolha uma imagem (PNG/JPG/GIF animado) ou um vídeo para usar como fundo do Hero. O vídeo tem prioridade se ambos estiverem preenchidos."
     },
     {
       "type": "checkbox",
       "id": "use_oddman_gif_background",
-      "label": "Use Oddman animated GIF background",
-      "default": false,
-      "info": "Adds the Oddman Flash Cut animation as background"
+      "label": "Ativar background do Oddman",
+      "default": true,
+      "info": "Mostra a mídia abaixo como fundo do Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "oddman_background_image",
+      "label": "Imagem / GIF de fundo",
+      "info": "Aceita PNG, JPG e GIF animado",
+      "visible_if": "{{ section.settings.use_oddman_gif_background }}"
+    },
+    {
+      "type": "video",
+      "id": "oddman_background_video",
+      "label": "Vídeo de fundo (opcional)",
+      "info": "Se preenchido, substitui a imagem acima",
+      "visible_if": "{{ section.settings.use_oddman_gif_background }}"
+    },
+    {
+      "type": "url",
+      "id": "oddman_background_url",
+      "label": "URL externa (fallback)",
+      "info": "Usada apenas se nem imagem nem vídeo forem definidos",
+      "visible_if": "{{ section.settings.use_oddman_gif_background }}"
     },
     {
       "type": "range",
       "id": "oddman_gif_opacity",
-      "label": "GIF opacity",
+      "label": "Opacidade do fundo",
       "min": 10,
       "max": 100,
       "step": 5,
       "unit": "%",
-      "default": 30,
+      "default": 100,
       "visible_if": "{{ section.settings.use_oddman_gif_background }}"
     },
     {
       "type": "select",
       "id": "oddman_gif_blend_mode",
-      "label": "GIF blend mode",
+      "label": "Modo de mesclagem",
       "options": [
-        {
-          "value": "normal",
-          "label": "Normal"
-        },
-        {
-          "value": "overlay",
-          "label": "Overlay"
-        },
-        {
-          "value": "multiply",
-          "label": "Multiply"
-        },
-        {
-          "value": "screen",
-          "label": "Screen"
-        },
-        {
-          "value": "soft-light",
-          "label": "Soft Light"
-        },
-        {
-          "value": "hard-light",
-          "label": "Hard Light"
-        },
-        {
-          "value": "difference",
-          "label": "Difference"
-        }
+        { "value": "normal", "label": "Normal" },
+        { "value": "overlay", "label": "Overlay" },
+        { "value": "multiply", "label": "Multiply" },
+        { "value": "screen", "label": "Screen" },
+        { "value": "soft-light", "label": "Soft Light" },
+        { "value": "hard-light", "label": "Hard Light" },
+        { "value": "difference", "label": "Difference" }
       ],
-      "default": "overlay",
+      "default": "normal",
       "visible_if": "{{ section.settings.use_oddman_gif_background }}"
+    },
+    {
+      "type": "header",
+      "content": "Logo do Hero"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero_logo",
+      "label": "Exibir logo acima do botão",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_logo",
+      "label": "Logo (SVG/PNG)",
+      "info": "Substitui o logo padrão do Hero",
+      "visible_if": "{{ section.settings.show_hero_logo }}"
     },
     {
       "type": "header",
@@ -1093,6 +1193,40 @@
       "id": "color_scheme",
       "label": "t:settings.color_scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Botão do Hero"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Fundo do botão",
+      "default": "#dc2626"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Texto do botão",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Borda do botão",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Fundo do botão (hover)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Texto do botão (hover)",
+      "default": "#dc2626"
     },
     {
       "type": "checkbox",

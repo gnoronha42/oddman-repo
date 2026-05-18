@@ -6,122 +6,132 @@
 <div class="section-background color-scheme-1"></div>
 <div class="section color-scheme-1" style="width: 100%; max-width: 100%; padding: 0; margin: 0;">
   <div class="spacing-style layout-panel-flex layout-panel-flex--column section-content-wrapper" style="width: 100%; max-width: 100%;">
-    
-    <footer class="footer">
+
+    <footer
+      class="footer"
+      style="
+        --footer-bg: {{ section.settings.footer_bg_color | default: '#000000' }};
+        --footer-accent: {{ section.settings.footer_accent_color | default: '#ff0000' }};
+        --footer-accent-hover: {{ section.settings.footer_accent_hover_color | default: '#ff3333' }};
+        --footer-accent-soft: {{ section.settings.footer_accent_soft_color | default: '#ff6666' }};
+      "
+    >
       <div class="footer__content-top">
-        
-        <!-- Grid principal dos blocos - incluindo newsletter -->
+
         <div class="footer__blocks-wrapper">
-          
-          <!-- Bloco 1: Customer Care -->
-          <div class="footer-block footer-block--menu">
-            <h2 class="footer-block__heading">Customer Care</h2>
+
+          <details class="footer-block footer-block--menu">
+            <summary class="footer-block__heading">{{ section.settings.col_1_title | default: 'Customer Care' }}</summary>
             <ul class="footer-block__details-content list-unstyled">
               <li>
-                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
-                  FAQs
+                <a href="{{ section.settings.col_1_link_1_url | default: '/pages/info' }}" class="link link--text">
+                  {{- section.settings.col_1_link_1_label | default: 'FAQs' -}}
                 </a>
               </li>
               <li>
-                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
-                  Contact Us
+                <a href="{{ section.settings.col_1_link_2_url | default: '/pages/info' }}" class="link link--text">
+                  {{- section.settings.col_1_link_2_label | default: 'Contact Us' -}}
                 </a>
               </li>
             </ul>
-          </div>
-          
-          <!-- Bloco 2: Legal -->
-          <div class="footer-block footer-block--menu">
-            <h2 class="footer-block__heading">Legal</h2>
+          </details>
+
+          <details class="footer-block footer-block--menu">
+            <summary class="footer-block__heading">{{ section.settings.col_2_title | default: 'Legal' }}</summary>
             <ul class="footer-block__details-content list-unstyled">
               <li>
-                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
-                  Terms & Conditions
+                <a href="{{ section.settings.col_2_link_1_url | default: '/pages/info' }}" class="link link--text">
+                  {{- section.settings.col_2_link_1_label | default: 'Terms & Conditions' -}}
                 </a>
               </li>
               <li>
-                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
-                  Privacy Policy
+                <a href="{{ section.settings.col_2_link_2_url | default: '/pages/info' }}" class="link link--text">
+                  {{- section.settings.col_2_link_2_label | default: 'Privacy Policy' -}}
                 </a>
               </li>
               <li>
-                <a href="/pages/info" class="link link--text list-menu__item list-menu__item--link">
-                  Cookies Policy
+                <a href="{{ section.settings.col_2_link_3_url | default: '/pages/info' }}" class="link link--text">
+                  {{- section.settings.col_2_link_3_label | default: 'Cookies Policy' -}}
                 </a>
               </li>
             </ul>
-          </div>
-          
-          <!-- Bloco 3: Stockists -->
-     
-          
-          <!-- Bloco 4: Follow Us -->
-          <div class="footer-block">
-            <h2 class="footer-block__heading">Follow</h2>
+          </details>
+
+          {%- if section.settings.col_3_enabled -%}
+            <details class="footer-block footer-block--menu footer-block--no-accordion-mobile" open>
+              <summary class="footer-block__heading">{{ section.settings.col_3_title | default: 'Stockists' }}</summary>
+              <div class="footer-block__details-content rte">
+                {{ section.settings.col_3_content | default: '<p>Coming soon</p>' }}
+              </div>
+            </details>
+          {%- endif -%}
+
+          <details class="footer-block">
+            <summary class="footer-block__heading">{{ section.settings.col_4_title | default: 'Follow' }}</summary>
             <div class="footer-block__details-content rte">
               <p>
-                <a href="https://www.instagram.com/alldaodds/" 
-                   target="_blank" 
-                   class="link link--text"
-                   title="INSTAGRAM">
-                  INSTAGRAM
+                <a href="{{ section.settings.social_instagram | default: 'https://www.instagram.com/alldaodds/' }}"
+                   target="_blank"
+                   rel="noopener"
+                   class="link link--text">
+                  Instagram
                 </a>
               </p>
               <p>
-                <a href="https://www.facebook.com/oddman" 
-                   target="_blank" 
-                   class="link link--text"
-                   title="FACEBOOK">
-                  FACEBOOK
+                <a href="{{ section.settings.social_facebook | default: 'https://www.facebook.com/oddman' }}"
+                   target="_blank"
+                   rel="noopener"
+                   class="link link--text">
+                  Facebook
                 </a>
               </p>
             </div>
-          </div>
-          
-          <!-- Bloco 5: Newsletter - agora na mesma linha -->
-          <div class="footer-block footer-block--newsletter-inline">
-            <form method="post" 
-                  action="/contact#ContactFooter" 
-                  id="ContactFooter" 
-                  accept-charset="UTF-8" 
+          </details>
+
+          <div class="footer-block footer-block--newsletter-inline footer-block--no-accordion-mobile">
+            <h2 class="footer-block__heading">{{ section.settings.newsletter_title | default: 'Join our community' }}</h2>
+            <form method="post"
+                  action="/contact#ContactFooter"
+                  id="ContactFooter"
+                  accept-charset="UTF-8"
                   class="footer__newsletter newsletter-form">
-              
+
               <input type="hidden" name="form_type" value="customer">
               <input type="hidden" name="utf8" value="✓">
               <input type="hidden" name="contact[tags]" value="newsletter">
-              
+
               <div class="newsletter-form__field-wrapper">
                 <div class="field">
-                  <input id="NewsletterForm--footer" 
-                         type="email" 
-                         name="contact[email]" 
-                         class="field__input" 
-                         value="" 
-                         aria-required="true" 
-                         autocorrect="off" 
-                         autocapitalize="off" 
-                         autocomplete="email" 
-                         placeholder="Email" 
+                  <input id="NewsletterForm--footer"
+                         type="email"
+                         name="contact[email]"
+                         class="field__input"
+                         value=""
+                         aria-required="true"
+                         autocorrect="off"
+                         autocapitalize="off"
+                         autocomplete="email"
+                         placeholder="{{ section.settings.newsletter_placeholder | default: 'Email' }}"
                          required="">
-                  <button type="submit" 
-                          class="newsletter-form__button field__button" 
-                          name="commit" 
-                          id="Subscribe" 
+                  <button type="submit"
+                          class="newsletter-form__button field__button"
+                          name="commit"
+                          id="Subscribe"
                           aria-label="Subscribe">
-                    Subscribe
+                    {{ section.settings.newsletter_button_label | default: 'Subscribe' }}
                   </button>
                 </div>
               </div>
-              
+
               <span class="form--text">
-                You may unsubscribe at any time. To find out more, please visit our 
-                <a class="privacyLink" href="/pages/privacy-policy">Privacy Policy</a>.
+                {{ section.settings.newsletter_privacy_text | default: 'You may unsubscribe at any time. To find out more, please visit our' }}
+                <a class="privacyLink" href="{{ section.settings.newsletter_privacy_url | default: '/pages/privacy-policy' }}">Privacy Policy</a>.
               </span>
             </form>
           </div>
-          
+
         </div>
-        
+
       </div>
       
       <!-- Footer Bottom -->
@@ -156,7 +166,7 @@
   margin-left: -50vw !important;
   margin-right: -50vw !important;
   
-  background: #000000 !important;
+  background: var(--footer-bg, #000000) !important;
   padding: 3rem 0 2rem !important;
   
   display: flex;
@@ -173,158 +183,128 @@
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
-  padding: 0 4% !important; /* Padding responsivo */
+  padding: 0 4% !important;
   box-sizing: border-box;
 }
 
-/* Grid responsivo para os blocos - layout horizontal */
+/* DESKTOP: colunas próximas centralizadas (estilo Lựu Đạn) */
 .footer__blocks-wrapper {
-  display: grid;
-  /* auto-fit evita "coluna fantasma" quando há menos blocos no HTML */
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 2rem 3rem; /* Gap horizontal maior, vertical menor */
-  margin-bottom: 2rem;
-  align-items: start;
-  width: 100% !important;
-  margin: 0 !important;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(32px, 6vw, 80px);
+  max-width: 1100px;
+  margin: 0 auto 1.5rem !important;
   padding: 0 !important;
-  justify-items: stretch; /* Garante que os itens ocupem o espaço disponível */
-}
-
-/* Alinhamento dos blocos */
-.footer-block {
-    width: 100%;
-    text-align: left; /* Padrão à esquerda */
-}
-
-/* Primeiro bloco alinhado à esquerda */
-.footer-block:first-child,
-.footer-block:first-child .footer-block__heading,
-.footer-block:first-child .footer-block__details-content,
-.footer-block:first-child ul,
-.footer-block:first-child p,
-.footer-block:first-child a {
-    text-align: left;
-    align-items: flex-start;
-}
-
-/* Último bloco (newsletter) alinhado à direita */
-.footer-block:last-child,
-.footer-block:last-child .footer-block__heading,
-.footer-block:last-child .footer-block__details-content,
-.footer-block:last-child p,
-.footer-block:last-child form,
-.footer-block:last-child .newsletter-form__field-wrapper {
-    text-align: right;
-    align-items: flex-end;
-    margin-left: auto;
-}
-
-/* Ajuste específico para o formulário na direita */
-.footer-block:last-child .newsletter-form__field-wrapper {
-    align-items: flex-end; /* Alinha input/botão à direita se estiverem em coluna */
-}
-
-/* Ajuste para mobile */
-@media (max-width: 768px) {
-  .footer__content-top,
-  .footer__content-bottom {
-      padding: 0 20px !important;
-  }
-  
-  .footer__blocks-wrapper {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
-  }
-  
-  /* No mobile, volta tudo para o centro */
-  .footer-block,
-  .footer-block:first-child,
-  .footer-block:last-child,
-  .footer-block:first-child *,
-  .footer-block:last-child * {
-      text-align: center !important;
-      align-items: center !important;
-      margin-left: 0 !important;
-  }
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .footer-block {
-    width: 100%; /* Garante que o bloco ocupe sua área */
+  flex: 0 0 auto;
+  min-width: 120px;
+  text-align: left;
 }
 
-/* Responsividade */
-@media (max-width: 1200px) {
-  .footer__content-top,
-  .footer__content-bottom {
-    padding: 0 3% !important;
-  }
-  
-  .footer__blocks-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1.5rem 2rem;
-  }
+.footer-block--newsletter-inline {
+  min-width: 240px;
+  max-width: 320px;
 }
 
-@media (max-width: 1024px) {
-  .footer__content-top,
-  .footer__content-bottom {
-    padding: 0 3% !important;
-  }
-  
-  .footer__blocks-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem 2rem;
-  }
+/* Estilos de summary (chevron mobile só) */
+.footer-block summary {
+  list-style: none;
+  outline: none;
 }
+.footer-block summary::-webkit-details-marker { display: none; }
+.footer-block summary::marker { display: none; }
 
-@media (max-width: 768px) {
-  .footer__blocks-wrapper {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+/* Desktop: summary não-clicável (conteúdo sempre aberto via JS) */
+@media (min-width: 769px) {
+  .footer-block summary {
+    cursor: default;
+    pointer-events: none;
   }
-  
-  .footer {
-    padding: 2rem 0 1.5rem;
-  }
-
-  .newsletter-form__field-wrapper {
-    gap: 0.5rem;
-  }
-}
-
-/* Estilo dos blocos individuais */
-.footer-block {
-  text-align: center;
 }
 
 .footer-block__heading {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ff0000;
-  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--footer-accent, #ff0000);
+  margin: 0 0 0.85rem 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   border-bottom: none;
-  padding-bottom: 0.5rem;
+  padding: 0;
   display: block;
   font-family: 'Arial', sans-serif;
-  text-align: center;
+  text-align: left;
 }
 
-/* Conteúdo dos blocos centralizado */
 .footer-block__details-content {
-  text-align: center;
+  text-align: left;
 }
 
 .footer-block__details-content ul {
-  text-align: center;
-  display: inline-block;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* MOBILE: accordion (clica no heading e expande) */
+@media (max-width: 768px) {
+  .footer__content-top,
+  .footer__content-bottom {
+    padding: 0 20px !important;
+  }
+
+  .footer__blocks-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-width: 100%;
+    margin: 0 !important;
+  }
+
+  .footer-block {
+    width: 100%;
+    min-width: 0;
+    border-bottom: 1px solid var(--footer-accent, #ff0000);
+    padding: 1rem 0;
+  }
+  .footer-block--newsletter-inline { max-width: 100%; }
+
+  .footer-block summary {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+  }
+
+  /* chevron > no mobile só nos blocos com accordion */
+  details.footer-block:not(.footer-block--no-accordion-mobile) summary::after {
+    content: '›';
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--footer-accent, #ff0000);
+    line-height: 1;
+    transition: transform 0.2s ease;
+  }
+  details.footer-block:not(.footer-block--no-accordion-mobile)[open] summary::after {
+    transform: rotate(90deg);
+  }
+
+  .footer-block__details-content {
+    padding-top: 0.75rem;
+  }
 }
 
 /* Links dos menus */
 .footer-block__details-content .link {
-  color: #ff0000;
+  color: var(--footer-accent, #ff0000);
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.3s ease;
@@ -336,7 +316,7 @@
 }
 
 .footer-block__details-content .link:hover {
-  color: #ff3333;
+  color: var(--footer-accent-hover, #ff3333);
   text-decoration: underline;
 }
 
@@ -371,7 +351,7 @@
 
 .footer-block--newsletter-inline .footer-block__heading {
   font-size: 1.1rem;
-  color: #ff0000;
+  color: var(--footer-accent, #ff0000);
   border-bottom: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -409,8 +389,8 @@
   border: 1px solid #ff0000 !important;
   outline: none !important;
   font-size: 0.95rem;
-  background: #000000 !important;
-  color: #ff0000 !important;
+  background: var(--footer-bg, #000000) !important;
+  color: var(--footer-accent, #ff0000) !important;
   font-family: 'Arial', sans-serif;
   box-shadow: none !important;
   -webkit-appearance: none !important;
@@ -420,11 +400,11 @@
 }
 
 .field__input::placeholder {
-  color: #ff6666;
+  color: var(--footer-accent-soft, #ff6666);
 }
 
 .field__button {
-  background: #ff0000;
+  background: var(--footer-accent, #ff0000);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -437,13 +417,13 @@
 }
 
 .field__button:hover {
-  background: #ff3333;
+  background: var(--footer-accent-hover, #ff3333);
 }
 
 /* Texto do formulário */
 .form--text {
   font-size: 0.65rem;
-  color: #ff0000;
+  color: var(--footer-accent, #ff0000);
   line-height: 1.3;
   font-family: 'Arial', sans-serif;
   text-transform: uppercase;
@@ -452,7 +432,7 @@
 }
 
 .form--text .privacyLink {
-  color: #ff0000;
+  color: var(--footer-accent, #ff0000);
   text-decoration: none;
 }
 
@@ -465,7 +445,7 @@
   border-top: none;
   padding-top: 1.5rem;
   text-align: center;
-  color: #ff0000;
+  color: var(--footer-accent, #ff0000);
 }
 
 /* Ajustes específicos para mobile */
@@ -540,7 +520,7 @@
 
 /* Estilo consistente - sempre preto e vermelho */
 .footer {
-  background: #000000 !important;
+  background: var(--footer-bg, #000000) !important;
 }
 
 /* Remover bordas brancas específicas */
@@ -556,14 +536,14 @@
 .footer-block__details-content p,
 .footer-block__details-content a,
 .form--text {
-  color: #ff0000 !important;
+  color: var(--footer-accent, #ff0000) !important;
 }
 
 .field__input {
-  background: #000000 !important;
+  background: var(--footer-bg, #000000) !important;
   border: 1px solid #ff0000 !important;
-  border-color: #ff0000 !important;
-  color: #ff0000 !important;
+  border-color: var(--footer-accent, #ff0000) !important;
+  color: var(--footer-accent, #ff0000) !important;
   outline: none !important;
   box-shadow: none !important;
   -webkit-appearance: none !important;
@@ -573,22 +553,48 @@
 
 .field__input:focus {
   border: 1px solid #ff0000 !important;
-  border-color: #ff0000 !important;
+  border-color: var(--footer-accent, #ff0000) !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
 .field__input:hover {
   border: 1px solid #ff0000 !important;
-  border-color: #ff0000 !important;
+  border-color: var(--footer-accent, #ff0000) !important;
 }
 
 .field__button {
-  background: #ff0000 !important;
+  background: var(--footer-accent, #ff0000) !important;
   /* color: white !important; */
 }
 
 </style>
+
+<script>
+  (function () {
+    var mq = window.matchMedia('(max-width: 768px)');
+    function applyFooterAccordion() {
+      var isMobile = mq.matches;
+      document.querySelectorAll('.footer details.footer-block').forEach(function (d) {
+        if (d.classList.contains('footer-block--no-accordion-mobile')) {
+          d.open = true;
+        } else {
+          d.open = !isMobile;
+        }
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyFooterAccordion);
+    } else {
+      applyFooterAccordion();
+    }
+    if (mq.addEventListener) {
+      mq.addEventListener('change', applyFooterAccordion);
+    } else if (mq.addListener) {
+      mq.addListener(applyFooterAccordion);
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -624,7 +630,68 @@
       "unit": "px",
       "label": "Espaçamento Inferior",
       "default": 36
-    }
+    },
+    {
+      "type": "header",
+      "content": "Cores do Footer"
+    },
+    {
+      "type": "color",
+      "id": "footer_bg_color",
+      "label": "Cor de fundo",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "footer_accent_color",
+      "label": "Cor de destaque (links, títulos)",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "footer_accent_hover_color",
+      "label": "Cor de destaque (hover)",
+      "default": "#ff3333"
+    },
+    {
+      "type": "color",
+      "id": "footer_accent_soft_color",
+      "label": "Cor de destaque suave",
+      "default": "#ff6666"
+    },
+
+    { "type": "header", "content": "Coluna 1 — Customer Care" },
+    { "type": "text", "id": "col_1_title", "label": "Título", "default": "Customer Care" },
+    { "type": "text", "id": "col_1_link_1_label", "label": "Link 1 — texto", "default": "FAQs" },
+    { "type": "url", "id": "col_1_link_1_url", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_1_link_2_label", "label": "Link 2 — texto", "default": "Contact Us" },
+    { "type": "url", "id": "col_1_link_2_url", "label": "Link 2 — URL" },
+
+    { "type": "header", "content": "Coluna 2 — Legal" },
+    { "type": "text", "id": "col_2_title", "label": "Título", "default": "Legal" },
+    { "type": "text", "id": "col_2_link_1_label", "label": "Link 1 — texto", "default": "Terms & Conditions" },
+    { "type": "url", "id": "col_2_link_1_url", "label": "Link 1 — URL" },
+    { "type": "text", "id": "col_2_link_2_label", "label": "Link 2 — texto", "default": "Privacy Policy" },
+    { "type": "url", "id": "col_2_link_2_url", "label": "Link 2 — URL" },
+    { "type": "text", "id": "col_2_link_3_label", "label": "Link 3 — texto", "default": "Cookies Policy" },
+    { "type": "url", "id": "col_2_link_3_url", "label": "Link 3 — URL" },
+
+    { "type": "header", "content": "Coluna 3 — Stockists (opcional)" },
+    { "type": "checkbox", "id": "col_3_enabled", "label": "Exibir coluna Stockists", "default": false },
+    { "type": "text", "id": "col_3_title", "label": "Título", "default": "Stockists" },
+    { "type": "richtext", "id": "col_3_content", "label": "Conteúdo", "default": "<p>Coming soon</p>" },
+
+    { "type": "header", "content": "Coluna 4 — Follow" },
+    { "type": "text", "id": "col_4_title", "label": "Título", "default": "Follow" },
+    { "type": "url", "id": "social_instagram", "label": "URL do Instagram" },
+    { "type": "url", "id": "social_facebook", "label": "URL do Facebook" },
+
+    { "type": "header", "content": "Coluna 5 — Newsletter" },
+    { "type": "text", "id": "newsletter_title", "label": "Título", "default": "Join our community" },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Placeholder do campo de email", "default": "Email" },
+    { "type": "text", "id": "newsletter_button_label", "label": "Texto do botão", "default": "Subscribe" },
+    { "type": "text", "id": "newsletter_privacy_text", "label": "Texto antes do link de privacidade", "default": "You may unsubscribe at any time. To find out more, please visit our" },
+    { "type": "url", "id": "newsletter_privacy_url", "label": "URL da Política de Privacidade" }
   ]
 }
 {% endschema %}

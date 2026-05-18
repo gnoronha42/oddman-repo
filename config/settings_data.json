@@ -70,7 +70,7 @@
     "variant_button_width": "equal-width-buttons",
     "enable_newsletter_modal": true,
     "newsletter_modal_home_only": true,
-    "newsletter_modal_frequency": "every_visit",
+    "newsletter_modal_frequency": "once_per_visitor",
     "newsletter_modal_image": "shopify://shop_images/unnamed.jpg",
     "newsletter_modal_logo_text": "ODDMAN",
     "newsletter_modal_headline": "JOIN THE KULT",
@@ -80,10 +80,10 @@
       "scheme-1": {
         "settings": {
           "background": "#ffffff",
-          "foreground_heading": "#030302",
-          "foreground": "#030302c2",
-          "primary": "#030302",
-          "primary_hover": "#030302",
+          "foreground_heading": "#000000",
+          "foreground": "#000000",
+          "primary": "#000000",
+          "primary_hover": "#000000",
           "border": "#d3cec5",
           "shadow": "#030302",
           "primary_button_background": "#030302",
@@ -475,10 +475,10 @@
         "scheme-1": {
           "settings": {
             "background": "#ffffff",
-            "foreground_heading": "#030302",
-            "foreground": "#030302c2",
-            "primary": "#030302",
-            "primary_hover": "#030302",
+            "foreground_heading": "#000000",
+            "foreground": "#000000",
+            "primary": "#000000",
+            "primary_hover": "#000000",
             "border": "#d3cec5",
             "shadow": "#030302",
             "primary_button_background": "#030302",

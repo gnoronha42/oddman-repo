@@ -1,15 +1,35 @@
+{% liquid
+  assign accent_color = section.settings.accent_color | default: '#ff0000'
+  assign background_color = section.settings.background_color | default: '#000000'
+  assign text_color = section.settings.text_color | default: '#cccccc'
+  assign heading_color = section.settings.heading_color | default: '#ffffff'
+  assign button_bg = section.settings.button_bg | default: '#ff0000'
+  assign button_hover_bg = section.settings.button_hover_bg | default: '#cc0000'
+  assign button_text = section.settings.button_text_color | default: '#ffffff'
+%}
+
 <style>
+  #kult-{{ section.id }} {
+    --kult-accent: {{ accent_color }};
+    --kult-bg: {{ background_color }};
+    --kult-text: {{ text_color }};
+    --kult-heading: {{ heading_color }};
+    --kult-btn-bg: {{ button_bg }};
+    --kult-btn-hover-bg: {{ button_hover_bg }};
+    --kult-btn-text: {{ button_text }};
+  }
+
   /* Reset e Fontes Base */
   .kult-page-wrapper {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--kult-bg);
+    color: var(--kult-heading);
     font-family: 'Arial', 'Helvetica', sans-serif;
     overflow-x: hidden;
     width: 100%;
   }
 
-  .kult-page-wrapper h1, 
-  .kult-page-wrapper h2, 
+  .kult-page-wrapper h1,
+  .kult-page-wrapper h2,
   .kult-page-wrapper h3 {
     text-transform: uppercase;
     font-weight: 900;
@@ -22,17 +42,17 @@
     font-size: 1rem;
     line-height: 1.5;
     margin-bottom: 1.5rem;
-    color: #cccccc;
+    color: var(--kult-text);
   }
 
   .kult-page-wrapper strong {
-    color: #ffffff;
+    color: var(--kult-heading);
   }
 
   /* Botões */
   .kult-btn {
-    background-color: #ff0000;
-    color: #ffffff;
+    background-color: var(--kult-btn-bg);
+    color: var(--kult-btn-text);
     border: none;
     padding: 12px 24px;
     text-transform: uppercase;
@@ -43,37 +63,36 @@
     text-decoration: none;
     display: inline-block;
     transition: background 0.3s ease;
-    /* Centralização perfeita */
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
   }
 
-
-
-
-  
-
   .kult-btn:hover {
-    background-color: #cc0000;
+    background-color: var(--kult-btn-hover-bg);
   }
 
-
-img, picture, video, canvas, svg {
+  .kult-page-wrapper img,
+  .kult-page-wrapper picture,
+  .kult-page-wrapper video,
+  .kult-page-wrapper canvas,
+  .kult-page-wrapper svg {
     position: relative;
     max-width: 100%;
     justify-content: flex-end;
     left: 3%;
-   
-}
-
-@media (max-width: 1050px) {
-  img, picture, video, canvas, svg {
-    left:4% ;
-    
   }
-}
+
+  @media (max-width: 1050px) {
+    .kult-page-wrapper img,
+    .kult-page-wrapper picture,
+    .kult-page-wrapper video,
+    .kult-page-wrapper canvas,
+    .kult-page-wrapper svg {
+      left: 4%;
+    }
+  }
 
   /* SEÇÕES GERAIS */
   .kult-section {
@@ -128,7 +147,7 @@ img, picture, video, canvas, svg {
 
   .kult-hero h1 {
     font-size: clamp(4rem, 15vw, 12rem);
-    color: #ffffff;
+    color: var(--kult-heading);
     margin-bottom: 2rem;
     background: linear-gradient(90deg, #fff, #ccc);
     -webkit-background-clip: text;
@@ -151,12 +170,12 @@ img, picture, video, canvas, svg {
 
   .kult-journey .left h2 {
     font-size: clamp(3rem, 5vw, 5rem);
-    color: #ff0000;
+    color: var(--kult-accent);
     margin-bottom: 1rem;
   }
-  
+
   .kult-journey .left p {
-    color: #ff0000;
+    color: var(--kult-accent);
   }
 
   .the-journey-svg {
@@ -184,35 +203,47 @@ img, picture, video, canvas, svg {
     right: -30px;
     width: 120px;
     height: 120px;
-    background: url("{{ 'roses.png' | asset_url }}") no-repeat center center;
+    background: var(--kult-badge-bg) no-repeat center center;
     background-size: contain;
     z-index: 2;
   }
-  
-  /* 4. Giant Image Banner */
+
+  /* 4. Vídeo compacto + frases (estilo hero-png-effect) */
   .kult-wide-image {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 2rem auto 1rem;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .kult-wide-image__video-wrap {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto 1.5rem;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
   }
 
   .kult-wide-image img,
   .kult-wide-video {
     width: 100%;
     height: auto;
+    max-height: 420px;
     display: block;
+    object-fit: cover;
+    border-radius: 14px;
   }
 
-  /* 5. Section “Who Rocks It” */
+  /* 5. Section "Who Rocks It" */
   .kult-who-rocks {
     text-align: center;
   }
 
   .kult-who-rocks h2 {
     font-size: 2rem;
-    color: #ff0000;
+    color: var(--kult-accent);
     margin-bottom: 1rem;
     text-align: center;
   }
@@ -225,7 +256,7 @@ img, picture, video, canvas, svg {
     justify-content: center;
     align-items: center;
   }
-  
+
   .kult-collage img {
     width: 100%;
     height: auto;
@@ -234,17 +265,17 @@ img, picture, video, canvas, svg {
 
   .kult-collage img:hover {
     transform: scale(1.02);
-    border-color: #ff0000;
+    border-color: var(--kult-accent);
   }
 
-  /* 6. Section “The Kult Lifestyle” */
+  /* 6. Section "The Kult Lifestyle" */
   .kult-lifestyle {
     text-align: center;
   }
 
   .kult-lifestyle h2 {
     font-size: 2.5rem;
-    color: #ff0000;
+    color: var(--kult-accent);
     margin-bottom: 1rem;
   }
 
@@ -269,7 +300,7 @@ img, picture, video, canvas, svg {
     display: block;
   }
 
-  /* 7. Section “Our Vibes” */
+  /* 7. Section "Our Vibes" */
   .kult-vibes {
     display: flex;
     gap: 2rem;
@@ -297,7 +328,7 @@ img, picture, video, canvas, svg {
 
   .kult-vibes .content-right h2 {
     font-size: clamp(3rem, 5vw, 5rem);
-    color: #ff0000;
+    color: var(--kult-accent);
     margin-bottom: 1.5rem;
   }
 
@@ -308,7 +339,7 @@ img, picture, video, canvas, svg {
   }
 
   .kult-vibes .content-right p {
-    color: #ff0000;
+    color: var(--kult-accent);
   }
 
   /* 8. Slider Dots (Visual) */
@@ -325,8 +356,9 @@ img, picture, video, canvas, svg {
     background-color: #333;
     border-radius: 50%;
   }
+
   .dot.active {
-    background-color: #ff0000;
+    background-color: var(--kult-accent);
   }
 
   /* Responsividade */
@@ -334,7 +366,7 @@ img, picture, video, canvas, svg {
     .kult-hero h1 {
       font-size: 4rem;
     }
-    
+
     .kult-journey,
     .kult-vibes {
       flex-direction: column;
@@ -345,7 +377,7 @@ img, picture, video, canvas, svg {
     .kult-vibes {
       flex-direction: column-reverse;
     }
-    
+
     .kult-vibes .content-right {
       align-items: center;
       text-align: center;
@@ -358,12 +390,11 @@ img, picture, video, canvas, svg {
     .kult-model-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .kult-collage {
       grid-template-columns: 1fr;
     }
 
-    /* Ajustes para botões no mobile */
     .kult-btn {
       position: relative !important;
       top: auto !important;
@@ -374,7 +405,6 @@ img, picture, video, canvas, svg {
       margin: 1.5rem auto 0 !important;
     }
 
-    /* Primeira seção hero - botão centralizado */
     .kult-hero-section {
       position: relative;
       width: 100%;
@@ -390,7 +420,6 @@ img, picture, video, canvas, svg {
       z-index: 10;
     }
 
-    /* Seções com conteúdo - botão no fluxo */
     .kult-journey .left,
     .kult-vibes .content-right {
       position: relative;
@@ -405,7 +434,6 @@ img, picture, video, canvas, svg {
       margin: 1.5rem auto 0;
     }
 
-    /* Ajustes gerais de padding e espaçamento */
     .kult-section {
       padding: 1.5rem 1rem;
     }
@@ -418,46 +446,45 @@ img, picture, video, canvas, svg {
 
   /* Carousel CSS */
   .kult-carousel-container {
-      position: relative;
-      width: 100%;
-      height: auto;
-      min-height: 400px;
-      padding: 30px; /* Espaço para as rotações não cortarem */
-      overflow: visible; /* Permite ver as bordas das imagens rotacionadas */
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    padding: 30px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .kult-carousel-track {
-      display: grid;
-      grid-template-areas: "stack";
-      width: 100%;
-      max-width: 90%; /* Margem de segurança */
-      position: relative;
+    display: grid;
+    grid-template-areas: 'stack';
+    width: 100%;
+    max-width: 90%;
+    position: relative;
   }
 
   .kult-carousel-slide {
-      grid-area: stack;
-      width: 100%;
-      height: auto;
-      opacity: 1; /* Todas visíveis para o efeito de pilha */
-      transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
-      z-index: 1;
-      position: relative;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.1); /* Borda sutil para separar imagens escuras */
+    grid-area: stack;
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .kult-carousel-slide.active {
-      z-index: 10;
-      transform: rotate(0deg) scale(1) !important;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-      border: 1px solid rgba(255,255,255,0.2);
+    z-index: 10;
+    transform: rotate(0deg) scale(1) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  /* Rotações alternadas para criar o efeito bagunçado */
   .kult-carousel-slide:nth-child(1) { transform: rotate(-4deg); }
   .kult-carousel-slide:nth-child(2) { transform: rotate(3deg); }
   .kult-carousel-slide:nth-child(3) { transform: rotate(-2deg); }
@@ -466,112 +493,229 @@ img, picture, video, canvas, svg {
   .kult-carousel-slide:nth-child(even) { transform: rotate(3deg); }
 
   .kult-carousel-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
   }
 
   .carousel-dots {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 2;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
   }
 
   .dot {
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
   }
 
   .dot.active {
-      background-color: #ff0000;
+    background-color: var(--kult-accent);
   }
 </style>
 
-<div class="kult-page-wrapper">
+{%- liquid
+  assign hero_video = section.settings.hero_video
+  assign journey_image = section.settings.journey_image
+  assign journey_svg = section.settings.journey_svg
+  assign journey_badge = section.settings.journey_badge_image
+  assign wide_video = section.settings.wide_video
+  assign wide_image = section.settings.wide_image
+  assign who_rocks_image = section.settings.who_rocks_image
+  assign lifestyle_image = section.settings.lifestyle_image
+  assign vibes_svg = section.settings.vibes_svg
 
-  <!-- 2. Hero Section -->
-  <section class="kult-hero-section" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-      <video autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
-        <source src="{{ 'oddmangif.mp4' | asset_url }}" type="video/mp4">
-      </video>
-    </div>
-    <a href="/products" class="kult-btn">JOIN THE KULT</a>
-  </section>
+  if journey_badge != blank
+    assign badge_url = journey_badge | image_url: width: 240
+  else
+    assign badge_url = 'roses.png' | asset_url
+  endif
 
-  <!-- 3. Seção "The Journey" -->
-  <section class="kult-section kult-journey">
-    <div class="left">
-      <img src="{{ 'the-journey-2.svg' | asset_url }}" alt="The Journey" class="the-journey-svg">
-      <p>
-        **“ODDMAN began in 2021 in Nigeria with one belief: being different is a strength. We’re not here to follow trends — we’re here to challenge them. ODDMAN is more than a brand; it’s a lifestyle and a mindset.
-      </p>
-      <p>
-        KULT represents our community — a place for people who embrace individuality, creativity, and bold self-expression.
-      </p>
-    </div>
-    <div class="right">
-      <img src="{{ 'jon poster.png' | asset_url }}" alt="The Journey" class="main-img">
-      <div class="badge"></div>
-    </div>
-  </section>
+  comment
+    Apenas um vídeo na página: se o banner largo estiver ativo, o hero full-screen não renderiza.
+  endcomment
+  assign show_hero_render = section.settings.show_hero
+  if section.settings.show_wide_banner
+    assign show_hero_render = false
+  endif
+-%}
 
-  <!-- 4. Giant Image Banner -->
-  <section class="kult-wide-image">
-    <video autoplay muted loop class="kult-wide-video">
-      <source src="{{ 'oddmanpresentervideo.mp4' | asset_url }}" type="video/mp4">
-    </video>
-  </section>
+<div
+  id="kult-{{ section.id }}"
+  class="kult-page-wrapper"
+  style="--kult-badge-bg: url('{{ badge_url }}');"
+>
+  {%- if show_hero_render -%}
+    <section class="kult-hero-section" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        {%- if hero_video != blank -%}
+          {{
+            hero_video
+            | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              class: 'kult-hero-video',
+              style: 'width:100%;height:100%;object-fit:cover;'
+          }}
+        {%- else -%}
+          <video autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="{{ 'oddmangif.mp4' | asset_url }}" type="video/mp4">
+          </video>
+        {%- endif -%}
+      </div>
+      <a href="{{ section.settings.hero_button_link | default: '/products' }}" class="kult-btn">
+        {{- section.settings.hero_button_label | default: 'JOIN THE KULT' -}}
+      </a>
+    </section>
+  {%- endif -%}
 
-  <!-- 5. Section "Who Rocks It" -->
-  <section class="kult-section kult-who-rocks">
-    <h2>ØDDMAN Kulture: Who Rocks It</h2>
-    <div class="kult-collage">
-      <img src="{{ 'od x khaid poster.png' | asset_url }}" alt="OD x Khaid Poster">
-    </div>
-    
-  </section>
+  {%- if section.settings.show_wide_banner -%}
+    <section class="kult-wide-image">
+      <div class="kult-wide-image__video-wrap">
+        {%- if wide_video != blank -%}
+          {{
+            wide_video
+            | video_tag:
+              autoplay: true,
+              loop: true,
+              muted: true,
+              controls: false,
+              playsinline: true,
+              class: 'kult-wide-video'
+          }}
+        {%- elsif wide_image != blank -%}
+          {{
+            wide_image
+            | image_url: width: 1600
+            | image_tag:
+              alt: wide_image.alt,
+              class: 'kult-wide-video',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <video autoplay muted loop playsinline class="kult-wide-video">
+            <source src="{{ 'OddmanVideo.mp4' | asset_url }}" type="video/mp4">
+          </video>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
 
-  <!-- 6. Section "The Kult Lifestyle" -->
-  <section class="kult-section kult-lifestyle">
-    <h2>The Kult Lifestyle</h2>
-    <div class="kult-model-grid">
-    <img src="{{ 'kult poster.png' | asset_url }}" alt="Lifestyle 1">
-    </div>
-  </section>
+  {%- if section.settings.show_journey -%}
+    <section class="kult-section kult-journey">
+      <div class="left">
+        {%- if journey_svg != blank -%}
+          {{
+            journey_svg
+            | image_url: width: 1000
+            | image_tag:
+              alt: journey_svg.alt | default: 'The Journey',
+              class: 'the-journey-svg',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img src="{{ 'the-journey-2.svg' | asset_url }}" alt="The Journey" class="the-journey-svg" loading="lazy">
+        {%- endif -%}
 
-  <!-- 7. Section "Our Vibes" -->
-  <section class="kult-section kult-vibes">
-    <div class="image-left kult-carousel-container">
-       <div class="kult-carousel-track">
+        {%- if section.settings.journey_text != blank -%}
+          {{ section.settings.journey_text }}
+        {%- else -%}
+          <p>**"ODDMAN began in 2021 in Nigeria with one belief: being different is a strength. We're not here to follow trends — we're here to challenge them. ODDMAN is more than a brand; it's a lifestyle and a mindset.</p>
+          <p>KULT represents our community — a place for people who embrace individuality, creativity, and bold self-expression.</p>
+        {%- endif -%}
+      </div>
+      <div class="right">
+        {%- if journey_image != blank -%}
+          {{
+            journey_image
+            | image_url: width: 1600
+            | image_tag:
+              alt: journey_image.alt | default: 'The Journey',
+              class: 'main-img',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img src="{{ 'jon poster.png' | asset_url }}" alt="The Journey" class="main-img" loading="lazy">
+        {%- endif -%}
+        {%- if section.settings.show_journey_badge -%}
+          <div class="badge"></div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_who_rocks -%}
+    <section class="kult-section kult-who-rocks">
+      <h2>{{ section.settings.who_rocks_title | default: 'ØDDMAN Kulture: Who Rocks It' }}</h2>
+      <div class="kult-collage">
+        {%- if who_rocks_image != blank -%}
+          {{
+            who_rocks_image
+            | image_url: width: 3840
+            | image_tag:
+              alt: who_rocks_image.alt | default: 'Who rocks it',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img src="{{ 'od x khaid poster.png' | asset_url }}" alt="OD x Khaid Poster" loading="lazy">
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_lifestyle -%}
+    <section class="kult-section kult-lifestyle">
+      <h2>{{ section.settings.lifestyle_title | default: 'The Kult Lifestyle' }}</h2>
+      <div class="kult-model-grid">
+        {%- if lifestyle_image != blank -%}
+          {{
+            lifestyle_image
+            | image_url: width: 3840
+            | image_tag:
+              alt: lifestyle_image.alt | default: 'Lifestyle',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img src="{{ 'kult poster.png' | asset_url }}" alt="Lifestyle 1" loading="lazy">
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_vibes -%}
+    <section class="kult-section kult-vibes">
+      <div class="image-left kult-carousel-container">
+        <div class="kult-carousel-track">
           {% if section.blocks.size > 0 %}
-             {% for block in section.blocks %}
-               <div class="kult-carousel-slide {% if forloop.first %}active{% endif %}">
-                  <img src="{{ block.settings.image | image_url }}" alt="Kult Vibe">
-               </div>
-             {% endfor %}
+            {% for block in section.blocks %}
+              <div class="kult-carousel-slide {% if forloop.first %}active{% endif %}">
+                <img src="{{ block.settings.image | image_url: width: 1600 }}" alt="{{ block.settings.image.alt | default: 'Kult Vibe' }}" loading="lazy">
+              </div>
+            {% endfor %}
           {% else %}
-             <div class="kult-carousel-slide active">
-                <img src="{{ 'oddman-carrousel1.png' | asset_url }}" alt="Our Vibes 1">
-             </div>
-             <div class="kult-carousel-slide">
-                <img src="{{ 'oddman-carrousel2.png' | asset_url }}" alt="Our Vibes 2" onerror="this.style.display='none'; this.parentElement.style.display='none';">
-             </div>
-             <div class="kult-carousel-slide">
-                <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 3">
-             </div>
+            <div class="kult-carousel-slide active">
+              <img src="{{ 'oddman-carrousel1.png' | asset_url }}" alt="Our Vibes 1" loading="lazy">
+            </div>
+            <div class="kult-carousel-slide">
+              <img src="{{ 'oddman-carrousel2.png' | asset_url }}" alt="Our Vibes 2" loading="lazy" onerror="this.style.display='none'; this.parentElement.style.display='none';">
+            </div>
+            <div class="kult-carousel-slide">
+              <img src="{{ 'oddman-carrousel3.jpeg' | asset_url }}" alt="Our Vibes 3" loading="lazy">
+            </div>
           {% endif %}
-       </div>
-       <div class="carousel-dots">
+        </div>
+        <div class="carousel-dots">
           {% if section.blocks.size > 0 %}
             {% for block in section.blocks %}
               <div class="dot {% if forloop.first %}active{% endif %}" onclick="goToSlide({{ forloop.index0 }})"></div>
@@ -581,88 +725,322 @@ img, picture, video, canvas, svg {
             <div class="dot" onclick="goToSlide(1)"></div>
             <div class="dot" onclick="goToSlide(2)"></div>
           {% endif %}
-       </div>
-    </div>
-    <div class="content-right">
-      <img src="{{ 'our-vibes.svg' | asset_url }}" alt="Our Vibes" class="our-vibes-svg">
-      <p>
-        We host ODDMAN events across Toronto, the UK, and Nigeria — bringing our community together wherever the culture moves. Our gatherings connect creatives, thinkers, and the boldly different. With every city we touch, we push for global impact and steady growth, always aiming to build one of the strongest worldwide communities in fashion and lifestyle.
-      </p>
-    </div>
-  </section>
+        </div>
+      </div>
+      <div class="content-right">
+        {%- if vibes_svg != blank -%}
+          {{
+            vibes_svg
+            | image_url: width: 1000
+            | image_tag:
+              alt: vibes_svg.alt | default: 'Our Vibes',
+              class: 'our-vibes-svg',
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <img src="{{ 'our-vibes.svg' | asset_url }}" alt="Our Vibes" class="our-vibes-svg" loading="lazy">
+        {%- endif -%}
+        {%- if section.settings.vibes_text != blank -%}
+          {{ section.settings.vibes_text }}
+        {%- else -%}
+          <p>We host ODDMAN events across Toronto, the UK, and Nigeria — bringing our community together wherever the culture moves. Our gatherings connect creatives, thinkers, and the boldly different. With every city we touch, we push for global impact and steady growth, always aiming to build one of the strongest worldwide communities in fashion and lifestyle.</p>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
 </div>
 
 <script>
-  let currentSlide = 0;
-  let slideInterval;
-  const slideDuration = 3000;
+  (function() {
+    let currentSlide = 0;
+    let slideInterval;
+    const slideDuration = {{ section.settings.carousel_interval | default: 3000 }};
 
-  function showSlide(index) {
-    const slides = document.querySelectorAll('.kult-carousel-slide');
-    const dots = document.querySelectorAll('.dot');
-    
-    if (slides.length === 0) return;
+    function showSlide(index) {
+      const slides = document.querySelectorAll('#kult-{{ section.id }} .kult-carousel-slide');
+      const dots = document.querySelectorAll('#kult-{{ section.id }} .dot');
 
-    if (index >= slides.length) currentSlide = 0;
-    else if (index < 0) currentSlide = slides.length - 1;
-    else currentSlide = index;
+      if (slides.length === 0) return;
 
-    slides.forEach((slide, i) => {
-      slide.classList.remove('active');
-      if (dots[i]) dots[i].classList.remove('active');
-      
-      if (i === currentSlide) {
-        slide.classList.add('active');
-        if (dots[i]) dots[i].classList.add('active');
-      }
-    });
-  }
+      if (index >= slides.length) currentSlide = 0;
+      else if (index < 0) currentSlide = slides.length - 1;
+      else currentSlide = index;
 
-  function nextSlide() {
-    showSlide(currentSlide + 1);
-  }
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (dots[i]) dots[i].classList.remove('active');
 
-  function goToSlide(index) {
-    showSlide(index);
-    resetInterval();
-  }
-
-  function resetInterval() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(nextSlide, slideDuration);
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Start carousel only if elements exist
-    if (document.querySelector('.kult-carousel-slide')) {
-      slideInterval = setInterval(nextSlide, slideDuration);
-    }
-
-    // Abrir modal de newsletter ao clicar em "JOIN THE KULT"
-    const kultButtons = document.querySelectorAll('.kult-btn');
-    const newsletterModal = document.querySelector('#newsletter-modal');
-    
-    if (kultButtons.length > 0 && newsletterModal) {
-      kultButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-          e.preventDefault(); // Previne navegação para /products
-          try {
-            if (newsletterModal && typeof newsletterModal.showDialog === 'function') {
-              newsletterModal.showDialog();
-            }
-          } catch (err) {
-            console.warn('Erro ao abrir modal de newsletter:', err);
-          }
-        });
+        if (i === currentSlide) {
+          slide.classList.add('active');
+          if (dots[i]) dots[i].classList.add('active');
+        }
       });
     }
-  });
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    window.goToSlide = function(index) {
+      showSlide(index);
+      clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, slideDuration);
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.querySelector('#kult-{{ section.id }} .kult-carousel-slide')) {
+        slideInterval = setInterval(nextSlide, slideDuration);
+      }
+
+      {%- if section.settings.hero_button_opens_newsletter -%}
+        const kultButtons = document.querySelectorAll('#kult-{{ section.id }} .kult-btn');
+        const newsletterModal = document.querySelector('#newsletter-modal');
+
+        if (kultButtons.length > 0 && newsletterModal) {
+          kultButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+              e.preventDefault();
+              try {
+                if (newsletterModal && typeof newsletterModal.showDialog === 'function') {
+                  newsletterModal.showDialog();
+                }
+              } catch (err) {
+                console.warn('Erro ao abrir modal de newsletter:', err);
+              }
+            });
+          });
+        }
+      {%- endif -%}
+    });
+  })();
 </script>
 
 {% schema %}
 {
   "name": "Kult Page",
-  "settings": [],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Fundo da página",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Cor de destaque (títulos, parágrafos coloridos)",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Cor dos textos brancos / strong",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor dos parágrafos secundários",
+      "default": "#cccccc"
+    },
+    {
+      "type": "header",
+      "content": "Botão (JOIN THE KULT)"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Fundo do botão",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Fundo do botão (hover)",
+      "default": "#cc0000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Texto do botão",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Hero (Vídeo de fundo)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Exibir seção Hero (vídeo tela cheia)",
+      "info": "Desligado por padrão. Se o banner largo estiver ativo, o hero não aparece (apenas um vídeo na página).",
+      "default": false
+    },
+    {
+      "type": "video",
+      "id": "hero_video",
+      "label": "Vídeo de fundo do Hero",
+      "info": "Se vazio, usa oddmangif.mp4 dos assets"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_label",
+      "label": "Texto do botão",
+      "default": "JOIN THE KULT"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_button_opens_newsletter",
+      "label": "Botão abre modal de newsletter ao invés de navegar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "The Journey"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_journey",
+      "label": "Exibir seção The Journey",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "journey_svg",
+      "label": "Logo/SVG \"The Journey\"",
+      "info": "Se vazio, usa the-journey-2.svg dos assets"
+    },
+    {
+      "type": "richtext",
+      "id": "journey_text",
+      "label": "Texto da seção"
+    },
+    {
+      "type": "image_picker",
+      "id": "journey_image",
+      "label": "Imagem principal",
+      "info": "Se vazia, usa jon poster.png"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_journey_badge",
+      "label": "Exibir badge (rosas no canto)",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "journey_badge_image",
+      "label": "Imagem do badge",
+      "info": "Se vazia, usa roses.png",
+      "visible_if": "{{ section.settings.show_journey_badge }}"
+    },
+    {
+      "type": "header",
+      "content": "Wide Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wide_banner",
+      "label": "Exibir banner largo",
+      "default": true
+    },
+    {
+      "type": "video",
+      "id": "wide_video",
+      "label": "Vídeo (prioridade)",
+      "info": "Se vazio, usa a imagem abaixo"
+    },
+    {
+      "type": "image_picker",
+      "id": "wide_image",
+      "label": "Imagem (alternativa ao vídeo)",
+      "info": "Se ambos vazios, usa OddmanVideo.mp4 (mesmo vídeo da home)"
+    },
+    {
+      "type": "header",
+      "content": "Who Rocks It"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_who_rocks",
+      "label": "Exibir seção Who Rocks It",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "who_rocks_title",
+      "label": "Título",
+      "default": "ØDDMAN Kulture: Who Rocks It"
+    },
+    {
+      "type": "image_picker",
+      "id": "who_rocks_image",
+      "label": "Imagem",
+      "info": "Se vazia, usa od x khaid poster.png"
+    },
+    {
+      "type": "header",
+      "content": "The Kult Lifestyle"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_lifestyle",
+      "label": "Exibir seção Lifestyle",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "lifestyle_title",
+      "label": "Título",
+      "default": "The Kult Lifestyle"
+    },
+    {
+      "type": "image_picker",
+      "id": "lifestyle_image",
+      "label": "Imagem",
+      "info": "Se vazia, usa kult poster.png"
+    },
+    {
+      "type": "header",
+      "content": "Our Vibes"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vibes",
+      "label": "Exibir seção Our Vibes",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "vibes_svg",
+      "label": "Logo/SVG \"Our Vibes\"",
+      "info": "Se vazio, usa our-vibes.svg"
+    },
+    {
+      "type": "richtext",
+      "id": "vibes_text",
+      "label": "Texto da seção"
+    },
+    {
+      "type": "range",
+      "id": "carousel_interval",
+      "label": "Intervalo do carrossel (ms)",
+      "min": 1000,
+      "max": 9000,
+      "step": 500,
+      "default": 3000,
+      "unit": "ms"
+    }
+  ],
   "blocks": [
     {
       "type": "carousel_image",
