@@ -15,6 +15,8 @@
       "name": {{ shop.name | json }},
       {% if settings.logo %}
         "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
+      {% else %}
+        "logo": {{ 'oddman_flame.webp' | asset_url | prepend: "https:" | json }},
       {% endif %}
       "url": {{ request.origin | append: page.url | json }}
     }
@@ -63,44 +65,27 @@
           <!-- Logo -->
           <div class="oddman-header__logo">
             <a href="{{ routes.root_url }}" class="oddman-header__logo-link">
-              {% if section.settings.custom_logo %}
-                <img 
-                  src="{{ section.settings.custom_logo | image_url: width: 400 }}" 
-                  alt="Oddman"
-                  class="oddman-header__logo-img"
-                  style="--logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
-                  width="{{ section.settings.logo_width }}"
-                  height="auto"
-                />
-              {% elsif settings.logo %}
-                <img 
-                  src="{{ settings.logo | image_url: width: 400 }}" 
-                  alt="{{ shop.name }}"
-                  class="oddman-header__logo-img"
-                  style="--logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
-                  width="{{ section.settings.logo_width }}"
-                  height="auto"
-                />
-              {% else %}
-                {%- assign default_logo_url = section.settings.logo_fallback_url
-                  | default: 'https://againstalloddz.netlify.app/logo.png'
-                -%}
-                <img
-                  src="{{ default_logo_url }}"
-                  alt="{{ shop.name }}"
-                  class="oddman-header__logo-img oddman-header__logo-img--default"
-                  style="--logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
-                  width="{{ section.settings.logo_width }}"
-                  height="auto"
-                  onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
-                />
-                <span
-                  class="oddman-header__logo-text"
-                  style="display: none; --logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
-                >
-                  {{- section.settings.logo_fallback_text | default: shop.name -}}
-                </span>
-              {% endif %}
+              {%- liquid
+                assign header_logo_src = 'oddman_flame.webp' | asset_url
+                assign header_logo_alt = shop.name
+
+                if section.settings.custom_logo
+                  assign header_logo_src = section.settings.custom_logo | image_url: width: 400
+                elsif section.settings.logo_fallback_url != blank
+                  assign header_logo_src = section.settings.logo_fallback_url
+                elsif settings.logo
+                  assign header_logo_src = settings.logo | image_url: width: 400
+                endif
+              -%}
+              <img
+                src="{{ header_logo_src }}"
+                alt="{{ header_logo_alt }}"
+                class="oddman-header__logo-img{% unless section.settings.custom_logo or settings.logo or section.settings.logo_fallback_url != blank %} oddman-header__logo-img--default{% endunless %}"
+                style="--logo-width-desktop: {{ section.settings.logo_width }}px; --logo-width-mobile: {{ section.settings.logo_width_mobile }}px;"
+                width="{{ section.settings.logo_width }}"
+                height="auto"
+                loading="eager"
+              >
             </a>
           </div>
 
@@ -455,8 +440,12 @@
     }
 
     .oddman-header__logo-img {
-      width: 5rem;
+      width: var(--logo-width-desktop, 5rem);
+      max-width: 100%;
+      height: auto;
       margin-right: 10px;
+      object-fit: contain;
+      display: block;
     }
 
     .oddman-header__logo-text {
@@ -806,7 +795,7 @@
       }
 
       .oddman-header__logo-img {
-        width: 3.5rem;
+        width: var(--logo-width-mobile, 3.5rem);
         margin-right: 0;
       }
 
@@ -946,7 +935,7 @@
       },
       {
         "type": "paragraph",
-        "content": "Você pode escolher uma logo abaixo ou usar a logo padrão definida em Theme Settings → Logo & Favicon. Se nenhuma estiver disponível, será exibido o texto de fallback."
+        "content": "Logo padrão do header: oddman_flame.webp. Você pode substituir pela logo da seção ou pela logo global em Theme Settings → Logo & Favicon."
       },
       {
         "type": "image_picker",
@@ -957,14 +946,8 @@
       {
         "type": "url",
         "id": "logo_fallback_url",
-        "label": "URL da logo de fallback",
-        "info": "Logo padrão exibida quando não há logo configurado. Default: logo oficial Oddman."
-      },
-      {
-        "type": "text",
-        "id": "logo_fallback_text",
-        "label": "Texto de fallback (se a URL da logo falhar)",
-        "default": "ODDMAN"
+        "label": "URL da logo de fallback (opcional)",
+        "info": "Só usado se definido manualmente. Padrão do tema: oddman_flame.webp"
       },
       {
         "type": "range",

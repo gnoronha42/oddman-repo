@@ -4476,3 +4476,137 @@ text-component {
         justify-content: center !important;
     }
 }
+
+/* =============================================
+   ODDMAN MOBILE GLOBAL FIXES
+   ============================================= */
+
+/* Filter bar — garante fundo branco + texto visível */
+.facets-container,
+.facets,
+[class*="facets"],
+.collection-filters,
+.filter-and-sort,
+.filter-bar {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.facets-container *,
+.facets *,
+[class*="facets"] * {
+  color: #000000 !important;
+}
+
+/* Reduzir espaço entre seções no mobile */
+@media screen and (max-width: 749px) {
+  .section-wrapper + .section-wrapper {
+    margin-top: 0 !important;
+  }
+
+  section + section {
+    margin-top: 0 !important;
+  }
+}
+
+/* =============================================
+   INFO / FAQ — estilo tipo referência (categorias + acordeão)
+   Aplica-se a qualquer container que tenha o esquema escuro do tema.
+   ============================================= */
+
+/* Cabeçalho FAQS dentro de página com acordeões */
+.page-width-content:has(.accordion) h2,
+.group-block-content:has(.accordion) h2 {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-foreground);
+}
+
+/* Categorias (ORDERS / SIZING / SHIPPING / RETURNS) */
+.page-width-content:has(.accordion) h3,
+.page-width-content:has(.accordion) h4,
+.group-block-content:has(.accordion) h3,
+.group-block-content:has(.accordion) h4 {
+  display: block;
+  margin: 1.5rem 0 0.65rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  color: var(--color-foreground);
+}
+
+.page-width-content:has(.accordion) h2 + * h3,
+.page-width-content:has(.accordion) h2 + * h4,
+.group-block-content:has(.accordion) h2 + * h3,
+.group-block-content:has(.accordion) h2 + * h4 {
+  margin-top: 0.35rem;
+}
+
+/* Perguntas (linhas do acordeão) */
+.page-width-content:has(.accordion) .accordion .details__header,
+.group-block-content:has(.accordion) .accordion .details__header {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--color-foreground);
+}
+
+/* Setas do acordeão (caret) também em vermelho */
+.page-width-content:has(.accordion) .accordion .icon-caret,
+.group-block-content:has(.accordion) .accordion .icon-caret,
+.page-width-content:has(.accordion) .accordion .icon-caret svg,
+.group-block-content:has(.accordion) .accordion .icon-caret svg {
+  color: var(--color-foreground);
+  fill: currentColor;
+}
+
+/* Respostas */
+.page-width-content:has(.accordion) .accordion .details-content,
+.group-block-content:has(.accordion) .accordion .details-content {
+  color: var(--color-foreground);
+  opacity: 0.95;
+  padding-block-end: var(--padding-sm, 0.75rem);
+}
+
+.page-width-content:has(.accordion) .accordion .details-content a,
+.group-block-content:has(.accordion) .accordion .details-content a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* =============================================
+   CONTACT US — Heading vermelho sobre fundo preto
+   ============================================= */
+
+/* Garante que h2/h3 dentro de qualquer página com fundo preto+vermelho
+   (esquema "info" deste tema) ficam em vermelho */
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 h1,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 h2,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 h3,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 h4,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 h5,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 h6,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 p,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 li,
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 a {
+  color: var(--color-foreground);
+}
+
+/* Inputs do formulário ficam brancos com texto escuro para legibilidade */
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 .contact-form__input {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: var(--color-input-border, #ff0000);
+}
+
+.color-scheme-7e54d016-283d-4d2f-8115-87892a8c0952 .contact-form__input::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}

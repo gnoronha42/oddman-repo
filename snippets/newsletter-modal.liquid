@@ -9,7 +9,7 @@
   <dialog-component
     id="newsletter-modal"
     class="newsletter-modal"
-    data-frequency="{{ settings.newsletter_modal_frequency | default: 'once_per_session' }}"
+    data-frequency="{{ settings.newsletter_modal_frequency | default: 'once_per_visitor' }}"
     {% if request.design_mode %}
       data-disable-auto-open="true"
     {% endif %}
@@ -50,15 +50,31 @@
         <div class="newsletter-modal__right">
           <div class="newsletter-modal__content">
             <div class="newsletter-modal__logo">
-              {{ settings.newsletter_modal_logo_text | default: "LỰ'U ĐẠN" }}
+              {%- if settings.newsletter_modal_logo_image != blank -%}
+                <img
+                  src="{{ settings.newsletter_modal_logo_image | image_url: width: 300 }}"
+                  alt="{{ shop.name }}"
+                  class="newsletter-modal__logo-img"
+                >
+              {%- else -%}
+                <img
+                  src="https://againstalloddz.netlify.app/logo.png"
+                  alt="{{ shop.name }}"
+                  class="newsletter-modal__logo-img newsletter-modal__logo-img--default"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                >
+                <span class="newsletter-modal__logo-text" style="display:none;">
+                  {{- settings.newsletter_modal_logo_text | default: shop.name -}}
+                </span>
+              {%- endif -%}
             </div>
 
             <div class="newsletter-modal__headline">
-              {{ settings.newsletter_modal_headline | default: "JOIN OUR LD GANG" }}
+              {{ settings.newsletter_modal_headline | default: "JOIN THE KULT" }}
             </div>
 
             <div class="newsletter-modal__subheadline">
-              {{ settings.newsletter_modal_subheadline | default: "UNLOCK NEWS, DROPS,<br>AND EXCLUSIVE SECRETS" }}
+              {{ settings.newsletter_modal_subheadline | default: "UNLOCK EXCLUSIVE DEALS WITH ACCESS TO 1/1 CUSTOMS AND MEMBER-ONLY DISCOUNTS." }}
             </div>
 
             {%- form 'customer', id: 'NewsletterModalForm', class: 'newsletter-modal__form' -%}
@@ -113,11 +129,12 @@
     overflow: hidden;
     background: #000;
     border-radius: 0;
+    border: 1px solid rgba(255, 0, 0, 0.3);
   }
 
   .dialog-modal[open].newsletter-modal__dialog {
     border-radius: 0;
-    box-shadow: 0 0 0 2px #ff0000 inset, var(--shadow-popover);
+    box-shadow: var(--shadow-popover);
     transform: translate(-50%, -50%);
   }
 
@@ -182,12 +199,26 @@
   }
 
   .newsletter-modal__logo {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-modal__logo-img {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  .newsletter-modal__logo-text {
     font-weight: 900;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    font-size: 54px;
+    font-size: 42px;
     line-height: 1;
-    margin-bottom: 22px;
+    color: #ff0000;
   }
 
   .newsletter-modal__headline {
@@ -257,21 +288,75 @@
 
   @media (max-width: 900px) {
     .newsletter-modal__dialog {
-      width: min(92vw, 720px);
-      transform: translate(-50%, -50%);
+      width: 82vw !important;
+      max-width: 360px !important;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255, 0, 0, 0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
     }
+
+    /* No mobile: apenas a coluna do formulário — esconde a imagem lateral */
     .newsletter-modal__grid {
       grid-template-columns: 1fr;
       min-height: 0;
     }
+
     .newsletter-modal__left {
-      height: 280px;
+      display: none;
     }
+
     .newsletter-modal__right {
-      padding: 34px 22px;
+      padding: 28px 20px 20px;
+      min-height: auto;
     }
-    .newsletter-modal__logo {
-      font-size: 40px;
+
+    .newsletter-modal__logo-img {
+      width: 80px;
+    }
+
+    .newsletter-modal__logo-text {
+      font-size: 26px;
+    }
+
+    .newsletter-modal__headline {
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .newsletter-modal__subheadline {
+      font-size: 10px;
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .newsletter-modal__form {
+      gap: 10px;
+    }
+
+    .newsletter-modal__input,
+    .newsletter-modal__submit {
+      height: 40px;
+      font-size: 0.8rem;
+      padding: 0 12px;
+    }
+
+    .newsletter-modal__privacy {
+      font-size: 9px;
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    .newsletter-modal__close {
+      top: 8px;
+      right: 8px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .newsletter-modal__close .svg-wrapper {
+      width: 14px;
+      height: 14px;
     }
   }
 {% endstylesheet %}
