@@ -80,18 +80,6 @@
   .kult-page-wrapper svg {
     position: relative;
     max-width: 100%;
-    justify-content: flex-end;
-    left: 3%;
-  }
-
-  @media (max-width: 1050px) {
-    .kult-page-wrapper img,
-    .kult-page-wrapper picture,
-    .kult-page-wrapper video,
-    .kult-page-wrapper canvas,
-    .kult-page-wrapper svg {
-      left: 4%;
-    }
   }
 
   /* SEÇÕES GERAIS */
@@ -440,8 +428,9 @@
     .kult-journey,
     .kult-vibes {
       flex-direction: column;
-      text-align: center;
+      text-align: left;
       gap: 2rem;
+      align-items: flex-start;
     }
 
     .kult-vibes {
@@ -449,20 +438,21 @@
     }
 
     .kult-vibes .content-right {
-      align-items: center;
-      text-align: center;
+      align-items: flex-start;
+      text-align: left;
     }
 
     .kult-journey .left {
-      align-items: center;
+      align-items: flex-start;
+      text-align: left;
     }
 
-    .kult-model-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .kult-collage {
-      grid-template-columns: 1fr;
+    .kult-model-grid,
+    .kult-collage,
+    .kult-journey-banner {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
     }
 
     .kult-btn {
@@ -483,11 +473,12 @@
     }
 
     .kult-hero-section .kult-btn {
-      position: absolute;
-      bottom: -80%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
+      position: relative !important;
+      bottom: auto !important;
+      left: auto !important;
+      transform: none !important;
+      margin: 1.25rem auto 0 !important;
+      z-index: 2;
     }
 
     .kult-journey .left,
@@ -505,12 +496,40 @@
     }
 
     .kult-section {
-      padding: 1.5rem 1rem;
+      padding: 2rem 1rem;
+      text-align: left;
     }
 
     .kult-journey .left p,
     .kult-vibes .content-right p {
       margin-bottom: 1rem;
+    }
+
+    .kult-journey .left,
+    .kult-journey .right,
+    .kult-vibes .image-left,
+    .kult-vibes .content-right {
+      width: 100%;
+      max-width: 100%;
+      margin-inline: auto;
+    }
+
+    .kult-journey .left h2,
+    .kult-journey .left p,
+    .kult-vibes .content-right h2,
+    .kult-vibes .content-right p {
+      text-align: left !important;
+    }
+
+    .kult-journey .left .the-journey-svg,
+    .kult-vibes .content-right .our-vibes-svg {
+      margin-inline: 0;
+    }
+
+    .kult-lifestyle h2,
+    .kult-who-rocks h2 {
+      text-align: center;
+      margin-inline: auto;
     }
   }
 
@@ -911,7 +930,9 @@
       }
 
       {%- if section.settings.hero_button_opens_newsletter -%}
-        const kultButtons = document.querySelectorAll('#kult-{{ section.id }} .kult-btn');
+        const kultButtons = document.querySelectorAll(
+          '#kult-{{ section.id }} .kult-btn, #kult-{{ section.id }} .kult-wide-image__btn'
+        );
         const newsletterModal = document.querySelector('#newsletter-modal');
 
         if (kultButtons.length > 0 && newsletterModal) {

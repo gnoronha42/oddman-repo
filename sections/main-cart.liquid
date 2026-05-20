@@ -44,6 +44,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 0 var(--padding-5xl);
+    padding-top: calc(var(--header-height, 64px) + 42px);
   }
 
   .cart-page--empty {
@@ -72,6 +73,24 @@
 
   .cart-page__summary {
     padding-top: var(--padding-xl);
+  }
+
+  @media screen and (max-width: 749px) {
+    .cart-page {
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: clip;
+      padding-inline: 16px;
+      padding-top: calc(var(--header-height, 64px) + env(safe-area-inset-top) + 6px);
+      gap: 0;
+    }
+
+    .cart-page__title,
+    .cart-page__items,
+    .cart-page__summary {
+      width: 100%;
+      margin-inline: 0;
+    }
   }
 
   @media screen and (min-width: 750px) {

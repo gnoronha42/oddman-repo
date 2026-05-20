@@ -18,7 +18,8 @@
         "show_journey_banner": true,
         "show_who_rocks": true,
         "show_lifestyle": true,
-        "show_vibes": true
+        "show_vibes": true,
+        "hero_button_opens_newsletter": true
       }
     }
   },

@@ -65,7 +65,9 @@
 
     {%- assign show_newsletter_modal = settings.enable_newsletter_modal -%}
     {%- if settings.newsletter_modal_home_only -%}
-      {%- assign show_newsletter_modal = show_newsletter_modal and template == 'index' -%}
+      {%- unless template == 'index' or template == 'page.kult' -%}
+        {%- assign show_newsletter_modal = false -%}
+      {%- endunless -%}
     {%- endif -%}
 
     {%- if show_newsletter_modal -%}

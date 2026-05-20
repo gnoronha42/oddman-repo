@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   margin: 0;
   min-height: 100svh;
+  overflow-x: clip;
   font-variation-settings: 'slnt' 0;
 }
 
@@ -1367,6 +1368,14 @@ button.shopify-payment-button__button--unbranded:hover:not([disabled]) {
   --button-color: var(--color-secondary-button-hover-text);
   --button-background-color: var(--color-secondary-button-hover-background);
   --button-border-color: var(--color-secondary-button-hover-border);
+}
+
+.product-form-buttons .add-to-cart-button:hover,
+.product-form-buttons add-to-cart-component .button:hover,
+.quick-add__button:hover {
+  --button-color: #ffffff;
+  --button-background-color: #cc0000;
+  --button-border-color: #cc0000;
 }
 
 /* Needed to override the default Shopify styles */
@@ -4366,21 +4375,34 @@ text-component {
   text-align: center !important;
 }
 
-#text_xbjUkh h3, .text_xbjUkh h3 {
-  color: #dc2626  !important;
+#text_xbjUkh :is(h1, h2, h3), .text_xbjUkh :is(h1, h2, h3) {
+  color: #ff0000 !important;
   text-align: center !important;
   margin-left: auto !important;
   margin-right: auto !important;
   width: fit-content;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
 }
 
-.text-block--text_xbjUkh h3 {
-  color: #dc2626  !important;
+.text-block--text_xbjUkh :is(h1, h2, h3) {
+  color: #ff0000 !important;
   text-align: center !important;
   margin-left: auto !important;
   margin-right: auto !important;
   width: fit-content;
-  background-color: #b91c1c !important;
+  background-color: transparent !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+#text_xbjUkh,
+.text_xbjUkh,
+.text-block--text_xbjUkh {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* FIX VISIBILITY & SIZING (THEME OVERRIDES) */
@@ -4416,46 +4438,7 @@ text-component {
     color: #ff0000 !important;
 }
 
-/* 2. Force White Text on Product Page (assuming dark theme) */
-.product-information,
-.product-details,
-.product__info-container {
-    color: #ffffff !important;
-    --color-foreground: #ffffff !important;
-}
-
-.product-information h1,
-.product-information h2,
-.product-information .h1,
-.product-information .h2,
-.product-information .price,
-.product-information .product__title h1 {
-    color: #ffffff !important;
-}
-
-.product-information p,
-.product-information .product__description {
-    color: #e5e5e5 !important;
-}
-
-/* Fix Dropdowns/Selects on Product Page */
-.product-information select,
-.product-information .select__select {
-    color: #ffffff !important;
-    background-color: transparent !important;
-    border: 1px solid rgba(255,255,255,0.3) !important;
-}
-
-.product-information option {
-    color: #000000 !important;
-    background-color: #ffffff !important;
-}
-
-/* Fix Accordions/Details */
-.product-information details summary,
-.product-information .accordion__title {
-    color: #ffffff !important;
-}
+/* 2. Product page uses native (white) theme styles */
 
 /* 3. Limit Product Image Size */
 @media screen and (min-width: 750px) {

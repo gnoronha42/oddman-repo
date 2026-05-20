@@ -2373,6 +2373,11 @@
         "label": "Imagem (lado esquerdo)"
       },
       {
+        "type": "image_picker",
+        "id": "newsletter_modal_logo_image",
+        "label": "Logo (lado direito)"
+      },
+      {
         "type": "text",
         "id": "newsletter_modal_logo_text",
         "label": "Logo/Título",

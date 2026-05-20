@@ -563,6 +563,13 @@
     }
 
     /* Cart Button */
+    .oddman-header__cart {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
     .oddman-header__cart-btn {
       position: relative;
       color: var(--header-accent, #dc2626);
@@ -795,12 +802,16 @@
       }
 
       .oddman-header__logo-img {
-        width: var(--logo-width-mobile, 3.5rem);
+        width: var(--logo-width-mobile, 4.25rem);
         margin-right: 0;
       }
 
       .oddman-header__nav {
         display: none;
+      }
+
+      .oddman-header__cart-btn {
+        margin-right: 2px;
       }
     }
 

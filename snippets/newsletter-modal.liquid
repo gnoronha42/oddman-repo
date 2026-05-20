@@ -58,7 +58,7 @@
                 >
               {%- else -%}
                 <img
-                  src="https://againstalloddz.netlify.app/logo.png"
+                  src="{{ 'newsletter-logo-oddman.png' | asset_url }}"
                   alt="{{ shop.name }}"
                   class="newsletter-modal__logo-img newsletter-modal__logo-img--default"
                   onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
@@ -199,14 +199,14 @@
   }
 
   .newsletter-modal__logo {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .newsletter-modal__logo-img {
-    width: 120px;
+    width: 156px;
     height: auto;
     object-fit: contain;
     display: block;
@@ -290,7 +290,8 @@
     .newsletter-modal__dialog {
       width: 82vw !important;
       max-width: 360px !important;
-      max-height: 90vh;
+      height: fit-content;
+      max-height: 68vh;
       overflow-y: auto;
       border: 1px solid rgba(255, 0, 0, 0.5);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
@@ -300,6 +301,7 @@
     .newsletter-modal__grid {
       grid-template-columns: 1fr;
       min-height: 0;
+      align-items: start;
     }
 
     .newsletter-modal__left {
@@ -307,12 +309,12 @@
     }
 
     .newsletter-modal__right {
-      padding: 28px 20px 20px;
+      padding: 20px 16px 14px;
       min-height: auto;
     }
 
     .newsletter-modal__logo-img {
-      width: 80px;
+      width: 120px;
     }
 
     .newsletter-modal__logo-text {
