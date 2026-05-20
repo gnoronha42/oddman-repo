@@ -187,14 +187,13 @@
   box-sizing: border-box;
 }
 
-/* DESKTOP: colunas próximas centralizadas (estilo Lựu Đạn) */
+/* DESKTOP: grade estável para manter colunas alinhadas */
 .footer__blocks-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: clamp(32px, 6vw, 80px);
-  max-width: 1100px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  align-items: start;
+  gap: clamp(20px, 3vw, 42px);
+  max-width: 1180px;
   margin: 0 auto 1.5rem !important;
   padding: 0 !important;
   width: 100%;
@@ -202,14 +201,15 @@
 }
 
 .footer-block {
-  flex: 0 0 auto;
-  min-width: 120px;
+  min-width: 0;
+  width: 100%;
   text-align: left;
 }
 
 .footer-block--newsletter-inline {
-  min-width: 240px;
-  max-width: 320px;
+  min-width: 0;
+  max-width: none;
+  width: 100%;
 }
 
 /* Estilos de summary (chevron mobile só) */
@@ -261,6 +261,7 @@
   }
 
   .footer__blocks-wrapper {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -312,7 +313,7 @@
   margin-bottom: 0.5rem;
   font-family: 'Arial', sans-serif;
   font-weight: 400;
-  text-align: center;
+  text-align: left;
 }
 
 .footer-block__details-content .link:hover {
@@ -325,28 +326,28 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  text-align: center;
-  display: inline-block;
+  text-align: left;
+  display: block;
 }
 
 .footer-block__details-content li {
   margin-bottom: 0.4rem;
-  text-align: center;
+  text-align: left;
 }
 
 /* Conteúdo dos blocos com texto (Stockists, Follow) */
 .footer-block__details-content p {
-  text-align: center;
+  text-align: left;
   margin-bottom: 0.5rem;
 }
 
 .footer-block__details-content p a {
-  text-align: center;
+  text-align: left;
 }
 
 /* Newsletter inline - na mesma linha dos outros blocos */
 .footer-block--newsletter-inline {
-  text-align: center;
+  text-align: left;
 }
 
 .footer-block--newsletter-inline .footer-block__heading {
@@ -482,6 +483,18 @@
   }
 }
 
+
+@media (max-width: 768px) {
+  .footer-block__details-content .link,
+  .footer-block__details-content ul,
+  .footer-block__details-content li,
+  .footer-block__details-content p,
+  .footer-block__details-content p a,
+  .footer-block--newsletter-inline {
+    text-align: center;
+  }
+}
+
 /* Animações suaves */
 .footer-block {
   opacity: 0;
@@ -565,7 +578,7 @@
 
 .field__button {
   background: var(--footer-accent, #ff0000) !important;
-  /* color: white !important; */
+  color: #ffffff !important;
 }
 
 </style>
