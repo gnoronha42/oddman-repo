@@ -208,32 +208,102 @@
     z-index: 2;
   }
 
-  /* 4. Vídeo compacto + frases (estilo hero-png-effect) */
+  /* 4. Vídeo do logo ODDMAN centralizado com JOIN THE KULT */
   .kult-wide-image {
     width: 100%;
-    max-width: 900px;
-    margin: 2rem auto 1rem;
+    max-width: 1200px;
+    margin: 2rem auto 2rem;
     padding: 0 20px;
     box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
   .kult-wide-image__video-wrap {
     width: 100%;
-    max-width: 720px;
+    max-width: 1000px;
     margin: 0 auto 1.5rem;
-    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
   }
 
   .kult-wide-image img,
   .kult-wide-video {
     width: 100%;
     height: auto;
-    max-height: 420px;
+    max-height: 500px;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  .kult-wide-image__btn {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 12px 32px;
+    background: var(--kult-btn-bg, #b22222);
+    color: var(--kult-btn-text, #ffffff);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+  }
+
+  .kult-wide-image__btn:hover {
+    background: var(--kult-btn-hover-bg, #8b1a1a);
+    color: var(--kult-btn-text, #ffffff);
+  }
+
+  @media (max-width: 768px) {
+    .kult-wide-image {
+      padding: 0 16px;
+      margin: 1.5rem auto 1.5rem;
+    }
+    .kult-wide-image__video-wrap {
+      max-width: 100%;
+      margin-bottom: 1rem;
+    }
+    .kult-wide-image img,
+    .kult-wide-video {
+      max-height: 300px;
+    }
+    .kult-wide-image__btn {
+      padding: 10px 24px;
+      font-size: 0.85rem;
+    }
+  }
+
+  /* 4.1 Banner largo depois do The Journey */
+  .kult-journey-banner {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+
+  .kult-journey-banner__media {
+    width: 100%;
+    height: auto;
     display: block;
     object-fit: cover;
-    border-radius: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .kult-journey-banner {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   /* 5. Section "Who Rocks It" */
@@ -530,6 +600,8 @@
   assign journey_badge = section.settings.journey_badge_image
   assign wide_video = section.settings.wide_video
   assign wide_image = section.settings.wide_image
+  assign journey_banner_video = section.settings.journey_banner_video
+  assign journey_banner_image = section.settings.journey_banner_image
   assign who_rocks_image = section.settings.who_rocks_image
   assign lifestyle_image = section.settings.lifestyle_image
   assign vibes_svg = section.settings.vibes_svg
@@ -597,7 +669,7 @@
         {%- elsif wide_image != blank -%}
           {{
             wide_image
-            | image_url: width: 1600
+            | image_url: width: 1200
             | image_tag:
               alt: wide_image.alt,
               class: 'kult-wide-video',
@@ -605,10 +677,20 @@
           }}
         {%- else -%}
           <video autoplay muted loop playsinline class="kult-wide-video">
-            <source src="{{ 'OddmanVideo.mp4' | asset_url }}" type="video/mp4">
+            <source src="{{ 'oddmangif.mp4' | asset_url }}" type="video/mp4">
           </video>
         {%- endif -%}
       </div>
+      {%- if section.settings.wide_banner_button_label != blank -%}
+        <a
+          href="{{ section.settings.wide_banner_button_link | default: '/products' }}"
+          class="kult-wide-image__btn"
+        >
+          {{- section.settings.wide_banner_button_label -}}
+        </a>
+      {%- else -%}
+        <a href="/products" class="kult-wide-image__btn">JOIN THE KULT</a>
+      {%- endif -%}
     </section>
   {%- endif -%}
 
@@ -652,6 +734,42 @@
           <div class="badge"></div>
         {%- endif -%}
       </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_journey_banner -%}
+    <section class="kult-journey-banner">
+      {%- if journey_banner_video != blank -%}
+        {{
+          journey_banner_video
+          | video_tag:
+            autoplay: true,
+            loop: true,
+            muted: true,
+            controls: false,
+            playsinline: true,
+            class: 'kult-journey-banner__media'
+        }}
+      {%- elsif journey_banner_image != blank -%}
+        {{
+          journey_banner_image
+          | image_url: width: 2400
+          | image_tag:
+            alt: journey_banner_image.alt | default: 'ODDMAN Banner',
+            class: 'kult-journey-banner__media',
+            loading: 'lazy'
+        }}
+      {%- else -%}
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="kult-journey-banner__media"
+        >
+          <source src="{{ 'oddmanpresentervideo.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      {%- endif -%}
     </section>
   {%- endif -%}
 
@@ -963,7 +1081,40 @@
       "type": "image_picker",
       "id": "wide_image",
       "label": "Imagem (alternativa ao vídeo)",
-      "info": "Se ambos vazios, usa OddmanVideo.mp4 (mesmo vídeo da home)"
+      "info": "Se ambos vazios, usa oddmangif.mp4 (logo ODDMAN)"
+    },
+    {
+      "type": "text",
+      "id": "wide_banner_button_label",
+      "label": "Texto do botão",
+      "default": "JOIN THE KULT"
+    },
+    {
+      "type": "url",
+      "id": "wide_banner_button_link",
+      "label": "Link do botão"
+    },
+    {
+      "type": "header",
+      "content": "Banner depois do The Journey"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_journey_banner",
+      "label": "Exibir banner largo depois do The Journey",
+      "default": true
+    },
+    {
+      "type": "video",
+      "id": "journey_banner_video",
+      "label": "Vídeo do banner (prioridade)",
+      "info": "Se vazio, usa a imagem abaixo"
+    },
+    {
+      "type": "image_picker",
+      "id": "journey_banner_image",
+      "label": "Imagem do banner (alternativa ao vídeo)",
+      "info": "Se ambos vazios, usa oddmanpresentervideo.mp4"
     },
     {
       "type": "header",

@@ -6,14 +6,19 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "main": {
       "type": "page-kult",
       "settings": {
         "show_hero": false,
         "show_wide_banner": true,
-        "show_journey": true
+        "show_journey": true,
+        "show_journey_banner": true,
+        "show_who_rocks": true,
+        "show_lifestyle": true,
+        "show_vibes": true
       }
     }
   },

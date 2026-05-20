@@ -285,7 +285,7 @@
   /* PDP: todos os textos pretos. Usa --pdp-text-color se definido via setting,
      caso contrário #000000. */
   .product-information,
-  .product-information *:not(button):not(.button):not([class*="btn"]) {
+  .product-information *:not(button):not(.button):not([class*="btn"]):not(.add-to-cart-text):not(.add-to-cart-text *):not(.add-to-cart-text--added):not(.add-to-cart-text--added *) {
     color: var(--pdp-text-color, #000000) !important;
   }
 
@@ -294,6 +294,46 @@
   .product-information .button,
   .product-information [class*="btn"] {
     color: revert;
+  }
+
+  /* Botão de comprar (Add to Cart) sempre com texto branco para contrastar
+     com o fundo escuro do botão. */
+  .product-information .button,
+  .product-information button.button,
+  .product-information .add-to-cart-button,
+  .product-information add-to-cart-component button,
+  .product-information add-to-cart-component .button {
+    color: #ffffff !important;
+  }
+
+  .product-information .button *,
+  .product-information button.button *,
+  .product-information .add-to-cart-button *,
+  .product-information add-to-cart-component button *,
+  .product-information add-to-cart-component .button *,
+  .product-information .add-to-cart-text,
+  .product-information .add-to-cart-text *,
+  .product-information .add-to-cart-text__content,
+  .product-information .add-to-cart-text--added,
+  .product-information .add-to-cart-text--added * {
+    color: #ffffff !important;
+  }
+
+  /* Garante que os ícones SVG dentro do botão também fiquem brancos */
+  .product-information .add-to-cart-button svg,
+  .product-information add-to-cart-component svg,
+  .product-information .button svg {
+    fill: #ffffff !important;
+    color: #ffffff !important;
+  }
+
+  /* Variante secundária (outline / com borda) - se o tema usar fundo claro,
+     mantém a cor de texto contrastante */
+  .product-information .button-secondary {
+    color: revert !important;
+  }
+  .product-information .button-secondary * {
+    color: revert !important;
   }
 {% endstylesheet %}
 
