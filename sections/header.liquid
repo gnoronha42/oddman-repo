@@ -114,8 +114,8 @@
                     <a href="{{ section.settings.shop_sublink_1_url | default: routes.all_products_collection_url }}" class="oddman-header__dropdown-item">
                       {{- section.settings.shop_sublink_1_label_desktop | default: section.settings.shop_sublink_1_label | default: 'shop all' -}}
                     </a>
-                    <a href="{{ section.settings.shop_sublink_2_url | default: section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__dropdown-item">
-                      {{- section.settings.shop_sublink_2_label_desktop | default: section.settings.shop_sublink_2_label | default: '1/1' -}}
+                    <a href="{{ section.settings.shop_sublink_2_url | default: section.settings.one_of_one_page_url | default: '/collections/1-1' }}" class="oddman-header__dropdown-item">
+                      {{- section.settings.shop_sublink_2_label | default: '1/1 CUSTOM' -}}
                     </a>
                   </div>
                 </div>
@@ -267,8 +267,8 @@
               <a href="{{ section.settings.shop_sublink_1_url | default: routes.all_products_collection_url }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">
                 {{- section.settings.shop_sublink_1_label | default: 'SHOP ALL' -}}
               </a>
-              <a href="{{ section.settings.shop_sublink_2_url | default: section.settings.one_of_one_page_url | default: '/pages/1-of-1' }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">
-                {{- section.settings.shop_sublink_2_label | default: '1/1' -}}
+              <a href="{{ section.settings.shop_sublink_2_url | default: section.settings.one_of_one_page_url | default: '/collections/1-1' }}" class="oddman-header__mobile-link" style="transform:none; width:90%; margin:0 auto; font-size: 0.8rem;" onclick="toggleMobileMenu()">
+                {{- section.settings.shop_sublink_2_label | default: '1/1 CUSTOM' -}}
               </a>
             </div>
           </div>
@@ -991,8 +991,8 @@
         "type": "text",
         "id": "one_of_one_page_url",
         "label": "1/1 Page URL",
-        "default": "/pages/1-of-1",
-        "placeholder": "/pages/1-of-1"
+        "default": "/collections/1-1",
+        "placeholder": "/collections/1-1"
       },
       {
         "type": "header",

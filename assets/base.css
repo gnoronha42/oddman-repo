@@ -4481,21 +4481,23 @@ text-component {
    ODDMAN MOBILE GLOBAL FIXES
    ============================================= */
 
-/* Filter bar — garante fundo branco + texto visível */
-.facets-container,
-.facets,
-[class*="facets"],
-.collection-filters,
-.filter-and-sort,
-.filter-bar {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-}
+/* Filter bar — garante fundo branco + texto visível (apenas mobile) */
+@media screen and (max-width: 749px) {
+  .facets-container,
+  .facets,
+  [class*="facets"],
+  .collection-filters,
+  .filter-and-sort,
+  .filter-bar {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
 
-.facets-container *,
-.facets *,
-[class*="facets"] * {
-  color: #000000 !important;
+  .facets-container *,
+  .facets *,
+  [class*="facets"] * {
+    color: #000000 !important;
+  }
 }
 
 /* Reduzir espaço entre seções no mobile */

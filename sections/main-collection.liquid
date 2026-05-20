@@ -23,23 +23,37 @@
 {% endjavascript %}
 
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+{%- assign is_one_of_one_collection = false -%}
+{%- if collection -%}
+  {%- if collection.handle == '1-1' or collection.handle == '1-1-custom' -%}
+    {%- assign is_one_of_one_collection = true -%}
+  {%- elsif collection.handle contains '1-1' -%}
+    {%- assign is_one_of_one_collection = true -%}
+  {%- elsif collection.title contains '1/1' or collection.title contains '1 of 1' -%}
+    {%- assign is_one_of_one_collection = true -%}
+  {%- elsif request.path contains '/collections/1-1' -%}
+    {%- assign is_one_of_one_collection = true -%}
+  {%- endif -%}
+{%- endif -%}
+<div class="section-background color-{{ section.settings.color_scheme }}{% if is_one_of_one_collection %} one-of-one-bg{% endif %}"></div>
 <results-list
-  class="section product-grid-container color-{{ section.settings.color_scheme }}"
+  class="section product-grid-container color-{{ section.settings.color_scheme }}{% if is_one_of_one_collection %} product-grid-container--one-of-one{% endif %}"
   style="--padding-block-start: {{ section.settings.padding-block-start }}px; --padding-block-end: {{ section.settings.padding-block-end }}px;"
   section-id="{{ section.id }}"
 >
   {% render 'skip-to-content-link', href: '#ResultsList', text: 'accessibility.skip_to_results_list' %}
 
   <div
-    class="collection-wrapper grid gap-style"
+    class="collection-wrapper grid gap-style{% if is_one_of_one_collection %} collection-wrapper--one-of-one{% endif %}"
   >
-    {% content_for 'block',
-      type: 'filters',
-      id: 'filters',
-      results: collection,
-      results_size: collection.products_count
-    %}
+    {%- unless is_one_of_one_collection -%}
+      {% content_for 'block',
+        type: 'filters',
+        id: 'filters',
+        results: collection,
+        results_size: collection.products_count
+      %}
+    {%- endunless -%}
 
     {% paginate collection.products by 24 %}
       {% capture children %}
@@ -139,6 +153,38 @@
       margin-inline-start: calc(-1 * max(var(--padding-xs), var(--padding-inline-start)));
       margin-inline-end: calc(-1 * max(var(--padding-xs), var(--padding-inline-end)));
     }
+  }
+
+  /* Coleção 1/1: página preta + barra de filtros preta/vermelha */
+  .one-of-one-bg,
+  .product-grid-container--one-of-one,
+  .collection-wrapper--one-of-one {
+    background: #000000 !important;
+    color: #ff0000 !important;
+  }
+
+  .product-grid-container--one-of-one .facets-container,
+  .product-grid-container--one-of-one .facets,
+  .product-grid-container--one-of-one [class*='facets'],
+  .product-grid-container--one-of-one .collection-filters,
+  .product-grid-container--one-of-one .filter-and-sort,
+  .product-grid-container--one-of-one .filter-bar {
+    background: #000000 !important;
+    color: #ff0000 !important;
+    border-color: #ff0000 !important;
+  }
+
+  .product-grid-container--one-of-one .facets-container *,
+  .product-grid-container--one-of-one .facets *,
+  .product-grid-container--one-of-one [class*='facets'] * {
+    color: #ff0000 !important;
+  }
+
+  .product-grid-container--one-of-one .button,
+  .product-grid-container--one-of-one .button-secondary {
+    background: #ff0000 !important;
+    color: #ffffff !important;
+    border-color: #ff0000 !important;
   }
 {% endstylesheet %}
 
