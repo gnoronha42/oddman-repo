@@ -399,6 +399,10 @@
         },
         "product_list_4jqyPz": {
             "type": "product-list",
+            "custom_css": [
+                ".section-background { background: #000 !important; }",
+                ".section { background: #000 !important; }"
+            ],
             "blocks": {
                 "static-header": {
                     "type": "_product-list-content",
@@ -427,8 +431,8 @@
                         "border_width": 1,
                         "border_opacity": 100,
                         "border_radius": 0,
-                        "padding-block-start": 40,
-                        "padding-block-end": 40,
+                        "padding-block-start": 0,
+                        "padding-block-end": 24,
                         "padding-inline-start": 40,
                         "padding-inline-end": 40
                     },
@@ -439,20 +443,20 @@
                             "settings": {
                                 "text": "<h2><strong>NEW ARRIVALS</strong></h2>",
                                 "width": "100%",
-                                "max_width": "normal",
+                                "max_width": "none",
                                 "alignment": "center",
                                 "type_preset": "custom",
                                 "font": "var(--font-heading--family)",
-                                "font_size": "2.5rem",
-                                "line_height": "normal",
-                                "letter_spacing": "normal",
-                                "case": "none",
-                                "wrap": "pretty",
-                                "color": "#ff0000",
+                                "font_size": "clamp(2.2rem, 8vw, 4.5rem)",
+                                "line_height": "tight",
+                                "letter_spacing": "loose",
+                                "case": "uppercase",
+                                "wrap": "balance",
+                                "color": "#ff1a1a",
                                 "background": false,
                                 "background_color": "#dc2626",
                                 "corner_radius": 0,
-                                "padding-block-start": 24,
+                                "padding-block-start": 12,
                                 "padding-block-end": 20,
                                 "padding-inline-start": 20,
                                 "padding-inline-end": 20
@@ -630,8 +634,8 @@
                 "horizontal_alignment": "flex-start",
                 "gap": 0,
                 "color_scheme": "scheme-5",
-                "padding-block-start": 0,
-                "padding-block-end": 24
+                "padding-block-start": 8,
+                "padding-block-end": 32
             }
         },
         "oddman-art": {
@@ -789,10 +793,10 @@
     "order": [
         "hero_rhMed7",
         "hero_png_effect_section",
+        "product_list_4jqyPz",
         "media_with_content_GRV6iJ",
         "collection_list_mcURmi",
         "divider_WDCL3k",
-        "product_list_4jqyPz",
         "oddman-art",
         "media_with_content_aF6TTD",
         "scorpion_stack_section"

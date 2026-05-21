@@ -66,23 +66,47 @@ function markSeenNow(modalEl) {
   else setDismissedForSession();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+async function openModalWhenReady(modalEl) {
+  try {
+    if (window.customElements && typeof customElements.whenDefined === 'function') {
+      await customElements.whenDefined('dialog-component');
+    }
+  } catch {
+    /* ignore */
+  }
+
+  const tryOpen = (attempt = 0) => {
+    try {
+      if (typeof modalEl.showDialog === 'function') {
+        modalEl.showDialog();
+        markSeenNow(modalEl);
+        return;
+      }
+    } catch {
+      /* ignore */
+    }
+
+    if (attempt < 20) {
+      setTimeout(() => tryOpen(attempt + 1), 150);
+    }
+  };
+
+  tryOpen();
+}
+
+function initNewsletterModal() {
   const modalEl = document.querySelector('#newsletter-modal');
   if (!modalEl) return;
 
   if (!shouldAutoOpen(modalEl)) return;
 
-  setTimeout(() => {
-    try {
-      modalEl.showDialog();
-      // Marcar como visto JÁ NA ABERTURA. Assim, se o usuário recarregar
-      // ou fechar de qualquer maneira (ESC, clique fora, X), não reabre.
-      markSeenNow(modalEl);
-    } catch {
-      /* ignore */
-    }
-  }, 400);
+  setTimeout(() => openModalWhenReady(modalEl), 400);
 
-  // Reforço: marcar de novo ao fechar, caso tenha falhado na abertura
   modalEl.addEventListener('dialog:close', () => markSeenNow(modalEl));
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initNewsletterModal);
+} else {
+  initNewsletterModal();
+}

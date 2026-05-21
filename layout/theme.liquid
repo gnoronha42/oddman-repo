@@ -12,6 +12,27 @@
         type="image/png"
         href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
       >
+      <link
+        rel="apple-touch-icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 180, height: 180 }}"
+      >
+    {%- else -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ 'oddman-flame-favicon.png' | asset_url }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        type="image/png"
+        href="{{ 'oddman-flame-favicon.png' | asset_url }}"
+      >
+      <link
+        rel="shortcut icon"
+        type="image/png"
+        href="{{ 'oddman-flame-favicon.png' | asset_url }}"
+      >
     {%- endif -%}
 
     {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
@@ -64,6 +85,10 @@
     {% render 'search-modal' %}
 
     {%- assign show_newsletter_modal = settings.enable_newsletter_modal -%}
+    {%- assign auto_open_newsletter_modal = false -%}
+    {%- if template == 'index' -%}
+      {%- assign auto_open_newsletter_modal = true -%}
+    {%- endif -%}
     {%- if settings.newsletter_modal_home_only -%}
       {%- unless template == 'index' or template == 'page.kult' -%}
         {%- assign show_newsletter_modal = false -%}
@@ -71,7 +96,7 @@
     {%- endif -%}
 
     {%- if show_newsletter_modal -%}
-      {% render 'newsletter-modal' %}
+      {% render 'newsletter-modal', auto_open: auto_open_newsletter_modal %}
     {%- endif -%}
 
     {% if settings.quick_add or settings.mobile_quick_add %}

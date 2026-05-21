@@ -3,6 +3,15 @@
 {%- enddoc -%}
 
 {%- if settings.enable_newsletter_modal -%}
+  {%- liquid
+    assign disable_auto_open = false
+    if request.design_mode
+      assign disable_auto_open = true
+    endif
+    unless auto_open
+      assign disable_auto_open = true
+    endunless
+  -%}
   <script src="{{ 'dialog.js' | asset_url }}" type="module"></script>
   <script src="{{ 'newsletter-modal.js' | asset_url }}" type="module"></script>
 
@@ -10,7 +19,7 @@
     id="newsletter-modal"
     class="newsletter-modal"
     data-frequency="{{ settings.newsletter_modal_frequency | default: 'once_per_visitor' }}"
-    {% if request.design_mode %}
+    {% if disable_auto_open %}
       data-disable-auto-open="true"
     {% endif %}
   >
@@ -43,7 +52,12 @@
               class="newsletter-modal__image"
             >
           {%- else -%}
-            <div class="newsletter-modal__placeholder" aria-hidden="true"></div>
+            <img
+              src="{{ 'orangelogo-newsletter.png' | asset_url }}"
+              alt="{{ shop.name }}"
+              loading="eager"
+              class="newsletter-modal__image newsletter-modal__image--default"
+            >
           {%- endif -%}
         </div>
 
@@ -175,6 +189,12 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  .newsletter-modal__image--default {
+    object-fit: contain;
+    padding: 24px;
+    background: #000;
   }
 
   .newsletter-modal__placeholder {

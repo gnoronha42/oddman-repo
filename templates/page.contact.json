@@ -16,7 +16,7 @@
           "type": "text",
           "name": "Intro",
           "settings": {
-            "text": "<h2>CONTACT US</h2><p><strong>Email:</strong> <a href=\"mailto:alldaodds@gmail.com\">alldaodds@gmail.com</a><br/><strong>Instagram:</strong> @alldaodds<br/><strong>Response Time:</strong> 1–3 business days</p>",
+            "text": "<h1><strong>CONTACT US</strong></h1><p><strong>Email:</strong> <a href=\"mailto:alldaodds@gmail.com\">alldaodds@gmail.com</a><br/><strong>Instagram:</strong> @alldaodds<br/><strong>Response Time:</strong> 1–3 business days</p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "left",
@@ -31,7 +31,7 @@
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
-            "padding-block-start": 0,
+            "padding-block-start": 100,
             "padding-block-end": 16,
             "padding-inline-start": 0,
             "padding-inline-end": 0
@@ -85,7 +85,7 @@
         "content_direction": "column",
         "gap": 24,
         "color_scheme": "scheme-7e54d016-283d-4d2f-8115-87892a8c0952",
-        "padding-block-start": 95,
+        "padding-block-start": 100,
         "padding-block-end": 64
       }
     }
