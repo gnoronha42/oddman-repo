@@ -1,7 +1,15 @@
-
+{% liquid
+  assign is_contact_layout = false
+  for block in section.blocks
+    if block.type == 'contact-form'
+      assign is_contact_layout = true
+      break
+    endif
+  endfor
+%}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
-<div class="section page-width-content color-{{ section.settings.color_scheme }}{% if template.suffix == 'contact' %} contact-page-content{% endif %}">
+<div class="section page-width-content color-{{ section.settings.color_scheme }}{% if is_contact_layout %} contact-page-content{% endif %}">
   <div
     class="
       spacing-style
@@ -21,9 +29,8 @@
 
 {% stylesheet %}
   .contact-page-content {
-    margin-top: 64px !important;
-    border: 1px solid red !important; 
-    padding-top: clamp(96px, 20vh, 220px) !important;
+    margin-top: 140px !important;
+    padding-top: 0 !important;
   }
 
   .contact-page-content h2,
